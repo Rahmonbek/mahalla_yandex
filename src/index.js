@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import { BrowserRouter as Router, Switch,  Route, Redirect} from "react-router-dom";
 import Form from './components/Form'
-//import TextAria from './components/TextAria';
 import Dashboard from './components/Dashboard';
 import { TOKEN_AUTH } from './contact';
 import NotFound from './components/NotFound';
