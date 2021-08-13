@@ -2,7 +2,7 @@ export const Points = [
     {
       name: "Olmazor",
       viloyat: "Toshkent shahri",
-      tuman: 'Olmazor',
+      tuman: 'Olmazor tumani',
       param: [41.317238, 69.235385],
       
       RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -43,7 +43,7 @@ export const Points = [
     {
       name: "Shayxontoxur",
       viloyat: "Buxoro viloyati",
-      tuman: 'Shayxontoxur',
+      tuman: 'Shayxontoxur tumani',
       
       param: [41.317648, 69.230585],
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -85,7 +85,7 @@ export const Points = [
     {
       name: "Uchtepa",
       viloyat: "Xorazm viloyati",
-      tuman: 'Uchtepa',
+      tuman: 'Uchtepa tumani',
       
       param: [41.295995, 69.175190], 
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -127,7 +127,7 @@ export const Points = [
     {
       name: "Chilanzor",
       viloyat: "Buxoro viloyati",
-      tuman: 'Chilanzor',
+      tuman: 'Chilanzor tumani',
       
       param: [41.281412, 69.212667], 
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -170,7 +170,7 @@ export const Points = [
     {
       name: "Sergeli",
       viloyat: "Samarqand viloyati",
-      tuman: 'Sergeli',
+      tuman: 'Sergeli tumani',
       
       param: [41.235069, 69.247354],
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -213,7 +213,7 @@ export const Points = [
     {
       name: "Yakkasaroy",
       viloyat: "Samarqand viloyati",
-      tuman: 'Yakkasaroy',
+      tuman: 'Yakkasaroy tumani',
       
       param: [41.286009, 69.253749], 
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -256,7 +256,7 @@ export const Points = [
     {
       name: "Yashnaobod",
       viloyat: "Xorazm viloyati",
-      tuman: 'Yashnaobod',
+      tuman: 'Yashnaobod tumani',
       
       param: [41.283468, 69.339791], 
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',
@@ -299,7 +299,7 @@ export const Points = [
     {
       name: "Yunusobod",
       viloyat: "Surxandaryo viloyati",
-      tuman: 'Yunusobod',
+      tuman: 'Yunusobod tumani',
       
       param: [41.364660, 69.287691], 
        RaisFIO: 'Ismoilov Rahmon Zohid o\'g\'li',

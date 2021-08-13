@@ -18,12 +18,10 @@ ReactDOM.render(
      <Router>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route exact path='/dashboard/' >
-            {token ? <Redirect to='/dashboard'/> : <Redirect to='/login' />}
-          </Route>
-          <Route path='/login' component={Form}/>
-          {token ? <Route path='/dashboard' component={Admin2} /> 
-                 : <Route path='*' component={NotFound} />}
+          
+          <Route exact path='/login' component={Form}/>
+          <Route exact path='/dashboard' component={Admin2} /> 
+          <Route exact path='*' component={NotFound} />
         </Switch>
     </Router>
   </React.StrictMode>,

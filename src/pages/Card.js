@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import {Button} from 'antd';
+import { Button, Modal} from 'antd';
 import Typography from '@material-ui/core/Typography';
 import { YMaps, Map, } from 'react-yandex-maps';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { DataGrid } from '@material-ui/data-grid';
+// import { DataGrid } from '@material-ui/data-grid';
 import EditIcon from '@material-ui/icons/Edit';
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import Modal from './modal'
-import Modal from '@material-ui/core/Modal';
-import { Container, Row, Col } from 'react-bootstrap';
+// import Modal from '@material-ui/core/Modal';
+import { Container, Row, Col, Form,} from 'react-bootstrap';
+import { Points } from '../server';
 
 
 
@@ -28,17 +29,7 @@ const useStyles = makeStyles({
   },
  
 });
-const rows = [
-    { id: 1, Viloyat: 'Toshkent', firstName: 'Jon', age: 35 },
-    { id: 2, Viloyat: 'Fargona', firstName: 'Cersei', age: 42 },
-    { id: 3, Viloyat: 'Qarshi', firstName: 'Jaime', age: 45 },
-    { id: 4, Viloyat: 'Navoiy', firstName: 'Arya', age: 16 },
-    { id: 5, Viloyat: 'Xorazm', firstName: 'Daenerys', age: null },
-    { id: 6, Viloyat: 'Jizzax', firstName: null, age: 150 },
-    { id: 7, Viloyat: 'Andijon', firstName: 'Ferrara', age: 44 },
-    { id: 8, Viloyat: 'Namangan', firstName: 'Rossini', age: 36 },
-    { id: 9, Viloyat: 'Samarqand', firstName: 'Harvey', age: 65 },
-  ];
+
   const columns = [
     { field: 'id',
      headerName: 'ID',
@@ -75,28 +66,18 @@ const rows = [
     },
   ];
   
-  const rows1 = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ];
   
 
 export default function MediaCard() {
   const classes = useStyles();
-
+const [rows, setRows]=useState(Points)
   // getModalStyle is not a pure function, we roll the style only on the first render
   
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+    console.log(open)
   };
 
   const handleClose = () => {
@@ -105,8 +86,65 @@ export default function MediaCard() {
 
   
   return (<div> 
-    <Container>
    
+   <Modal title="Mahalla yaratish" visible={open}  onCancel={handleClose}>
+      
+   <Form>
+  
+  <Form.Group className="mb-3" controlId="formBasicname">
+    <Form.Label>Mahallani nomi</Form.Label>
+    <Form.Control type="text" placeholder="Mahallani nomi" />
+  </Form.Group>
+
+<Form.Group className="mb-3" controlId="formBasictel">
+    <Form.Label>Mahallani telefon raqami</Form.Label>
+    <Form.Control type="text" placeholder="Telefon raqam" />
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicviloyat">
+  <select className="selectVil">
+    <option  value="Toshkent shahri">Toshkent shahri</option>
+    <option  value="Toshkent viloyati">Toshkent viloyati</option>
+    <option  value="Buxoro viloyati">Buxoro viloyati</option>
+    <option  value="Xorazm viloyati">Xorazm viloyati</option>
+    <option  value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+    <option  value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+    <option  value="Andijon viloyati">Andijon viloyati</option>
+    <option  value="Navoiy viloyati">Navoiy viloyati</option>
+    <option  value="Farg'ona viloyati">Farg'ona viloyati</option>
+    <option  value="Namangan viloyati">Namangan viloyati</option>
+    <option  value="Jizzax viloyati">Jizzax viloyati</option>
+    <option  value="Samarqand viloyati">Samarqand viloyati</option>
+    <option  value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+  <option  value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+  </select>
+  </Form.Group>
+  
+  <Form.Group className="mb-3" controlId="formBasictuman">
+    <Form.Label>Tumanni kiriting</Form.Label>
+    <Form.Control required list="tuman" type="text" placeholder="Yunusobod tumani" />
+
+    <datalist id="tuman">
+    <option value="Shofirkon tumani"/>
+    <option value="Buxoro shahri"/>
+    <option value="G'ijduvon tumani"/>
+    <option value="Jondor tumani"/>
+    <option value="Qorako'l tumani"/>
+</datalist>
+  </Form.Group>
+
+
+  <Button type="primary" htmlType="button">
+    Bekor qilish
+  </Button>
+  
+  <Button type="primary" htmlType="submit">
+    Yaratish
+  </Button>
+</Form>
+      </Modal>
+   
+    <Container>
+   <Button onClick={handleOpen}>Mahalla qo'shish </Button>
      <Row>
     
      {rows.map((text, index) => (
@@ -124,38 +162,35 @@ export default function MediaCard() {
         </div>
       </YMaps></CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-          {text.Viloyat}
+          <Typography gutterBottom variant="h6" component="h2">
+          {text.viloyat+' '+text.tuman+' '+text.name+' MFY'} 
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
+          
         </CardContent>
       </CardActionArea>
       <CardActions>
       <Button
-      style={{fontSize:"14px", padding:'4px 10px'}}
+      style={{fontSize:"14px", textTransform:'capitalize'}}
         type="primary"
        
       >
-       <EditIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} /> Edit
+       <EditIcon style={{fontSize:"16px",}} /> Edit
       </Button>
       <Button
-      style={{fontSize:"14px", padding:'4px 10px'}}
+      style={{fontSize:"14px", textTransform:'capitalize'}}
       
         type="primary"
  
       >
-       <DeleteIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} /> Delete
+       <DeleteIcon style={{fontSize:"16px",}} /> Delete
       </Button>
       <Button
-      style={{fontSize:"14px", padding:'4px 10px'}}
+      style={{fontSize:"14px", textTransform:'capitalize'}}
       
         type="primary"
  
       >
-        <DeleteIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} />To'liq ma'lumot
+        <DeleteIcon style={{fontSize:"16px",}} />To'liq ma'lumot
       </Button>
       
     
