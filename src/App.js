@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl } from 'react-yandex-maps'
+import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, Polygon } from 'react-yandex-maps'
 import { Points} from './server'
 import RingLoader from 'react-spinners/RingLoader'
 import Dialog from './components/Dialog'
@@ -48,6 +48,7 @@ function App() {
       {forclick ? <Dialog open={forclick} onClose={handleClose} village={village}/> : ''}
       <Select/>
       <YMaps >
+        
         <Map
           width='100vw'
           height='95vh'
@@ -56,6 +57,27 @@ function App() {
             zoom: 12
           }}
         >
+          <Polygon
+        geometry={{
+          coordinates: [
+            [
+              [55.75, 37.5],
+              [55.8, 37.6],
+              [55.75, 37.7],
+              [55.7, 37.7],
+              [55.7, 37.5],
+            ],
+            [[55.75, 37.52], [55.75, 37.68], [55.65, 37.6]],
+          ],
+        }}
+        properties={{
+          hintContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF0088',
+          strokeWidth: 5,
+        }}
+      />
           <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
             {points.map((coordinates, index) =>{
                 return( 
