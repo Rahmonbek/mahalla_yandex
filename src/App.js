@@ -17,7 +17,7 @@ function App() {
      const [zoom,setZoom] = useState(6)
      useEffect(()=>{
          setLoading(false)
-     },[zoom])
+     },[])
 
     const Information = ()=>{
       const dataJson = localStorage.getItem('selectNeighborhood')
@@ -77,9 +77,7 @@ function App() {
           <TypeSelector options={{ float: 'right' }} />
           <TrafficControl options={{ float: 'right' }} />
           <RouteButton options={{ float: 'right' }} />
-          <ZoomControl  options={{ 
-            zoomStep : zoom,
-            float: 'left' }} />
+          <ZoomControl options={{  float: 'left' }} />
         </Map>
     </YMaps>
      
