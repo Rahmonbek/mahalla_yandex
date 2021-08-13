@@ -85,14 +85,34 @@ export default function MediaCard() {
       RaisFIO: document.getElementById("formBasicRaisFIO").value,
       RaisTel: document.getElementById("formBasicRaisTel").value,
       email: document.getElementById("formBasicemail").value,
+      tel: document.getElementById("formBasictel").value,
+      UchasFIO:document.getElementById("formBasicUchasFIO").value,
+UchasTel:document.getElementById("formBasicUchasTel").value,
+PosbonFIO:document.getElementById("formBasicPosbonFIO").value,
+PosbonTel:document.getElementById("formBasicPosbonTel").value,
+QariyalarFIO:document.getElementById("formBasicQariyalarFIO").value,
+QariyalarTel:document.getElementById("formBasicQariyalarTel").value,
+RaisOrin1FIO:document.getElementById("formBasicRaisOrin1FIO").value,
+RaisOrin1Tel:document.getElementById("formBasicRaisOrin1Tel").value,
+RaisOrin2FIO:document.getElementById("formBasicRaisOrin2FIO").value,
+RaisOrin2Tel:document.getElementById("formBasicRaisOrin2Tel").value,
+RaisOrin3FIO:document.getElementById("formBasicRaisOrin3FIO").value,
+RaisOrin3Tel:document.getElementById("formBasicRaisOrin3Tel").value,
+RaisOrin4FIO:document.getElementById("formBasicRaisOrin4FIO").value,
+RaisOrin4Tel:document.getElementById("formBasicRaisOrin4Tel").value,
+kotibFIO:document.getElementById("formBasickotibFIO").value,
+kotibTel:document.getElementById("formBasickotibTel").value,
     };
+    console.log(point)
   };
 
   return (
     <div>
-      <Modal title="Mahalla yaratish" visible={open} onCancel={handleClose} footer={false}>
+      <Modal title="Mahalla yaratish" visible={open} onCancel={handleClose} footer={false} onFinish={createPoints}>
         <Form>
-          <Form.Group className="mb-3" controlId="formBasicname">
+          <Row>
+            <Col lg={6} md={12}>
+            <Form.Group className="mb-3" controlId="formBasicname">
             <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
             <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
           </Form.Group>
@@ -178,7 +198,9 @@ export default function MediaCard() {
             <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicQariyalarTel">
+            </Col>
+<Col lg={6} md={12}>
+<Form.Group className="mb-3" controlId="formBasicQariyalarTel">
             <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
             <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
           </Form.Group>
@@ -233,11 +255,16 @@ export default function MediaCard() {
             <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
           </Form.Group>
 
+  
+
+</Col>
+          </Row>
+          
           <Button type="primary" htmlType="button">
             Bekor qilish
           </Button>
 
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="button">
             Yaratish
           </Button>
         </Form>
