@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -6,8 +6,10 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Modal } from "antd";
+import {YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from 'react-yandex-maps'
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
 import Typography from "@material-ui/core/Typography";
-import { YMaps, Map, GeoObject, Placemark } from "react-yandex-maps";
 import DeleteIcon from "@material-ui/icons/Delete";
 // import { DataGrid } from '@material-ui/data-grid';
 import EditIcon from "@material-ui/icons/Edit";
@@ -61,21 +63,79 @@ const columns = [
 export default function MediaCard() {
   const classes = useStyles();
   const [rows, setRows] = useState(Points);
+  const [rowsa, setRowsa] = useState(Points);
+  const [number, setNumber]= useState(Points.length);
   // getModalStyle is not a pure function, we roll the style only on the first render
 
   const [open, setOpen] = React.useState(false);
-  const [tumancheck, setTumancheck] = React.useState(true);
+  const [openMap, setOpenMap] = React.useState(false);
+  // const [tumancheck, setTumancheck] = React.useState(true);
 
   const [points, setPoints] = useState([]);
-
+  const [coor, setCoor] = useState([]);
+  const [coords, setCoords] = useState([]);
+  
+  const onMapClick = (e) => {
+    const coords = e.get("coords");
+    
+  var a=rowsa;
+  
+  a[number]={
+    param: e.get("coords")
+  }
+  console.log(number, a[number])
+  setRowsa(a)
+  setCoords(coords )  
+};
   const handleOpen = () => {
     setOpen(true);
-    console.log(open);
-  };
+    };
+  const handleOpenMap = () => {
+    setOpenMap(true);
+    };
 
   const handleClose = () => {
     setOpen(false);
+    document.getElementById("formBasictuman").value=''
+document.getElementById("formBasicname").value=''
+document.getElementById("formBasicviloyat").value=''
+document.getElementById("formBasicRaisFIO").value=''
+document.getElementById("formBasicRaisTel").value=''
+document.getElementById("formBasicemail").value=''
+document.getElementById("formBasictel").value=''
+document.getElementById("formBasicUchasFIO").value=''
+document.getElementById("formBasicUchasTel").value=''
+document.getElementById("formBasicPosbonFIO").value=''
+document.getElementById("formBasicPosbonTel").value=''
+document.getElementById("formBasicQariyalarFIO").value=''
+document.getElementById("formBasicQariyalarTel").value=''
+document.getElementById("formBasicRaisOrin1FIO").value=''
+document.getElementById("formBasicRaisOrin1Tel").value=''
+document.getElementById("formBasicRaisOrin2FIO").value=''
+document.getElementById("formBasicRaisOrin2Tel").value=''
+document.getElementById("formBasicRaisOrin3FIO").value=''
+document.getElementById("formBasicRaisOrin3Tel").value=''
+document.getElementById("formBasicRaisOrin4FIO").value=''
+document.getElementById("formBasicRaisOrin4Tel").value=''
+document.getElementById("formBasickotibFIO").value=''
+document.getElementById("formBasickotibTel").value=''
+setCoords([])
   };
+  
+  const handleCloseMap = () => {
+    setOpenMap(false);
+  };
+
+const coo=()=>{
+  var coord=[]
+  rows.map(item=>coord.push(item.coor))
+  setCoor(coord)
+}
+  useEffect(()=>{
+ coo()
+}, [])
+
+
 
   const createPoints = () => {
     var str=document.getElementById("formBasictuman").value
@@ -116,7 +176,8 @@ RaisOrin4FIO:document.getElementById("formBasicRaisOrin4FIO").value,
 RaisOrin4Tel:document.getElementById("formBasicRaisOrin4Tel").value,
 kotibFIO:document.getElementById("formBasickotibFIO").value,
 kotibTel:document.getElementById("formBasickotibTel").value,
-    };
+param:coords,    
+};
     console.log(point)
   };
 
@@ -133,7 +194,7 @@ kotibTel:document.getElementById("formBasickotibTel").value,
 
               <Form.Group className="mb-3" controlId="formBasicviloyat">
                 <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
-                <select className="selectVil">
+                <select id="formBasicviloyat" className="selectVil">
                   <option value="Toshkent shahri">Toshkent shahri</option>
                   <option value="Toshkent viloyati">Toshkent viloyati</option>
                   <option value="Buxoro viloyati">Buxoro viloyati</option>
@@ -265,6 +326,12 @@ kotibTel:document.getElementById("formBasickotibTel").value,
                 <Form.Label style={{ fontSize: "14px" }}>Kotib telefon raqami</Form.Label>
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
               </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicKotibTel">
+                <Form.Label style={{ fontSize: "14px" }}>Kotib telefon raqami</Form.Label>
+              
+                <Button onClick={handleOpenMap}><LocationOnIcon /></Button>
+</Form.Group>
+              
             </Col>
           </Row>
 
@@ -335,6 +402,57 @@ kotibTel:document.getElementById("formBasickotibTel").value,
             </Col>
           ))}
         </Row>
+        <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex:'52434' }} width="80%" visible={openMap} onCancel={handleCloseMap}>
+        <YMaps >
+        <Map
+        onClick={onMapClick}
+          width='100%'
+          height='65vh'
+          defaultState={{
+            center: rows[0].param,
+            zoom:6,
+          }}
+        >
+          
+          <GeoObject
+        geometry={{
+          type: 'Polygon',
+          coordinates: coor,
+          fillRule: 'nonZero',
+        }}
+        properties={{
+          balloonContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+          iconLayout: 'default#image',
+       }}
+      />
+          <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
+            {rowsa.map((info,index)=>{
+            
+            return(<Placemark
+              key={index}  
+              geometry={info.param}
+              properties={{
+                balloonContent: info.name,
+              }}
+            />)})}
+            
+         </Clusterer> 
+          <GeolocationControl options={{ float: 'left' }} />
+          <TypeSelector options={{ float: 'right' }} />
+          <TrafficControl options={{ float: 'right' }} />
+          <RouteButton options={{ float: 'right' }} />
+          <ZoomControl  options={{ float: 'left' }} />
+        </Map>
+    </YMaps>
+                </Modal>
+      
       </Container>
     </div>
   );
