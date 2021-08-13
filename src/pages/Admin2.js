@@ -9,12 +9,16 @@ import PetsIcon from '@material-ui/icons/Pets';
 import SearchIcon from '@material-ui/icons/Search';
 import Card from './Card'
 
-import Footer from './Footer'
-import Viloyat from './Viloyat'
-
-
 import ModalNavbar from './NavbarModal'
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import Footer from './Footer'
+import Viloyat from './Viloyat'
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+
+const { SubMenu } = Menu;
+const { Header, Content, Sider, Footer,  } = Layout;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -103,43 +107,66 @@ setState({value: e.target.value})
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            < PetsIcon  />
-          </IconButton>
-          <Typography className={classes.title} style={{display:'flex'}} variant="h6" noWrap>
-            Shaxsiy admin panel
-          </Typography>
-          <ModalNavbar/>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-          value={state.value} 
-          onChange={(e)=>handleChange(e)}
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-      <div style={{display:'flex'}}>
-        <Viloyat/>
-      <Card  />
+    <Layout>
+    <Header className="header">
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+        <Menu.Item key="1">nav 1</Menu.Item>
+        <Menu.Item key="2">nav 2</Menu.Item>
+        <Menu.Item key="3">nav 3</Menu.Item>
+      </Menu>
+    </Header>
+    <Layout>
+      <Sider width={200} className="site-layout-background"
+         onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}>
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          // defaultOpenKeys={['1']}
+          style={{ height: '100%', borderRight: 0 }}
+        >
+          <Menu.Item key="1" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
+        <Menu.Item key="2" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
+        <Menu.Item key="3" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
+        <Menu.Item key="4" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
+        <Menu.Item key="5" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
+        <Menu.Item key="6" icon={<UserOutlined />}>
+          Buxoro
+        </Menu.Item>
 
-</div>
-<Footer/>
+        </Menu>
+      </Sider>
+      <Layout style={{ padding: '0 14px 14px', marginTop:'20px' }}>
+      
+        <Content
+          className="site-layout-background"
+          style={{
+            padding: 24,
+            margin: 0,
+            height: 530,
+            overflow:'auto',
+          }}
+        >
+         <Card/>
+          <Footer style={{ textAlign: 'center', marginTop:'20px' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Content>
+       
+      </Layout>
+    </Layout>
+  </Layout>
+
     </div>
   );
 }

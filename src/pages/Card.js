@@ -5,13 +5,18 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import {Button} from 'antd';
 import Typography from '@material-ui/core/Typography';
 import { YMaps, Map, } from 'react-yandex-maps';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { DataGrid } from '@material-ui/data-grid';
 import EditIcon from '@material-ui/icons/Edit';
-import {  Grid  } from '@material-ui/core';
-import Modal from './modal'
+
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import Modal from './modal'
+import Modal from '@material-ui/core/Modal';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 
 const useStyles = makeStyles({
@@ -34,13 +39,80 @@ const rows = [
     { id: 8, Viloyat: 'Namangan', firstName: 'Rossini', age: 36 },
     { id: 9, Viloyat: 'Samarqand', firstName: 'Harvey', age: 65 },
   ];
+  const columns = [
+    { field: 'id',
+     headerName: 'ID',
+      width: 90 
+    },{
+      field: 'firstName',
+      headerName: 'First name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+      type: 'number',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.getValue(params.id, 'firstName') || ''} ${
+          params.getValue(params.id, 'lastName') || ''
+        }`,
+    },
+  ];
+  
+  const rows1 = [
+    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  ];
   
 
 export default function MediaCard() {
   const classes = useStyles();
 
-  return (<div> <Grid container spacing={3}  style={{margin :'auto',textAlign:'center',alignItem:'center'}}>
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
+  return (<div> 
+    <Container>
+   
+     <Row>
+    
      {rows.map((text, index) => (
+       
+       <Col lg={4} md={6} sm={12}>
+    
    <Card style={{marginTop:"30px",marginLeft:'20px'}} className={classes.root}>     
       <CardActionArea>
         <CardMedia
@@ -63,33 +135,43 @@ export default function MediaCard() {
       </CardActionArea>
       <CardActions>
       <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        className={classes.button}
-        startIcon={<EditIcon />}
-      >
-        Edit
-      </Button>
-        <Button
-         size="small"
-        variant="contained"
-        color="secondary"
-        className={classes.button}
-        startIcon={<DeleteIcon />}
-      >
-        Delete
-      </Button>
-    
+      style={{fontSize:"14px", padding:'4px 10px'}}
+        type="primary"
        
-    <div style={{margin:'auto',marginRight:'80px'}}><Modal  /></div>
+      >
+       <EditIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} /> Edit
+      </Button>
+      <Button
+      style={{fontSize:"14px", padding:'4px 10px'}}
+      
+        type="primary"
+ 
+      >
+       <DeleteIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} /> Delete
+      </Button>
+      <Button
+      style={{fontSize:"14px", padding:'4px 10px'}}
+      
+        type="primary"
+ 
+      >
+        <DeleteIcon style={{fontSize:"16px", position:'relative', top:'-2px'}} />To'liq ma'lumot
+      </Button>
+      
+    
    
 
 
       </CardActions> 
      
-    </Card> ))}
-    </ Grid>
+    </Card></Col> ))}
+     </Row>
+   
+     
+     
+  
+     </Container>
+    
     </div>
   );
 }

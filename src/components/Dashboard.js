@@ -10,10 +10,7 @@ const onChiqish = ()=>{
     return (<div>
 <Admin2/>
 
-
-        <h1 style={{textAlign: 'center'}}>
-            <Button type='primary' onClick={onChiqish}><Link to='/'>Chiqish</Link></Button>
-        </h1></div>
+</div>
     )
 }
 

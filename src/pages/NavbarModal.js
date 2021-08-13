@@ -47,6 +47,7 @@ export default function SimpleModal() {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [openm, setOpenm] = React.useState(false);
   const [state, setState] = React.useState({
     ft: false,
     isModalVisible: false,
@@ -134,7 +135,9 @@ const handleOk = () => {
       >
         {body}
       </Modal>
-      <Modal title="Basic Modal" bodyStyle={{ padding: "0", zIndex:"22" }} visible={state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+    
+      
+      {/* <Modal title="Basic Modal" bodyStyle={{ padding: "0", zIndex:"22" }} visible={state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                      <YMaps query={{ apikey: "" }}>
                     <Map
                         modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
@@ -150,7 +153,7 @@ const handleOk = () => {
                         <GeolocationControl />
                     </Map>
                 </YMaps>
-                </Modal>
+                </Modal> */}
 
     </div>
   );
