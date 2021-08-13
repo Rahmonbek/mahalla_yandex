@@ -78,10 +78,24 @@ export default function MediaCard() {
   };
 
   const createPoints = () => {
+    var str=document.getElementById("formBasictuman").value
+    if(str.indexOf(' tumani')===-1 || str.indexOf(' shahri')===-1){
+      if(str.indexOf(' ')===-1){
+        str+=" tumani"
+      }
+      else{
+        var a=str.substr(0, str.indexOf(' '))
+        str=a
+        str+=" tumani"
+        
+      }
+      
+    }
     var point = {
+
       name: document.getElementById("formBasicname").value,
       viloyat: document.getElementById("formBasicviloyat").value,
-      tuman: document.getElementById("formBasictuman").value,
+      tuman: str,
       RaisFIO: document.getElementById("formBasicRaisFIO").value,
       RaisTel: document.getElementById("formBasicRaisTel").value,
       email: document.getElementById("formBasicemail").value,
@@ -108,158 +122,152 @@ kotibTel:document.getElementById("formBasickotibTel").value,
 
   return (
     <div>
-      <Modal title="Mahalla yaratish" visible={open} onCancel={handleClose} footer={false} onFinish={createPoints}>
-        <Form>
+      <Modal title="Mahalla yaratish" width="80%" visible={open} onCancel={handleClose} footer={false} onFinish={createPoints}>
+      <Form>
           <Row>
             <Col lg={6} md={12}>
-            <Form.Group className="mb-3" controlId="formBasicname">
-            <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicname">
+                <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasictel">
-            <Form.Label style={{ fontSize: "14px" }}>Mahallani telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicviloyat">
-            <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
-            <select className="selectVil">
-              <option value="Toshkent shahri">Toshkent shahri</option>
-              <option value="Toshkent viloyati">Toshkent viloyati</option>
-              <option value="Buxoro viloyati">Buxoro viloyati</option>
-              <option value="Xorazm viloyati">Xorazm viloyati</option>
-              <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
-              <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
-              <option value="Andijon viloyati">Andijon viloyati</option>
-              <option value="Navoiy viloyati">Navoiy viloyati</option>
-              <option value="Farg'ona viloyati">Farg'ona viloyati</option>
-              <option value="Namangan viloyati">Namangan viloyati</option>
-              <option value="Jizzax viloyati">Jizzax viloyati</option>
-              <option value="Samarqand viloyati">Samarqand viloyati</option>
-              <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
-              <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
-            </select>
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicviloyat">
+                <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
+                <select className="selectVil">
+                  <option value="Toshkent shahri">Toshkent shahri</option>
+                  <option value="Toshkent viloyati">Toshkent viloyati</option>
+                  <option value="Buxoro viloyati">Buxoro viloyati</option>
+                  <option value="Xorazm viloyati">Xorazm viloyati</option>
+                  <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+                  <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+                  <option value="Andijon viloyati">Andijon viloyati</option>
+                  <option value="Navoiy viloyati">Navoiy viloyati</option>
+                  <option value="Farg'ona viloyati">Farg'ona viloyati</option>
+                  <option value="Namangan viloyati">Namangan viloyati</option>
+                  <option value="Jizzax viloyati">Jizzax viloyati</option>
+                  <option value="Samarqand viloyati">Samarqand viloyati</option>
+                  <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+                  <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+                </select>
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasictuman">
-            <Form.Label style={{ fontSize: "14px" }}>Tumanni kiriting</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
+              <Form.Group className="mb-3" controlId="formBasictuman">
+                <Form.Label style={{ fontSize: "14px" }}>Tumanni kiriting</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
 
-            <datalist id="tuman">
-              <option value="Shofirkon tumani" />
-              <option value="Buxoro shahri" />
-              <option value="G'ijduvon tumani" />
-              <option value="Jondor tumani" />
-              <option value="Qorako'l tumani" />
-            </datalist>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicRaisFIO">
-            <Form.Label style={{ fontSize: "14px" }}>Rais F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+                <datalist id="tuman">
+                  <option value="Shofirkon tumani" />
+                  <option value="Buxoro shahri" />
+                  <option value="G'ijduvon tumani" />
+                  <option value="Jondor tumani" />
+                  <option value="Qorako'l tumani" />
+                </datalist>
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisTel">
-            <Form.Label style={{ fontSize: "14px" }}>Rais telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasictel">
+                <Form.Label style={{ fontSize: "14px" }}>Mahallani telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicemail">
-            <Form.Label style={{ fontSize: "14px" }}>Mahalla elektron pochtasi</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="email" placeholder="Email" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicemail">
+                <Form.Label style={{ fontSize: "14px" }}>Mahalla elektron pochtasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="email" placeholder="Email" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicTel">
-            <Form.Label style={{ fontSize: "14px" }}>Mahalla telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisFIO">
+                <Form.Label style={{ fontSize: "14px" }}>Rais familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicUchasFIO">
-            <Form.Label style={{ fontSize: "14px" }}>Uchaskavoy F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisTel">
+                <Form.Label style={{ fontSize: "14px" }}>Rais telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicUchasTel">
-            <Form.Label style={{ fontSize: "14px" }}>Uchaskavoy telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin1FIO">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPosbonFIO">
-            <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Mahalla Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin1Tel">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPosbonTel">
-            <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin2FIO">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicQariyalarFIO">
-            <Form.Label style={{ fontSize: "14px" }}>Qariyalar F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
-
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin2Tel">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
             </Col>
-<Col lg={6} md={12}>
-<Form.Group className="mb-3" controlId="formBasicQariyalarTel">
-            <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin1FIO">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+            <Col lg={6} md={12}>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin1Tel">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin2FIO">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin2Tel">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
+                <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicUchasFIO">
+                <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicUchasTel">
+                <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPosbonFIO">
+                <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Mahalla Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
-            <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPosbonTel">
+                <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicKotibFIO">
-            <Form.Label style={{ fontSize: "14px" }}>Kotib F.I.O.</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicQariyalarFIO">
+                <Form.Label style={{ fontSize: "14px" }}>Qariyalar familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicKotibTel">
-            <Form.Label style={{ fontSize: "14px" }}>Kotib telefon raqami</Form.Label>
-            <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicQariyalarTel">
+                <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
 
-  
+              <Form.Group className="mb-3" controlId="formBasicKotibFIO">
+                <Form.Label style={{ fontSize: "14px" }}>Kotib familiya ism ochistvasi</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+              </Form.Group>
 
-</Col>
+              <Form.Group className="mb-3" controlId="formBasicKotibTel">
+                <Form.Label style={{ fontSize: "14px" }}>Kotib telefon raqami</Form.Label>
+                <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+              </Form.Group>
+            </Col>
           </Row>
-          
+
           <Button type="primary" htmlType="button">
             Bekor qilish
           </Button>
@@ -268,6 +276,7 @@ kotibTel:document.getElementById("formBasickotibTel").value,
             Yaratish
           </Button>
         </Form>
+    
       </Modal>
 
       <Container>
