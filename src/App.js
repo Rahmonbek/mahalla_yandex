@@ -2,9 +2,6 @@
 import React, {useState, useEffect} from 'react';
 import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, Polygon, GeoObject } from 'react-yandex-maps'
 
-import React,{useState, useEffect} from 'react';
-import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl } from 'react-yandex-maps'
-
 import { Points} from './server'
 import RingLoader from 'react-spinners/RingLoader'
 import Dialog from './components/Dialog'
@@ -23,9 +20,15 @@ function App() {
     const [name,setName] = useState('')
     const [coor,setCoor] = useState([])
 
+    const [mapBool,setMapBool] = useState(false)
+    const [param, setParam]= useState([41.311151, 69.279716])
+    const [zoom,setZoom] = useState(6)
     useEffect(()=>{
         setPoints(Points)
-       
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log("Latitude is :", position.coords.latitude);
+          console.log("Longitude is :", position.coords.longitude);
+        });
         var coord=[]
         Points.map(item=>{
           coord.push(item.coor)
@@ -42,19 +45,7 @@ function App() {
       setformouse(true)
     };
     
-    const Information = (e)=>{
-      setforclick(true)
-      setVillage(e)
-
-     const [loading,setLoading]= useState(true)
-     const [forclick,setforclick]= useState(false)
-     const [village, setVillage] = useState('')
-     const [mapBool,setMapBool] = useState(false)
-     const [param, setParam]= useState([41.311151, 69.279716])
-     const [zoom,setZoom] = useState(6)
-     useEffect(()=>{
-         setLoading(false)
-     },[])
+  
 
     const Information = ()=>{
       const dataJson = localStorage.getItem('selectNeighborhood')
@@ -82,8 +73,7 @@ function App() {
       return (
     <>
 
-    {console.log(coor)}
-    {loading ? (
+
 
      {loading ? (
 
@@ -101,9 +91,13 @@ function App() {
           height='95vh'
           defaultState={{
             center: param,
-            zoom
-          }}
+            zoom,
+       
+          }
+          }
+          
         >
+          
           <GeoObject
         geometry={{
           type: 'Polygon',
