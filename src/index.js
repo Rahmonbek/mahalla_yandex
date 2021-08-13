@@ -7,6 +7,7 @@ import Form from './components/Form'
 import Dashboard from './components/Dashboard';
 import { TOKEN_AUTH } from './contact';
 import NotFound from './components/NotFound';
+
 const token = localStorage.getItem(TOKEN_AUTH)
 
 ReactDOM.render(

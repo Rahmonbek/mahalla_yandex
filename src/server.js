@@ -224,8 +224,3 @@ export const Points = [
       title : "Bu berga ma'lumot yoziladi 8"
     }]
 
-export const provinceData = ['Toshkent', 'Namangan']
-export const cityData = {
-  Toshkent: ['Yunusabad','Sergeli','Chilonzor','Yakkasaroy'],
-  Namangan: ['Chust','Chorsu','Namangan','Pop']
-}
