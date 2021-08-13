@@ -91,9 +91,13 @@ function App() {
           height='95vh'
           defaultState={{
             center: param,
-            zoom
-          }}
+            zoom,
+       
+          }
+          }
+          
         >
+          
           <GeoObject
         geometry={{
           type: 'Polygon',
