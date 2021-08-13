@@ -3,7 +3,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import PhoneIcon from "@material-ui/icons/Phone";
 import TelegramIcon from "@material-ui/icons/Telegram";
-import style from "../CSS/Navbar5.module.css";
+import style from "../components/CSS/Navbar5.module.css";
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail'; 
 
 export default function Footer() {
