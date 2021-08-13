@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
-import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, Polygon, GeoObject } from 'react-yandex-maps'
+import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, Polygon, GeoObject, SearchControl } from 'react-yandex-maps'
 
 import { Points} from './server'
 import RingLoader from 'react-spinners/RingLoader'
@@ -23,6 +23,7 @@ function App() {
     const [mapBool,setMapBool] = useState(false)
     const [param, setParam]= useState([41.311151, 69.279716])
     const [zoom,setZoom] = useState(6)
+   
     useEffect(()=>{
         setPoints(Points)
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -97,7 +98,6 @@ function App() {
           }
           
         >
-          
           <GeoObject
         geometry={{
           type: 'Polygon',
