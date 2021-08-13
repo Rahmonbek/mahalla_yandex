@@ -2,5 +2,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: lavender;
+    align-items: center;
+    padding: 10px;
+}
+.map_item{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

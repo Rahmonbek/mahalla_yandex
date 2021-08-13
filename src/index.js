@@ -15,7 +15,7 @@ ReactDOM.render(
      <Router>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route exact path='/admin' >
+          <Route exact path='/admin/' >
             {token ? <Redirect to='/dashboard'/> : <Redirect to='/login' />}
           </Route>
           <Route path='/login' component={Form}/>
