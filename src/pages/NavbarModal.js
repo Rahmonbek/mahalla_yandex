@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Table from './Table'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import { Button, Form } from 'react-bootstrap';
-
+import style from "../css/LearningCenter.module.css"
+import { YMaps, Map, ZoomControl, FullscreenControl, SearchControl, GeolocationControl, Placemark } from "react-yandex-maps";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 function getModalStyle() {
   const top = 50 ;
@@ -46,7 +47,16 @@ export default function SimpleModal() {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-
+  const [state, setState] = React.useState({
+    ft: false,
+    isModalVisible: false,
+    coordinates: null,
+    data:{},
+     mapState: {
+            center: [41.2825125, 69.1392826],
+            zoom: 9
+        },
+ } );
   const handleOpen = () => {
     setOpen(true);
   };
@@ -54,6 +64,20 @@ export default function SimpleModal() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleCancel = () => {
+    setState({
+        isModalVisible: false
+    })
+}
+const onMapClick = (e) => {
+    const coords = e.get("coords");
+    setState({coords: coords })
+    console.log(coords)
+};
+
+const handleOk = () => {
+    handleCancel()
+}
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -82,6 +106,11 @@ export default function SimpleModal() {
     <Form.Label>Mahalla:</Form.Label>
     <Form.Control type="Text" placeholder="Mahallani kiriting" />
     </Form.Group>
+    <Button className={style.btnm} onClick={() => setState({ isModalVisible: true })}><LocationOnIcon /></Button>
+    <div className={style.input}>
+ <input placeholder=" " type="text" className={style.inputField} required />
+  <label className={style.inputLabel}>Manzili</label>
+  </div>
  <Button onClick={handleClose} style={{marginLeft:'24px'}} >Oynani yopish </Button>
  
   <Button variant="primary"  style={{marginLeft:'24px'}}> Saqlash </Button>
@@ -105,7 +134,23 @@ export default function SimpleModal() {
       >
         {body}
       </Modal>
-
+      <Modal title="Basic Modal" bodyStyle={{ padding: "0", zIndex:"22" }} visible={state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                     <YMaps query={{ apikey: "" }}>
+                    <Map
+                        modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
+                        onClick={onMapClick}
+                        state={state.mapState}
+                        width='100%'
+                        height='500px'
+                    >
+                        {state.coords!==[] ? <Placemark geometry={state.coords} /> : null}
+                        <ZoomControl />
+                        <FullscreenControl />
+                        <SearchControl data={state.data!=={}?state.data:{}}/>
+                        <GeolocationControl />
+                    </Map>
+                </YMaps>
+                </Modal>
 
     </div>
   );

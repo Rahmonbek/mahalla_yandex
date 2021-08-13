@@ -8,7 +8,9 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import PetsIcon from '@material-ui/icons/Pets';
 import SearchIcon from '@material-ui/icons/Search';
 import Card from './Card'
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import Footer from './Footer'
+import Viloyat from './Viloyat'
+
 import ModalNavbar from './NavbarModal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 const useStyles = makeStyles((theme) => ({
@@ -72,17 +74,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchAppBar() {
   const classes = useStyles();
   
-  const rows = [
-    { id: 1, Viloyat: 'Toshkent', firstName: 'Jon', age: 35 },
-    { id: 2, Viloyat: 'Fargona', firstName: 'Cersei', age: 42 },
-    { id: 3, Viloyat: 'Qarshi', firstName: 'Jaime', age: 45 },
-    { id: 4, Viloyat: 'Navoiy', firstName: 'Arya', age: 16 },
-    { id: 5, Viloyat: 'Xorazm', firstName: 'Daenerys', age: null },
-    { id: 6, Viloyat: 'Jizzax', firstName: null, age: 150 },
-    { id: 7, Viloyat: 'Andijon', firstName: 'Ferrara', age: 44 },
-    { id: 8, Viloyat: 'Namangan', firstName: 'Rossini', age: 36 },
-    { id: 9, Viloyat: 'Samarqand', firstName: 'Harvey', age: 65 },
-  ];
+
 
   const [state, setState] = useState({
     value:'',
@@ -128,10 +120,12 @@ setState({value: e.target.value})
           </div>
         </Toolbar>
       </AppBar>
-      
+      <div style={{display:'flex'}}>
+        <Viloyat/>
       <Card  />
 
-
+</div>
+<Footer/>
     </div>
   );
 }
