@@ -7,7 +7,7 @@ import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import { BrowserRouter as Router, Switch,  Route, Redirect} from "react-router-dom";
 import Form from './components/Form'
-import Dashboard from './components/Dashboard';
+import Admin2 from './pages/Admin2';
 import { TOKEN_AUTH } from './contact';
 import NotFound from './components/NotFound';
 
@@ -22,7 +22,7 @@ ReactDOM.render(
             {token ? <Redirect to='/dashboard'/> : <Redirect to='/login' />}
           </Route>
           <Route path='/login' component={Form}/>
-          {token ? <Route path='/dashboard' component={Dashboard} /> 
+          {token ? <Route path='/dashboard' component={Admin2} /> 
                  : <Route path='*' component={NotFound} />}
         </Switch>
     </Router>
