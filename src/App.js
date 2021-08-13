@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl } from 'react-yandex-maps'
+import {YMaps, Map, Clusterer, Placemark,   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, Polygon, GeoObject } from 'react-yandex-maps'
 import { Points} from './server'
 import RingLoader from 'react-spinners/RingLoader'
 import Dialog from './components/Dialog'
@@ -15,9 +15,17 @@ function App() {
     const [village, setVillage] = useState('')
     const [formouse,setformouse] = useState(true)
     const [name,setName] = useState('')
+    const [coor,setCoor] = useState([])
 
     useEffect(()=>{
         setPoints(Points)
+       
+        var coord=[]
+        Points.map(item=>{
+          coord.push(item.coor)
+        })
+        console.log(coord)
+        setCoor(coord)
         setLoading(false)
     },[])
     const onstart = (e) => {
@@ -35,8 +43,10 @@ function App() {
     const handleClose = () => {
       setforclick(false);
     };
+    
       return (
     <>
+    {console.log(coor)}
     {loading ? (
       <div style={{width: '100vw', height: '100vh', display:'flex', justifyContent: 'center', alignItems: 'center' }}>
         <RingLoader loading={loading} size={150} color={'#f37a24'}></RingLoader>
@@ -56,6 +66,23 @@ function App() {
             zoom: 12
           }}
         >
+          <GeoObject
+        geometry={{
+          type: 'Polygon',
+          coordinates: coor,
+          fillRule: 'nonZero',
+        }}
+        properties={{
+          balloonContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+        }}
+      />
           <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
             {points.map((coordinates, index) =>{
                 return( 
