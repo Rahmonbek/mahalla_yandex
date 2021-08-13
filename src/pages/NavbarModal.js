@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import { Button, Form } from 'react-bootstrap';
-import style from "../css/LearningCenter.module.css"
+import style from "../CSS/LearningCenter.module.css"
 import { YMaps, Map, ZoomControl, FullscreenControl, SearchControl, GeolocationControl, Placemark } from "react-yandex-maps";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 

@@ -1,0 +1,65 @@
+.input {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding-top: 1.2rem;
+}
+.input + .input {
+    margin-top: 0.4rem;
+}
+.inputLabel {
+    color: #555;
+    position: absolute;
+    top: 1.8rem;
+    transition: 0.25s ease;
+}
+.inputField {
+    border: 0;
+    z-index: 1;
+    background-color: transparent;
+    border-bottom: 2px solid #777;
+    font: inherit;
+    font-size: 1.125rem;
+    padding: 0.25rem 0;
+}
+.inputField:focus {
+    outline: 0;
+    border-bottom-color: #462c8e;
+}
+.inputField:focus ~ .inputLabel {
+    color: #462c8e;
+    transform: translateY(-1.9rem);
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+}
+.inputField:not(:placeholder-shown) ~ .inputLabel {
+ color: #462c8e;
+ transform: translateY(-1.9rem);
+  letter-spacing: 3px;
+  font-size: 1.1rem;
+}
+.inputField:not(:placeholder-shown) {
+ outline: 0;
+ border-bottom-color: #462c8e;
+}
+.logoinp{
+ padding: 6px;
+
+}
+.logoinp input{
+ display: none;
+}
+.logoinp label{
+ width: 100%;
+ height: 140px;
+ border: 2px dashed #462c8e;
+ background-size: 80% 70%;
+ background-repeat: no-repeat;
+ display: flex;
+ justify-content: center;
+ align-items: flex-end;
+ color: #462c8e;
+ font-size: 13px;
+ font-weight: bold;
+
+}
