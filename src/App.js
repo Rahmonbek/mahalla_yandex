@@ -31,7 +31,6 @@ function App() {
       setZoom(14)
       const dataJson = localStorage.getItem('selectNeighborhood')
       const data = JSON.parse(dataJson)
-      console.log(data)
       if(data){
         setMapBool(true)
       }else{
@@ -51,7 +50,7 @@ function App() {
       <>
       <h1 style={{textAlign: 'center'}}>Online Mahalla </h1> 
       {forclick ? <Dialog open={forclick} onClose={handleClose} village={village}/> : ''} 
-      <Select data={Points} onParam={handleParam}/>
+      <Select data={Points}  onParam={handleParam}/>
        <YMaps >
         <Map
           width='100vw'
@@ -62,16 +61,7 @@ function App() {
           }}
         >
           <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
-          {mapBool ? <Placemark  
-                        geometry={param}
-                        onClick={Information}
-                        // options={{
-                        //   iconLayout: 'default#image',
-                        //   iconImageHref: pin,
-                        //   iconImageSize: [40, 40], 
-                        //   hideIconOnBalloonOpen: false,
-                        //   balloonOffset: [3, -40]}} 
-                      /> : '' }  
+          {mapBool ? <Placemark  geometry={param} onClick={Information} /> : '' }  
          </Clusterer> 
           <GeolocationControl options={{ float: 'left' }} />
           <TypeSelector options={{ float: 'right' }} />
