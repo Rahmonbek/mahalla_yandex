@@ -4,7 +4,6 @@ import { Menu} from 'antd';
 import {
   ContainerOutlined,
 } from '@ant-design/icons';
-import AddIcon from '@material-ui/icons/Add';
 const { SubMenu } = Menu;
 
 
@@ -39,12 +38,14 @@ class Viloyat extends Component {
      <div style={{ width: 256 }}>
        
         <Menu
+        style={{height:'100vh', width:'400px'}}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
           inlineCollapsed={this.state.collapsed}
         >
+          <SubMenu icon={<ContainerOutlined  />}>
           {this.state.Viloyat.map((text, index) => (
           <SubMenu key={text.lastName} icon={<ContainerOutlined  />} title={text.lastName}>
             <Menu.Item key="5">Option 5</Menu.Item>
@@ -52,9 +53,7 @@ class Viloyat extends Component {
             <Menu.Item key="7">Option 7</Menu.Item>
             <Menu.Item key="8">Option 8</Menu.Item>
           </SubMenu>))}
-           <Menu.Item key="2" icon={< AddIcon />}>
-            Add
-          </Menu.Item>
+           </SubMenu>
         </Menu>
             </div>
         );
