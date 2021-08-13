@@ -1,22 +1,24 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import { Button, Modal } from "antd";
-import Typography from "@material-ui/core/Typography";
-import { YMaps, Map } from "react-yandex-maps";
-import DeleteIcon from "@material-ui/icons/Delete";
+import React, {useState} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import { Button, Modal} from 'antd';
+import Typography from '@material-ui/core/Typography';
+import { YMaps, Map, GeoObject, Placemark, } from 'react-yandex-maps';
+import DeleteIcon from '@material-ui/icons/Delete';
 // import { DataGrid } from '@material-ui/data-grid';
-import EditIcon from "@material-ui/icons/Edit";
-
+import EditIcon from '@material-ui/icons/Edit';
+import pin from '../boy.png'
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import Modal from './modal'
 // import Modal from '@material-ui/core/Modal';
-import { Container, Row, Col, Form } from "react-bootstrap";
-import { Points } from "../server";
+import { Container, Row, Col, Form,} from 'react-bootstrap';
+import { Points } from '../server';
+
+
 
 const useStyles = makeStyles({
   root: {
@@ -25,58 +27,68 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+ 
 });
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""}`,
-  },
-];
+  const columns = [
+    { field: 'id',
+     headerName: 'ID',
+      width: 90 
+    },{
+      field: 'firstName',
+      headerName: 'First name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+      type: 'number',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.getValue(params.id, 'firstName') || ''} ${
+          params.getValue(params.id, 'lastName') || ''
+        }`,
+    },
+  ];
+  
+  
 
 export default function MediaCard() {
   const classes = useStyles();
-  const [rows, setRows] = useState(Points);
+const [rows, setRows]=useState(Points)
   // getModalStyle is not a pure function, we roll the style only on the first render
-
+  
   const [open, setOpen] = React.useState(false);
+  const [tumancheck, setTumancheck] = React.useState(true);
 
   const handleOpen = () => {
     setOpen(true);
-    console.log(open);
+    console.log(open)
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  return (
-    <div>
-      <Modal title="Mahalla yaratish" visible={open} onCancel={handleClose} footer={false}>
+
+  return (<div> 
+   
+   <Modal title="Mahalla yaratish" visible={open} onCancel={handleClose} footer={false}>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicname">
             <Form.Label>Mahallani nomi</Form.Label>
@@ -229,43 +241,90 @@ export default function MediaCard() {
         </Form>
       </Modal>
 
-      <Container>
-        <Button onClick={handleOpen}>Mahalla qo'shish </Button>
-        <Row>
-          {rows.map((text, index) => (
-            <Col lg={4} md={6} sm={12}>
-              <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={classes.root}>
-                <CardActionArea>
-                  <CardMedia className={classes.media}>
-                    <YMaps>
-                      <div>
-                        <Map style={{ height: "140px" }} defaultState={{ center: [55.75, 37.57], zoom: 13 }} />
-                      </div>
-                    </YMaps>
-                  </CardMedia>
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="h2">
-                      {text.viloyat + " " + text.tuman + " " + text.name + " MFY"}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button style={{ fontSize: "14px", textTransform: "capitalize" }} type="primary">
-                    <EditIcon style={{ fontSize: "16px" }} /> Edit
-                  </Button>
-                  <Button style={{ fontSize: "14px", textTransform: "capitalize" }} type="primary">
-                    <DeleteIcon style={{ fontSize: "16px" }} /> Delete
-                  </Button>
-                  <Button style={{ fontSize: "14px", textTransform: "capitalize" }} type="primary">
-                    <DeleteIcon style={{ fontSize: "16px" }} />
-                    To'liq ma'lumot
-                  </Button>
-                </CardActions>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+   
+    <Container>
+   <Button onClick={handleOpen} type="primary">Mahalla qo'shish </Button>
+     <Row>
+    
+     {rows.map((text, index) => (
+       
+       <Col lg={4} md={6} sm={12}>
+    
+   <Card style={{marginTop:"30px",marginLeft:'20px'}} className={classes.root}>     
+      <CardActionArea>
+        <CardMedia
+          className={classes.media} >
+            <YMaps >
+        
+          <Map style={{height:'140px'}} defaultState={{ center: text.param, zoom: 12, }} >
+         <GeoObject
+        geometry={{
+          type: 'Polygon',
+          coordinates: text.coor,
+          fillRule: 'nonZero',
+        }}
+        properties={{
+          balloonContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 3,
+          strokeStyle: 'shortdash',
+          
+        }}/>
+
+<Placemark key={0} geometry={text.param}/>
+         </Map>
+      </YMaps></CardMedia>
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="h2">
+          {text.viloyat+' '+text.tuman+' '+text.name+' MFY'} 
+          </Typography>
+          
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+      <Button
+      style={{fontSize:"14px", textTransform:'capitalize'}}
+        type="primary"
+       
+      >
+       <EditIcon style={{fontSize:"16px",}} /> Edit
+      </Button>
+      <Button
+      style={{fontSize:"14px", textTransform:'capitalize'}}
+      
+        type="primary"
+ 
+      >
+       <DeleteIcon style={{fontSize:"16px",}} /> Delete
+      </Button>
+      <Button
+      style={{fontSize:"14px", textTransform:'capitalize'}}
+      
+        type="primary"
+ 
+      >
+        <DeleteIcon style={{fontSize:"16px",}} />To'liq ma'lumot
+      </Button>
+      
+    
+   
+
+
+      </CardActions> 
+     
+    </Card></Col> ))}
+     </Row>
+   
+     
+     
+  
+     </Container>
+    
     </div>
   );
 }
+
