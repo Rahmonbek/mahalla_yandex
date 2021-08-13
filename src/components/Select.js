@@ -29,7 +29,6 @@ function SelectMap(props) {
   const handleNeighborhoodsChange = value=>{
     const selectNeighborhood = data.filter(item => item.name === value)
           localStorage.setItem('selectNeighborhood', JSON.stringify(selectNeighborhood))
-          // localStorage.setItem('param', JSON.stringify(selectNeighborhood[0].param))
           onParam()
   }
   const Result = ()=>{
@@ -44,16 +43,19 @@ function SelectMap(props) {
         <div className="map_item">
         <Select 
            defaultValue='Viloyat'  style={{ width: 120 }} onChange={handleProvinceChange}>
+                <Option key={1}>Hammasi</Option>
                 {AllProvinces.map(province => (
                 <Option key={province}>{province}</Option>
                 ))}
             </Select>
              <Select defaultValue='Tuman' style={{ width: 120 }} onChange={handleCityChange}>
+                <Option key={1}>Hammasi</Option>
                 {cities.map(item => (
                 <Option key={item}>{item}</Option>
                 ))}
             </Select> 
             <Select style={{ width: 120 }} defaultValue='Mahalla' onChange={handleNeighborhoodsChange}>
+                <Option key={1}>Hammasi</Option>
                 {neighborhoods.map(item => (
                 <Option key={item}>{item}</Option>
                 ))}
