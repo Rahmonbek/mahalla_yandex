@@ -7,12 +7,11 @@ const onChiqish = ()=>{
     localStorage.removeItem(TOKEN_AUTH)
 }
     return (<div>
-
         <h1 style={{textAlign: 'center'}}>
             <Button type='primary' onClick={onChiqish}><Link to='/'>Chiqish</Link></Button>
         </h1>
         </div>
-    )
+</div> )
 }
 
 export default Dashboard
