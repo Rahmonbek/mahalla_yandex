@@ -19,6 +19,7 @@ import pin from "../boy.png";
 // import Modal from '@material-ui/core/Modal';
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { Points } from "../server";
+import { tuman } from "../Tumanlar";
 
 const useStyles = makeStyles({
   root: {
@@ -217,11 +218,10 @@ param:coords,
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
 
                 <datalist id="tuman">
-                  <option value="Shofirkon tumani" />
-                  <option value="Buxoro shahri" />
-                  <option value="G'ijduvon tumani" />
-                  <option value="Jondor tumani" />
-                  <option value="Qorako'l tumani" />
+                  {tuman.map(item=>{
+               return(<option value={item} />
+               )
+             })}
                 </datalist>
               </Form.Group>
 
