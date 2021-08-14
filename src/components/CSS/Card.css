@@ -1,0 +1,12 @@
+.root {
+  max-width: 400;
+}
+.media {
+  height: 140;
+}
+.MuiCardActions-root button {
+  padding: 5px;
+}
+.MuiIconButton-label svg {
+  font-size: 20px;
+}
