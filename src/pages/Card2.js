@@ -62,7 +62,14 @@ export default class Card2 extends Component {
   };
     getMahalla = () => {
       console.log('dsdds')
-      getMahalla().then((res) =>{console.log('fdfd'); this.setState({ rows: res.data, loading:false, rowsa: res.data, number: res.data.length })}).catch((err) => console.log(err));
+      getMahalla().then((res) =>{
+        this.setState({ 
+          rows: res.data, 
+          loading:false,
+          rowsa: res.data, 
+          number: res.data.length })
+      }).catch((err) => console.log(err));
+    
     };
   handleOpen = () => {
     this.setState({ open: true });
@@ -185,9 +192,9 @@ export default class Card2 extends Component {
     this.setState({ show: false });
   };
     componentDidMount() {
-   console.log(';kjhjkjhkhkjjkhh')
       this.getMahalla()   
       this.coo()  
+      console.log(this.state.number,this.state.rows) 
     }
       
       render() {
