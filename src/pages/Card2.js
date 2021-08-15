@@ -24,37 +24,7 @@ import pin from "../boy.png";
 import { Container, Row, Col, Form, OverlayTrigger, Tooltip, Image } from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import styles from "../components/CSS/Card.css";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""}`,
-  },
-];
+// import {getMahalla} from '../host'
 
 export default class Card2 extends Component {
   state = {
@@ -175,14 +145,15 @@ export default class Card2 extends Component {
       raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value,
       raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value,
       raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value,
-      // RaisOrin4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
-      // RaisOrin4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
+      RaisOrin4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
+      RaisOrin4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
       kotibaFIO: document.getElementById("formBasickotibFIO").value,
       kotibaTel: document.getElementById("formBasickotibTel").value,
       param: this.state.coords,
       coor: this.state.coor[this.state.number],
     };
     createMahalla(point).then((res) => console.log(res)).catch((err) => console.log(err));
+    this.getMahalla()
     this.handleClose();
   };
 
@@ -211,7 +182,17 @@ export default class Card2 extends Component {
   handleCancel = () => {
     this.setState({ show: false });
   };
+  getMahalla=()=>{
+    getMahalla().then(res=>{
+      this.setState({
+        rows:res.data,
+        rowsa:res.data,
+        number:res.data.length,
+})
+    }).catch(err=>{console.log(err)})
+  }
     componentDidMount() {
+   this.getMahalla()   
       this.coo();
     }
   render() {
@@ -311,7 +292,7 @@ export default class Card2 extends Component {
                   <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                 </Form.Group>
 
-                {/* <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
+                <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
                   <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari familiya ism ochistvasi</Form.Label>
                   <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                 </Form.Group>
@@ -319,7 +300,7 @@ export default class Card2 extends Component {
                 <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
                   <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
                   <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
-                </Form.Group> */}
+                </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicUchasFIO">
                   <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy familiya ism ochistvasi</Form.Label>
@@ -423,7 +404,7 @@ export default class Card2 extends Component {
                     </CardMedia>
                     <CardContent>
                       <Typography gutterBottom variant="h6" component="h2">
-                        {text.viloyat + " " + text.tuman + " " + text.name + " MFY"}
+                        {text.viloyat + " " + text.tuman + " " + text.nomi + " MFY"}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
