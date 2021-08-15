@@ -12,7 +12,7 @@ import Card from './Card'
 import ModalNavbar from './NavbarModal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Footer from './Footer'
-import Viloyat from './Viloyat'
+// import Viloyat from './Viloyat'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 

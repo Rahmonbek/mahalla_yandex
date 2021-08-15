@@ -1,5 +1,5 @@
 import React from "react";
-import 'bootstrap'
+import "bootstrap";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 const FooterPagePro = () => {
@@ -7,10 +7,10 @@ const FooterPagePro = () => {
     <MDBFooter color="mdb-color" className="font-small">
       <MDBContainer className="text-center text-md-left">
         <MDBRow className="text-center text-md-left pb-3">
-          <MDBCol  className="mx-auto mt-3">
-            <h6 className="text-uppercase text-white mb-4 font-weight-bold">Contact</h6>
+          <MDBCol className="mx-auto mt-3">
+            <h6 className="text-uppercase text-white mb-4 font-weight-bold">Kontakt</h6>
             <p>
-              <i className="fa fa-home" /> Yakkasaroy, Toshkent shaxar, Uzbekistan
+              <i className="fa fa-home" /> Yakkasaroy, Toshkent shaxar, O'zbekiston
             </p>
             <p>
               <i className="fa fa-phone" /> +998 99 934 97 07
@@ -23,14 +23,12 @@ const FooterPagePro = () => {
         <hr />
         <MDBRow className="d-flex align-items-center">
           <MDBCol md="12" lg="12">
-            <p className="text-center text-md-left grey-text text-primary">
-              &copy; {new Date().getFullYear()} Mualliflik huquqi:{" "} IT Tower
-            </p>
+            <p className="text-center text-md-left grey-text text-primary">&copy; {new Date().getFullYear()} Mualliflik huquqi: IT Tower</p>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
     </MDBFooter>
   );
-}
+};
 
 export default FooterPagePro;

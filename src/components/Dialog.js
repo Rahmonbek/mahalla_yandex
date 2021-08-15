@@ -29,32 +29,32 @@ function PaperComponent(props) {
       >
         <div style={{display: 'flex', justifyContent:'flex-end'}}><Button style={{width: '10px'}} onClick={onClose} color="primary"> X </Button></div>
         <DialogTitle style={{ cursor: 'move', display: 'flex', justifyContent: 'center', padding: '0 10px 15px' }} id="draggable-dialog-title" onClose={onClose}>
-          {name}  
+          {name} mahallasi
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <div>viloyat :  {viloyat}</div>
-            <div>Tuman : {tuman}</div>
-            <div>RaisFIO: {RaisFIO}</div>
-            <div>RaisTel : {RaisTel}</div>
-            <div>Email : {email}</div>
-            <div>Tel : {tel}</div>
-            <div>UchasFIO : {UchasFIO}</div>
-            <div>UchasTel : {UchasTel}</div>
-            <div>PosbonFIO : {PosbonFIO}</div>
-            <div>PosbonTel : {PosbonTel}</div>
-            <div>QariyalarFIO : {QariyalarFIO}</div>
-            <div>QariyalarTel : {QariyalarTel}</div>
-            <div>RaisOrin1FIO : {RaisOrin1FIO}</div>
-            <div>RaisOrin1Tel : {RaisOrin1Tel}</div>
-            <div>RaisOrin2FIO : {RaisOrin2FIO}</div>
-            <div>RaisOrin2Tel : {RaisOrin2Tel}</div>
-            <div>RaisOrin3FIO : {RaisOrin3FIO}</div>
-            <div>RaisOrin3Tel : {RaisOrin3Tel}</div>
-            <div>RaisOrin4FIO : {RaisOrin4FIO}</div>
-            <div>RaisOrin4Tel : {RaisOrin4Tel}</div>
-            <diV>KotibFIO : {kotibFIO}</diV>
-            <div>KotinTel : {kotibTel}</div>
+            <div><b>Viloyat : </b>{viloyat}</div>
+            <div><b>Tuman : </b>{tuman}</div> 
+            <div><b>Rais familya ismi</b> : {RaisFIO}</div>
+            <div><b>Rais telefon nomeri</b> : {RaisTel}</div>
+            <div><b>Mahalla mudiri familya ismi</b> : {UchasFIO}</div>
+            <div><b>Mahalla mudiri telefon nomeri</b> : {UchasTel}</div>
+            <div><b>Mahalla posboni familya ismi </b> : {PosbonFIO}</div>
+            <div><b>Mahalla posboni telefon nomeri</b> : {PosbonTel}</div>
+            <div><b>Qariyalar familya ismi </b> : {QariyalarFIO}</div>
+            <div><b>Qariyalar nomeri</b> : {QariyalarTel}</div>
+            <div><b>1-rais o'rinbosari familya ismi </b> : {RaisOrin1FIO}</div>
+            <div><b>1-rais o'rinbosari telefon nomeri</b> : {RaisOrin1Tel}</div>
+            <div><b>2-rais o'rinbosari familya ismi </b> : {RaisOrin2FIO}</div>
+            <div><b>2-rais o'rinbosari telefon nomeri</b> : {RaisOrin2Tel}</div>
+            <div><b>3-rais o'rinbosari familya ismi </b> : {RaisOrin3FIO}</div>
+            <div><b>3-rais o'rinbosari telefon nomeri</b> : {RaisOrin3Tel}</div>
+            <div><b>4-rais o'rinbosari familya ismi </b> : {RaisOrin4FIO}</div>
+            <div><b>4-rais o'rinbosari telefon nomeri</b> : {RaisOrin4Tel}</div>
+            <diV><b>Kotib familya ismi </b> : {kotibFIO}</diV>
+            <div><b>Kotib telefon nomeri</b> : {kotibTel}</div>
+            <div><small>Telfon : {tel}</small></div>
+            <small>Email : {email}</small>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
