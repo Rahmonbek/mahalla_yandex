@@ -8,14 +8,15 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import PetsIcon from '@material-ui/icons/Pets';
 import SearchIcon from '@material-ui/icons/Search';
 import Card from './Card'
-
+import style from '../components/CSS/State.module.css'
 import ModalNavbar from './NavbarModal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Footer from './Footer'
 // import Viloyat from './Viloyat'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-
+const { Search } = Input;
+const onSearch = value => console.log(value);
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer,  } = Layout;
 
@@ -111,9 +112,18 @@ setState({value: e.target.value})
     <Header className="header">
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
+      Online Mahalla admin paneli 
+    
+       <Space direction="vertical" className={style.logo1}>
+       <Search
+       type="primary"
+      placeholder="Qidirish"
+      allowClear
+      enterButton="Izlash"
+      size="large"
+      onSearch={onSearch}
+    />
+  </Space>
       </Menu>
     </Header>
     <Layout>

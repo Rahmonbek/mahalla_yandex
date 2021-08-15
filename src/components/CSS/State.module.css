@@ -1,0 +1,32 @@
+.logo {
+    text-shadow: 4px 4px 2px white ;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+    color:#fff;
+  }
+  @media (max-width: 800px) {
+    .logo1{
+      display: none;
+    }
+  }
+  .logo1{
+      border-radius: 5px;
+      padding-top: 16px;
+margin:auto;
+text-align: right;
+  }
+ 
+  .ant-row-rtl  {
+    float: right;
+    margin: 16px 0 16px 24px;
+  }
+  
+  .site {
+    background: #fff;
+  }
