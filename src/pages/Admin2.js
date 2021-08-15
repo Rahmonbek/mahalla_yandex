@@ -115,7 +115,7 @@ export default function Admin2() {
               console.log(collapsed, type);
             }}
           >
-            <Menu mode="inline" defaultSelectedKeys={["15"]} style={{ height: "590px", overflowY:'auto', borderRight: 0 }} onSelect={selectedKey}>
+            <Menu mode="inline" defaultSelectedKeys={["15"]} style={{ height: "560px", overflowY:'auto',overflowX:'hidden', borderRight: 0 }} onSelect={selectedKey}>
               <Menu.Item key="Hammasi" icon={<UserOutlined />}>
               <Link style={{textDecoration:'none'}} to="Hammasi">  Hammasi</Link>
               </Menu.Item>
@@ -169,7 +169,7 @@ export default function Admin2() {
               style={{
                 padding: 24,
                 margin: 0,
-                height: 530,
+                height: "530px",
                 overflow: "auto",
               }}
             >
