@@ -94,17 +94,23 @@ export default function Admin2() {
     value: "",
     show: "false",
   });
-
+  const [key, setKey] = useState(15);
   const handleChange = (e) => {
     setState({ value: e.target.value });
+  };
+  const selectedKey = (e) => {
+    setKey(e.key);
+    console.log(e.key);
   };
 
   return (
     <div className={classes.root}>
       <Layout>
         <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <div className="logo" style={{ float: "left", margin: "0 20px 0 0", padding: "0", height: "64px" }}>
+            <img src="https://yuz.uz/file/news/9ee76fefe2b125d5372e2cd584d74806.jpg" height="100%" alt="" />
+          </div>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">nav 1</Menu.Item>
             <Menu.Item key="2">nav 2</Menu.Item>
             <Menu.Item key="3">nav 3</Menu.Item>
@@ -118,29 +124,51 @@ export default function Admin2() {
               console.log(collapsed, type);
             }}
           >
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={["1"]}
-              // defaultOpenKeys={['1']}
-              style={{ height: "100%", borderRight: 0 }}
-            >
+            <Menu mode="inline" defaultSelectedKeys={["15"]} style={{ height: "100%", borderRight: 0 }} onSelect={selectedKey}>
+              <Menu.Item key="15" icon={<UserOutlined />}>
+                Hammasi
+              </Menu.Item>
               <Menu.Item key="1" icon={<UserOutlined />}>
-                Buxoro
+                Andijon viloyat
               </Menu.Item>
               <Menu.Item key="2" icon={<UserOutlined />}>
-                Buxoro
+                Buxoro viloyat
               </Menu.Item>
               <Menu.Item key="3" icon={<UserOutlined />}>
-                Buxoro
+                Farg'ona viloyat
               </Menu.Item>
               <Menu.Item key="4" icon={<UserOutlined />}>
-                Buxoro
+                Jizzax viloyat
+              </Menu.Item>
+              <Menu.Item key="14" icon={<UserOutlined />}>
+                Xorazm viloyat
               </Menu.Item>
               <Menu.Item key="5" icon={<UserOutlined />}>
-                Buxoro
+                Namangan viloyat
               </Menu.Item>
               <Menu.Item key="6" icon={<UserOutlined />}>
-                Buxoro
+                Navoiy viloyat
+              </Menu.Item>
+              <Menu.Item key="7" icon={<UserOutlined />}>
+                Qashqadaryo viloyat
+              </Menu.Item>
+              <Menu.Item key="8" icon={<UserOutlined />}>
+                Qoraqalpog'iston Respublikasi
+              </Menu.Item>
+              <Menu.Item key="9" icon={<UserOutlined />}>
+                Samarqand viloyat
+              </Menu.Item>
+              <Menu.Item key="10" icon={<UserOutlined />}>
+                Sirdaryo viloyat
+              </Menu.Item>
+              <Menu.Item key="11" icon={<UserOutlined />}>
+                Surxondaryo viloyat
+              </Menu.Item>
+              <Menu.Item key="12" icon={<UserOutlined />}>
+                Toshkent shahri
+              </Menu.Item>
+              <Menu.Item key="13" icon={<UserOutlined />}>
+                Toshkent viloyat
               </Menu.Item>
             </Menu>
           </Sider>
@@ -154,8 +182,8 @@ export default function Admin2() {
                 overflow: "auto",
               }}
             >
-              <Card2 />
-              <Footer style={{ textAlign: "center", marginTop: "20px" }}>Ant Design ©2018 Created by Ant UED</Footer>
+              <Card2 key={key} />
+              <Footer style={{ textAlign: "center", marginTop: "20px" }}>©2021 IT Tower tomonidan yaratildi.</Footer>
             </Content>
           </Layout>
         </Layout>
