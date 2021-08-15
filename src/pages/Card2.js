@@ -98,6 +98,14 @@ export default class Card2 extends Component {
   handleOpenMap = () => {
     this.setState({ openMap: true });
   };
+  deleteHud=(id)=>{
+    var a=this.state.coordsHud
+    console.log(a)
+    var b=this.state.coor
+    b[this.state.number].splice(id, 1)
+    a.splice(id, 1)
+    this.setState({coordsHud:a, coor:b})
+  }
   handleClose = () => {
     document.getElementById("formBasictuman").value = "";
     document.getElementById("formBasicname").value = "";
@@ -199,7 +207,6 @@ export default class Card2 extends Component {
 
     this.setState({ coor: a, 
       coordsHud: b });
-      console.log(this.state.coor)
   };
   handleCancel = () => {
     this.setState({ show: false });
@@ -695,7 +702,7 @@ export default class Card2 extends Component {
                     <Placemark
                       key={index}
                       geometry={info}
-                    
+                    onClick={()=>{this.deleteHud(index)}}
                       properties={{
                         balloonContent: info.name,
                       }}
