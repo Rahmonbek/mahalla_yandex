@@ -132,7 +132,9 @@ export default class Card2 extends Component {
   coo = () => {
     var coord = [];
     this.state.rows.map((item) => coord.push(item.coor));
-    this.setState({ coor: coord });
+    coord.push([])
+    this.setState({ coor: coord, });
+
   };
   createPoints = () => {
     var str = document.getElementById("formBasictuman").value;
@@ -170,12 +172,9 @@ export default class Card2 extends Component {
       kotibaFIO: document.getElementById("formBasickotibFIO").value,
       kotibaTel: document.getElementById("formBasickotibTel").value,
       param: this.state.coords,
-      coor: [],
+      coor: this.state.coor[this.state.number],
     };
-    console.log(point);
-    createMahalla(point)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    createMahalla(point).then((res) => console.log(res)).catch((err) => console.log(err));
     this.handleClose();
   };
 
@@ -196,16 +195,18 @@ export default class Card2 extends Component {
     b.push(coords);
 
     a[this.state.number].push(coords);
-    console.log(a);
 
-    this.setState({ coor: a, coordsHud: b });
+
+    this.setState({ coor: a, 
+      coordsHud: b });
+      console.log(this.state.coor)
   };
   handleCancel = () => {
     this.setState({ show: false });
   };
-  //   componentDidMount() {
-  //     this.getMahalla();
-  //   }
+    componentDidMount() {
+      this.coo();
+    }
   render() {
     return (
       <div>
@@ -491,24 +492,7 @@ export default class Card2 extends Component {
                   zoom: 6,
                 }}
               >
-                <GeoObject
-                  geometry={{
-                    type: "Polygon",
-                    coordinates: this.state.coor,
-                    fillRule: "nonZero",
-                  }}
-                  properties={{
-                    balloonContent: "Многоугольник",
-                  }}
-                  options={{
-                    fillColor: "#00FF00",
-                    strokeColor: "#0000FF",
-                    opacity: 0.5,
-                    strokeWidth: 5,
-                    strokeStyle: "shortdash",
-                    iconLayout: "default#image",
-                  }}
-                />
+              
                 <Clusterer options={{ preset: "islands#invertedVioletClusterIcons", groupByCoordinates: false }}>
                   {this.state.rowsa.map((info, index) => {
                     return (
@@ -703,11 +687,15 @@ export default class Card2 extends Component {
                     />
                   );
                 })}
+              </Clusterer>
+              <Clusterer options={{ preset: "islands#invertedRedClusterIcons", groupByCoordinates: false }}>
+              
                 {this.state.coordsHud.map((info, index) => {
                   return (
                     <Placemark
                       key={index}
                       geometry={info}
+                    
                       properties={{
                         balloonContent: info.name,
                       }}
@@ -718,7 +706,7 @@ export default class Card2 extends Component {
               <GeoObject
                 geometry={{
                   type: "Polygon",
-                  coordinates: this.state.coor,
+                  coordinates:[this.state.coor[this.state.number]],
                   fillRule: "nonZero",
                 }}
                 properties={{
@@ -728,14 +716,10 @@ export default class Card2 extends Component {
                   fillColor: "#00FF00",
                   strokeColor: "#0000FF",
                   opacity: 0.5,
-                  strokeWidth: 5,
+                  strokeWidth: 4,
                   strokeStyle: "shortdash",
                   iconLayout: "default#image",
-                  iconImageHref: pin,
-                  iconImageSize: [40, 40],
-                  hideIconOnBalloonOpen: false,
-                  balloonOffset: [3, -40],
-                }}
+                 }}
               />
               <GeolocationControl options={{ float: "left" }} />
               <TypeSelector options={{ float: "right" }} />
