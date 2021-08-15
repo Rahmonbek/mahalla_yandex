@@ -1,8 +1,7 @@
-import { gridColumnsTotalWidthSelector } from "@material-ui/data-grid";
 import { httpRequest, url } from "./Host";
 
 export const getMahalla = () => {
-  console.log('ssdssds')
+
   var config = {
     url: `${url}`,
     method: "get",

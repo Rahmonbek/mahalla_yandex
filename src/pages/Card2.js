@@ -10,6 +10,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Modal } from "antd";
 import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+// imoort 
+import RingLoader from 'react-spinners/RingLoader'
 
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -41,6 +43,7 @@ export default class Card2 extends Component {
     key: null,
     openMapHud: false,
     coordsHud: [],
+    loading:true
   };
 
   onMapClick = (e) => {
@@ -59,7 +62,7 @@ export default class Card2 extends Component {
   };
     getMahalla = () => {
       console.log('dsdds')
-      getMahalla().then((res) =>{console.log('fdfd'); this.setState({ rows: res.data, rowsa: res.data, number: res.data.length })}).catch((err) => console.log(err));
+      getMahalla().then((res) =>{console.log('fdfd'); this.setState({ rows: res.data, loading:false, rowsa: res.data, number: res.data.length })}).catch((err) => console.log(err));
     };
   handleOpen = () => {
     this.setState({ open: true });
@@ -190,7 +193,12 @@ export default class Card2 extends Component {
       render() {
     return (
       <div>
-        <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
+          {this.state.loading ? 
+      <div style={{position:'fixed', top:"0px", left:'0px', alignItems: 'center', zIndex:'3945',width: '100%', height: '100vh', display:'flex', justifyContent: 'center',  }}>
+        <RingLoader loading={this.state.loading} size={150} color={'#f37a24'}></RingLoader>
+      </div>
+     :
+       <> <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
           <Form>
             <Row>
               <Col lg={6} md={12}>
@@ -468,7 +476,7 @@ export default class Card2 extends Component {
                 width="100%"
                 height="65vh"
                 defaultState={{
-                  center:  this.state.rows[0].param?this.state.rows[0].param:[],
+                  center:  this.state.rows!==[]?this.state.rows[0].param:[],
                   zoom: 6,
                 }}
               >
@@ -633,7 +641,7 @@ export default class Card2 extends Component {
               width="100%"
               height="65vh"
               defaultState={{
-                center: this.state.rows[0].param?this.state.rows[0].param:[],
+                center: this.state.rows!==[]?this.state.rows[0].param:[],
                 zoom: 6,
               }}
             >
@@ -709,6 +717,7 @@ export default class Card2 extends Component {
             </Map>
           </YMaps>
         </Modal>
+        </>}
       </div>
     );
   }
