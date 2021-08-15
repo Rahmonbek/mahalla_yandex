@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core";
+// import { makeStyles } from "@material-ui/core";
 import React, { Component } from "react";
 import { createMahalla, getMahalla } from "../host/Config";
-import { Points } from "../server";
+// import { Points } from "../server";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -16,21 +16,21 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import { DataGrid } from '@material-ui/data-grid';
-import EditIcon from "@material-ui/icons/Edit";
-import pin from "../boy.png";
+// import EditIcon from "@material-ui/icons/Edit";
+// import pin from "../boy.png";
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import Modal from './modal'
 // import Modal from '@material-ui/core/Modal';
 import { Container, Row, Col, Form, OverlayTrigger, Tooltip, Image } from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import styles from "../components/CSS/Card.css";
-// import {getMahalla} from '../host'
+// import {getMa} from 'st'
 
 export default class Card2 extends Component {
   state = {
-    rows: Points,
-    rowsa: Points,
-    number: Points.length,
+    rows: [],
+    rowsa: [],
+    number: 0,
     open: false,
     openMap: false,
     points: [],
@@ -57,11 +57,10 @@ export default class Card2 extends Component {
       coords: coords,
     });
   };
-  //   getMahalla = () => {
-  //     getMahalla()
-  //       .then((res) => this.setState({ rows: res.data, rowsa: res.data, number: res.data.length }))
-  //       .catch((err) => console.log(err));
-  //   };
+    getMahalla = () => {
+      console.log('dsdds')
+      getMahalla().then((res) =>{console.log('fdfd'); this.setState({ rows: res.data, rowsa: res.data, number: res.data.length })}).catch((err) => console.log(err));
+    };
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -182,20 +181,13 @@ export default class Card2 extends Component {
   handleCancel = () => {
     this.setState({ show: false });
   };
-  getMahalla=()=>{
-    getMahalla().then(res=>{
-      this.setState({
-        rows:res.data,
-        rowsa:res.data,
-        number:res.data.length,
-})
-    }).catch(err=>{console.log(err)})
-  }
     componentDidMount() {
-   this.getMahalla()   
-      this.coo();
+   console.log(';kjhjkjhkhkjjkhh')
+      this.getMahalla()   
+      this.coo()  
     }
-  render() {
+      
+      render() {
     return (
       <div>
         <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
@@ -476,7 +468,7 @@ export default class Card2 extends Component {
                 width="100%"
                 height="65vh"
                 defaultState={{
-                  center: this.state.rows[0].param,
+                  center:  this.state.rows[0].param?this.state.rows[0].param:[],
                   zoom: 6,
                 }}
               >
@@ -486,7 +478,7 @@ export default class Card2 extends Component {
                     return (
                       <Placemark
                         key={index}
-                        geometry={info.param}
+                        geometry={info.param!==[] || info.param!==null?info.param:''}
                         properties={{
                           balloonContent: info.name,
                         }}
@@ -641,7 +633,7 @@ export default class Card2 extends Component {
               width="100%"
               height="65vh"
               defaultState={{
-                center: this.state.rows[0].param,
+                center: this.state.rows[0].param?this.state.rows[0].param:[],
                 zoom: 6,
               }}
             >

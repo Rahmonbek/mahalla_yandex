@@ -108,7 +108,7 @@ export default function Admin2() {
       <Layout>
         <Header className="header">
           <div className="logo" style={{ float: "left", margin: "0 20px 0 0", padding: "0", height: "64px" }}>
-            <img src="https://yuz.uz/file/news/9ee76fefe2b125d5372e2cd584d74806.jpg" height="100%" alt="" />
+            <img style={{borderRadius:'50%'}} src="https://yuz.uz/file/news/9ee76fefe2b125d5372e2cd584d74806.jpg" height="100%" alt="" />
           </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">nav 1</Menu.Item>

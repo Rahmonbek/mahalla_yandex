@@ -409,7 +409,7 @@ param:coords,
           width='100%'
           height='65vh'
           defaultState={{
-            center: rows[0].param,
+            center: rows[0].param!==[] || rows[0].param!==null?rows[0].param:[],
             zoom:6,
           }}
         >
@@ -460,7 +460,7 @@ param:coords,
           width='100%'
           height='65vh'
           defaultState={{
-            center: rows[0].param,
+            center: rows[0].param!==[] || rows[0].param!==null?rows[0].param:[],
             zoom:6,
           }}
         >
