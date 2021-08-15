@@ -32,9 +32,11 @@ const useStyles = makeStyles({
 
 export default function MediaCard() {
   const classes = useStyles();
-  const [rows, setRows] = useState(Points);
+  const rows = Points
+  //const [rows, setRows] = useState(Points);
   const [rowsa, setRowsa] = useState(Points);
-  const [number, setNumber]= useState(Points.length);
+  const number = Points.length
+  //const [number, setNumber]= useState(Points.length);
   // getModalStyle is not a pure function, we roll the style only on the first render
 
   const [open, setOpen] = React.useState(false);
@@ -42,7 +44,7 @@ export default function MediaCard() {
   const [openMapHud, setOpenMapHud] = React.useState(false);
   // const [tumancheck, setTumancheck] = React.useState(true);
 
-  const [points, setPoints] = useState([]);
+  //const [points, setPoints] = useState([]);
   const [coor, setCoor] = useState([]);
   const [coords, setCoords] = useState([]);
   const [coordsHud, setCoordsHud] = useState([]);
@@ -127,7 +129,7 @@ coord.push([])
   useEffect(()=>{
  coo()
  
-}, [])
+},[])
 
 
 

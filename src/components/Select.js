@@ -19,16 +19,18 @@ function SelectMap(props) {
           onData()
   };
   const handleCityChange = value => {
+          onData()
     const selectCity = data.filter(item => item.tuman === value) 
           setNeighborhood([ ...new Set(selectCity.map(item=>item.name))])
           localStorage.setItem('data',JSON.stringify(selectCity))
           setData(selectCity)
-          onData()
   };
   
   const handleNeighborhoodsChange = value=>{
     const selectNeighborhood = data.filter(item => item.name === value)
           localStorage.setItem('selectNeighborhood', JSON.stringify(selectNeighborhood))
+         
+          onData()
           onParam()
   }
   const Result = ()=>{
@@ -38,30 +40,38 @@ function SelectMap(props) {
     onParam()
     window.location.href='/'
   }
+  // const All = (e)=>{
+  //   if(e === 'viloyatlar'){
+  //     localStorage.setItem('selectNeighborhood', JSON.stringify(data))
+  //   }else if(e==='tumanlar'){
+  //     localStorage.setItem('selectNeighborhood', JSON.stringify(cities))
+  //   }else if(e==='mahallalar'){
+  //     localStorage.setItem('selectNeighborhood', JSON.stringify(neighborhoods))
+  //   }
+  // }
     return (
         <div className="map_select">
         <div className="map_item">
         <Select 
            defaultValue='Viloyat'  style={{ width: 120 }} onChange={handleProvinceChange}>
-                <Option key={1}>Hammasi</Option>
+                <Option key={1} >Hammasi</Option>
                 {AllProvinces.map(province => (
                 <Option key={province}>{province}</Option>
                 ))}
             </Select>
              <Select defaultValue='Tuman' style={{ width: 120 }} onChange={handleCityChange}>
-                <Option key={1}>Hammasi</Option>
+                <Option key={1} >Hammasi</Option>
                 {cities.map(item => (
                 <Option key={item}>{item}</Option>
                 ))}
             </Select> 
             <Select style={{ width: 120 }} defaultValue='Mahalla' onChange={handleNeighborhoodsChange}>
-                <Option key={1}>Hammasi</Option>
+                <Option key={1} >Hammasi</Option>
                 {neighborhoods.map(item => (
                 <Option key={item}>{item}</Option>
                 ))}
             </Select>
             <Button onClick={Result}>Qaytish kiritish</Button>
-
         </div>
         </div>
     )
