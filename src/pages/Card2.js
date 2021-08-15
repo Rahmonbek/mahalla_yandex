@@ -51,10 +51,10 @@ export default class Card2 extends Component {
 
     var a = this.state.rowsa;
 
-    a[this.state.number] = {
+    a[this.state.rows.length] = {
       param: e.get("coords"),
     };
-    console.log(this.state.number, a[this.state.number]);
+    console.log(this.state.number, a[this.state.rows.length]);
     this.setState({ rowsa: a });
     this.setState({
       coords: coords,
@@ -67,7 +67,7 @@ export default class Card2 extends Component {
           rows: res.data, 
           loading:false,
           rowsa: res.data, 
-          number: res.data.length })
+         })
       }).catch((err) => console.log(err));
     
     };
@@ -81,7 +81,7 @@ export default class Card2 extends Component {
     var a=this.state.coordsHud
     console.log(a)
     var b=this.state.coor
-    b[this.state.number].splice(id, 1)
+    b[this.state.rows.length].splice(id, 1)
     a.splice(id, 1)
     this.setState({coordsHud:a, coor:b})
   }
@@ -159,7 +159,7 @@ export default class Card2 extends Component {
       kotibaFIO: document.getElementById("formBasickotibFIO").value,
       kotibaTel: document.getElementById("formBasickotibTel").value,
       param: this.state.coords,
-      coor: this.state.coor[this.state.number],
+      coor: this.state.coor[this.state.rows.length],
     };
     createMahalla(point).then((res) => console.log(res)).catch((err) => console.log(err));
     this.getMahalla()
@@ -181,8 +181,8 @@ export default class Card2 extends Component {
     var a = this.state.coor;
     var b = this.state.coordsHud;
     b.push(coords);
-
-    a[this.state.number].push(coords);
+console.log(a)
+    a[this.state.rows.length].push(coords);
 
 
     this.setState({ coor: a, 
@@ -192,8 +192,15 @@ export default class Card2 extends Component {
     this.setState({ show: false });
   };
     componentDidMount() {
-      this.getMahalla()   
-      this.coo()  
+    setTimeout(()=>{
+
+      this.setState({
+        number: this.state.rows.length 
+      })
+}, 1000)
+    
+    this.getMahalla()   
+    this.coo()  
       console.log(this.state.number,this.state.rows) 
     }
       
@@ -698,10 +705,11 @@ export default class Card2 extends Component {
                   );
                 })}
               </Clusterer>
+              
               <GeoObject
                 geometry={{
                   type: "Polygon",
-                  coordinates:[this.state.coor[this.state.number]],
+                  coordinates:[this.state.coor[this.state.rows.length]?this.state.coor[this.state.rows.length]:[]],
                   fillRule: "nonZero",
                 }}
                 properties={{
