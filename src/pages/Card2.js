@@ -26,6 +26,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Container, Row, Col, Form, OverlayTrigger, Tooltip, Image } from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import styles from "../components/CSS/Card.css";
+import { tuman } from "../Tumanlar";
 // import {getMa} from 'st'
 
 export default class Card2 extends Component {
@@ -54,15 +55,19 @@ export default class Card2 extends Component {
     a[this.state.rows.length] = {
       param: e.get("coords"),
     };
-    console.log(this.state.number, a[this.state.rows.length]);
     this.setState({ rowsa: a });
     this.setState({
       coords: coords,
     });
   };
     getMahalla = () => {
-      console.log('dsdds')
+  
       getMahalla().then((res) =>{
+      //  var a=window.location.href.slice(window.location.href.indexOf('id=')+3)
+      //  console.log(a)
+        // res.data.map(item=>{
+        //   if(item)
+        // })
         this.setState({ 
           rows: res.data, 
           loading:false,
@@ -79,7 +84,7 @@ export default class Card2 extends Component {
   };
   deleteHud=(id)=>{
     var a=this.state.coordsHud
-    console.log(a)
+
     var b=this.state.coor
     b[this.state.rows.length].splice(id, 1)
     a.splice(id, 1)
@@ -193,26 +198,30 @@ console.log(a)
   };
     componentDidMount() {
     setTimeout(()=>{
-
-      this.setState({
+    this.setState({
         number: this.state.rows.length 
       })
-}, 1000)
+    }, 1000)
     
     this.getMahalla()   
     this.coo()  
-      console.log(this.state.number,this.state.rows) 
+
+  
     }
       
       render() {
-    return (
+const {vil} = this.props
+
+        return (
       <div>
           {this.state.loading ? 
       <div style={{position:'fixed', top:"0px", left:'0px', alignItems: 'center', zIndex:'3945',width: '100%', height: '100vh', display:'flex', justifyContent: 'center',  }}>
         <RingLoader loading={this.state.loading} size={150} color={'#f37a24'}></RingLoader>
       </div>
      :
-       <> <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
+       <> 
+       <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
+
           <Form>
             <Row>
               <Col lg={6} md={12}>
@@ -246,11 +255,11 @@ console.log(a)
                   <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
 
                   <datalist id="tuman">
-                    <option value="Shofirkon tumani" />
-                    <option value="Buxoro shahri" />
-                    <option value="G'ijduvon tumani" />
-                    <option value="Jondor tumani" />
-                    <option value="Qorako'l tumani" />
+                  {
+                     tuman.map(item=>{
+                       return(<option value="Qorako'l tumani" />)
+                     })
+                   } 
                   </datalist>
                 </Form.Group>
 
@@ -388,7 +397,99 @@ console.log(a)
           </Button>
           <Row>
             {this.state.rows.map((text, index) => (
-              <Col lg={4} md={6} sm={12}>
+             vil==="Hammasi"?<Col lg={4} md={6} sm={12}>
+             <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
+               <CardActionArea>
+                 <CardMedia className={styles.media}>
+                   <YMaps>
+                     <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 12 }}>
+                       <GeoObject
+                         geometry={{
+                           type: "Polygon",
+                           coordinates: text.coor,
+                           fillRule: "nonZero",
+                         }}
+                         properties={{
+                           balloonContent: "Многоугольник",
+                         }}
+                         options={{
+                           fillColor: "#00FF00",
+                           strokeColor: "#0000FF",
+                           opacity: 0.5,
+                           strokeWidth: 3,
+                           strokeStyle: "shortdash",
+                         }}
+                       />
+
+                       <Placemark key={0} geometry={text.param} />
+                     </Map>
+                   </YMaps>
+                 </CardMedia>
+                 <CardContent>
+                   <Typography gutterBottom variant="h6" component="h2">
+                     {text.viloyat + " " + text.tuman + " " + text.nomi + " MFY"}
+                   </Typography>
+                 </CardContent>
+               </CardActionArea>
+               <CardActions disableSpacing style={{ display: "flex", justifyContent: "space-around" }}>
+                 <OverlayTrigger
+                   placement="bottom"
+                   overlay={
+                     <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "14px" }}>
+                       O'zgartirish
+                     </Tooltip>
+                   }
+                 >
+                   {({ ref, ...triggerHandler }) => (
+                     <Button onClick={() => this.editPoints(index)} variant="success" {...triggerHandler} className="d-inline-flex align-items-center">
+                       <Image ref={ref} />
+
+                       <IconButton>
+                         <BorderColorIcon style={{ color: "green" }} />
+                       </IconButton>
+                     </Button>
+                   )}
+                 </OverlayTrigger>
+
+                 <OverlayTrigger
+                   placement="bottom"
+                   overlay={
+                     <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "15px" }}>
+                       O'chirish
+                     </Tooltip>
+                   }
+                 >
+                   {({ ref, ...triggerHandler }) => (
+                     <Button onClick={() => this.deletePoints} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
+                       <Image ref={ref} />
+
+                       <IconButton>
+                         <DeleteIcon style={{ color: "#f30838" }} />
+                       </IconButton>
+                     </Button>
+                   )}
+                 </OverlayTrigger>
+
+                 <OverlayTrigger
+                   placement="bottom"
+                   overlay={
+                     <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "18px" }}>
+                       Mahalla haqida batafsil ma'lumot
+                     </Tooltip>
+                   }
+                 >
+                   {({ ref, ...triggerHandler }) => (
+                     <Button variant="black" {...triggerHandler} className="d-inline-flex align-items-center">
+                       <Image ref={ref} />
+                       <IconButton onClick={() => this.showPointsRead(index)} aria-label="Ko'proq ma'lumotni ko'rish">
+                         <ExpandMoreIcon style={{ color: "black" }} />
+                       </IconButton>
+                     </Button>
+                   )}
+                 </OverlayTrigger>
+               </CardActions>
+             </Card>
+           </Col>:text.viloyat===vil?<Col lg={4} md={6} sm={12}>
                 <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
                   <CardActionArea>
                     <CardMedia className={styles.media}>
@@ -480,7 +581,7 @@ console.log(a)
                     </OverlayTrigger>
                   </CardActions>
                 </Card>
-              </Col>
+              </Col>:''
             ))}
           </Row>
           <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex: "52434" }} width="80%" visible={this.state.openMap} onCancel={this.handleCloseMap}>

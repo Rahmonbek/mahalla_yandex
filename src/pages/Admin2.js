@@ -1,21 +1,12 @@
 import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { alpha, makeStyles } from "@material-ui/core/styles";
-import PetsIcon from "@material-ui/icons/Pets";
-import SearchIcon from "@material-ui/icons/Search";
-import Card from "./Card";
-
-import ModalNavbar from "./NavbarModal";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Footer from './Footer'
-// import Viloyat from './Viloyat'
-import { Layout, Menu, Breadcrumb } from "antd";
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from "@ant-design/icons";
+
+
+import { Layout, Menu} from "antd";
+import { UserOutlined} from "@ant-design/icons";
 import Card2 from "./Card2";
+import {Link} from 'react-router-dom'
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -62,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+    
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -94,13 +85,13 @@ export default function Admin2() {
     value: "",
     show: "false",
   });
-  const [key, setKey] = useState(15);
+  const [key, setKey] = useState("Hammasi");
   const handleChange = (e) => {
     setState({ value: e.target.value });
   };
   const selectedKey = (e) => {
     setKey(e.key);
-    console.log(e.key);
+    
   };
 
   return (
@@ -124,51 +115,51 @@ export default function Admin2() {
               console.log(collapsed, type);
             }}
           >
-            <Menu mode="inline" defaultSelectedKeys={["15"]} style={{ height: "100%", borderRight: 0 }} onSelect={selectedKey}>
-              <Menu.Item key="15" icon={<UserOutlined />}>
-                Hammasi
+            <Menu mode="inline" defaultSelectedKeys={["15"]} style={{ height: "590px", overflowY:'auto', borderRight: 0 }} onSelect={selectedKey}>
+              <Menu.Item key="Hammasi" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Hammasi">  Hammasi</Link>
               </Menu.Item>
-              <Menu.Item key="1" icon={<UserOutlined />}>
-                Andijon viloyat
+              <Menu.Item key="Andijon viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Andijon viloyat">  Andijon viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<UserOutlined />}>
-                Buxoro viloyat
+              <Menu.Item key="Buxoro viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Buxoro viloyat">  Buxoro viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<UserOutlined />}>
-                Farg'ona viloyat
+              <Menu.Item key="Fargona viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Fargona viloyat">  Farg'ona viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<UserOutlined />}>
-                Jizzax viloyat
+              <Menu.Item key="Jizzax viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Jizzax viloyat">  Jizzax viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="14" icon={<UserOutlined />}>
-                Xorazm viloyat
+              <Menu.Item key="Xorazm viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Xorazm viloyat">  Xorazm viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="5" icon={<UserOutlined />}>
-                Namangan viloyat
+              <Menu.Item key="Namangan viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Namangan viloyat">  Namangan viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="6" icon={<UserOutlined />}>
-                Navoiy viloyat
+              <Menu.Item key="Navoiy viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Navoiy viloyat">  Navoiy viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="7" icon={<UserOutlined />}>
-                Qashqadaryo viloyat
+              <Menu.Item key="Qashqadaryo viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Qashqadaryo viloyat">  Qashqadaryo viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="8" icon={<UserOutlined />}>
-                Qoraqalpog'iston Respublikasi
+              <Menu.Item key="Qoraqalpog'iston Respublikasi" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Qoraqalpog'iston Respublikasi">  Qoraqalpog'iston Respublikasi</Link>
               </Menu.Item>
-              <Menu.Item key="9" icon={<UserOutlined />}>
-                Samarqand viloyat
+              <Menu.Item key="Samarqand viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Samarqand viloyat">  Samarqand viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="10" icon={<UserOutlined />}>
-                Sirdaryo viloyat
+              <Menu.Item key="Sirdaryo viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Sirdaryo viloyat">  Sirdaryo viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="11" icon={<UserOutlined />}>
-                Surxondaryo viloyat
+              <Menu.Item key="Surxondaryo viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Surxondaryo viloyat">  Surxondaryo viloyat</Link>
               </Menu.Item>
-              <Menu.Item key="12" icon={<UserOutlined />}>
-                Toshkent shahri
+              <Menu.Item key="Toshkent shahri" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Toshkent shahri">  Toshkent shahri</Link>
               </Menu.Item>
-              <Menu.Item key="13" icon={<UserOutlined />}>
-                Toshkent viloyat
+              <Menu.Item key="Toshkent viloyat" icon={<UserOutlined />}>
+              <Link style={{textDecoration:'none'}} to="Toshkent viloyat">  Toshkent viloyat</Link>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -182,7 +173,7 @@ export default function Admin2() {
                 overflow: "auto",
               }}
             >
-              <Card2 key={key} />
+              <Card2 vil={key} />
               <Footer style={{ textAlign: "center", marginTop: "20px" }}>©2021 IT Tower tomonidan yaratildi.</Footer>
             </Content>
           </Layout>

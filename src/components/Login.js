@@ -15,7 +15,7 @@ const Login = () => {
       if (values.username === username && values.password === password) {
         console.log(values);
         localStorage.setItem(TOKEN_AUTH, "thisTOKEN");
-        window.location.href = "/dashboard";
+        window.location.href = "/dashboard/Hammasi";
       } else {
         setError("Failed to sign in");
       }
