@@ -58,17 +58,17 @@ export default class Card2 extends Component {
     this.filterData(value);
   };
 
-  filterData = (value) => {
-    var lowercasedValue = value.toLowerCase().trim();
-    if (lowercasedValue !== "") {
-      const filteredData = this.state.rows.filter(item => {
-        return Object.keys(item).some(key =>
-          excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
-        );
-      });
-      this.setState({data: filteredData})
-    }
-  }
+  // filterData = (value) => {
+  //   var lowercasedValue = value.toLowerCase().trim();
+  //   if (lowercasedValue !== "") {
+  //     const filteredData = this.state.rows.filter(item => {
+  //       return Object.keys(item).some(key =>
+  //         excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
+  //       );
+  //     });
+  //     this.setState({data: filteredData})
+  //   }
+  // }
 
 
   onMapClick = (e) => {

@@ -51,13 +51,14 @@ function App() {
     const handleData = ()=>{
       setData(JSON.parse(localStorage.getItem('data')))
      var g=[]
-      for(let i=0; i<data.length; i++){
-       g.push(data[i].coor)
+      
+     for(let i=0; i<JSON.parse(localStorage.getItem('data')).length; i++){
+       g.push(JSON.parse(localStorage.getItem('data'))[i].coor)
      }
      setCoor(g)
 
 
-      console.log(data, coor)
+      console.log(JSON.parse(localStorage.getItem('data')), coor)
        }
       
       return (
