@@ -108,7 +108,7 @@ this.setState({search:this.state.rows})
     var a = this.state.coordsHud;
 
     var b = this.state.coor;
-    b[this.state.rows.length].splice(id, 1);
+    b[this.state.number].splice(id, 1);
     a.splice(id, 1);
     this.setState({ coordsHud: a, coor: b });
   };
@@ -666,6 +666,7 @@ deleteMahalla=(id)=>{
                         );
                       })}
                     </Clusterer>
+                    
                     <GeolocationControl options={{ float: "left" }} />
                     <TypeSelector options={{ float: "right" }} />
                     <TrafficControl options={{ float: "right" }} />
@@ -838,7 +839,7 @@ deleteMahalla=(id)=>{
                       balloonContent: "Многоугольник",
                     }}
                     options={{
-                      fillColor: "#00FF00",
+                      fillColor: "#00FFAA",
                       strokeColor: "#0000FF",
                       opacity: 0.5,
                       strokeWidth: 4,
