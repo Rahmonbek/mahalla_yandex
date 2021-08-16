@@ -10,7 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Modal } from "antd";
 import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { UserOutlined,DeleteFilled, LaptopOutlined, NotificationOutlined , SearchOutlined } from '@ant-design/icons';
+import {  FrownOutlined, SearchOutlined } from '@ant-design/icons';
 import RingLoader from "react-spinners/RingLoader";
 
 import Typography from "@material-ui/core/Typography";
@@ -200,10 +200,11 @@ this.setState({search:this.state.rows})
     this.setState({ show: true, key: id });
   };
   handleOpenMapHud = () => {
-    this.setState({ openMapHud: true });
+    this.setState({ openMapHud: true , });
   };
+
   handleCloseMapHud = () => {
-    this.setState({ openMapHud: false });
+    this.setState({ openMapHud: false,   });
   };
   onMapClickHud = (e) => {
     const coords = e.get("coords");
@@ -215,10 +216,14 @@ this.setState({search:this.state.rows})
 
     this.setState({ coor: a, coordsHud: b });
   };
+
+  
   handleCancel = () => {
     this.setState({ show: false });
   };
   componentDidMount() {
+    this.setState({loading:true});
+
     this.getMahalla();
     setTimeout(() => {
       this.setState({
@@ -237,7 +242,7 @@ this.setState({search:this.state.rows})
     return (
       <div>
         {this.state.loading ? (
-          <div style={{ position: "fixed", top: "0px", left: "0px", alignItems: "center", zIndex: "3945", width: "100%", height: "100vh", display: "flex", justifyContent: "center" }}>
+          <div style={{ position: "fixed" ,top: "0px", left: "0px", alignItems: "center", zIndex: "3945", width: "100%",background:'white', height: "100vh", display: "flex", justifyContent: "center" }}>
             <RingLoader loading={this.state.loading} size={150} color={"#f37a24"}></RingLoader>
           </div>
         ) : (
@@ -425,7 +430,7 @@ this.setState({search:this.state.rows})
               </Button>
               <Row>
                 {this.state.search.length===0?
-                <div>Bunday mahalla bazada mavjud emas</div>:
+                <div style={{paddingTop:'50px'}} ><FrownOutlined style={{fontSize:'20px',paddingRight:'20px',paddingBotton:'10px'}} /> Bunday mahalla bazada mavjud emas</div>:
                 this.state.search.map((text, index) =>
                   vil === "Hammasi" ? (
                     <Col lg={4} md={6} sm={12}>
