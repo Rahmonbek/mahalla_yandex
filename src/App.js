@@ -19,22 +19,29 @@ function App() {
      const [data,setData] = useState([])
      const [coor,setCoor] = useState([])
      const [Points,setPoints] = useState([])
-     
+
+     const [zoom,setZoom] = useState(6)
+
      useEffect(()=>{
         axios.get(url).then((res)=>{
           setData(res.data)
           setPoints(res.data)
-        navigator.geolocation.getCurrentPosition(function(position) {
+        
+          navigator.geolocation.getCurrentPosition(function(position) {
           // console.log("Latitude is :", position.coords.latitude);
           // console.log("Longitude is :", position.coords.longitude);
         });
+
         var coord=[]
         res.data.map(item=>coord.push(item.coor))
-        //console.log(coord)
         setCoor(coord)
         setLoading(false)
         })
      },[])
+
+     const handleUnnecessary = (e)=>{
+       setZoom(e)
+     }
 
     const Information = (data)=>{
       setforclick(true)  
@@ -42,8 +49,7 @@ function App() {
     }
     const handleParam = ()=>{
       let param = localStorage.getItem('param')
-      setParam(JSON.parse(param))
-      console.log(param)
+      setParam(JSON.parse(param)[0].param)
     }
     const handleClose = () => {
       setforclick(false);
@@ -71,27 +77,29 @@ function App() {
       <>
       <h1 style={{textAlign: 'center'}}>Online Mahalla </h1> 
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
-      <Select data={Points} onParam={handleParam} onData={handleData}/>
+      <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
         <Map
           width='100vw'
           height='95vh'
-          defaultState={{
+          state={{
             center: param,
-            zoom : 6
+            zoom
           }}
         >
+
          <GeoObject  
           geometry={{
           type: 'Polygon',
           coordinates: coor,
           fillRule: 1,
-        }}
-        properties={{
-          balloonContent: 'Многоугольник',
-        }}
-        options={{
-          fillColor: '#00FF00',
+          }}
+          properties={{
+            balloonContent: 'Многоугольник',
+          }}
+        
+          options={{
+          fillColor:`#00FF00`,
           strokeColor: '#0000FF',
           opacity: 0.5,
           strokeWidth: 5,

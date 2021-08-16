@@ -66,11 +66,21 @@ if(item.nomi.toLowerCase().indexOf(value.toLowerCase())!==-1){
   })
   this.setState({search:search})
 
+  // filterData = (value) => {
+  //   var lowercasedValue = value.toLowerCase().trim();
+  //   if (lowercasedValue !== "") {
+  //     const filteredData = this.state.rows.filter(item => {
+  //       return Object.keys(item).some(key =>
+  //         excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
+  //       );
+  //     });
+  //     this.setState({data: filteredData})
+  //   }
+  // }
 }else{
 this.setState({search:this.state.rows})
 }    
   };
-
   
 
   onMapClick = (e) => {

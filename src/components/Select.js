@@ -1,57 +1,85 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import './CSS/select.css'
 import { Select, Button } from 'antd';
 
 const { Option } = Select;
 
 function SelectMap(props) {
-  const {onParam, onData} = props
+  const {onParam, onData, onUnnecessary} = props
   const [data,setData]  = useState(props.data)  
-  const [dataT,setDataT]  = useState(props.data)  
   const [cities,setCities] = useState([])
   const [neighborhoods,setNeighborhood] = useState([])
+  const [tumanlar,setTumanlar] = useState([])
+  const [mahallalar,setMahallalar] = useState([])
 
   const AllProvinces =[ ...new Set(props.data.map(item=>item.viloyat))]
+  useEffect(()=>{
+      setCities([ ...new Set(data.map(item=>item.tuman))])
+      setNeighborhood([ ...new Set(data.map(item=>item.nomi))])
+  },[])
+
   const handleProvinceChange = value => {
-    
-    const selectProvince = data.filter(item => item.viloyat === value)  
-          setData(selectProvince)
-          console.log(selectProvince)
-          setCities([ ...new Set(selectProvince.map(item=>item.tuman))])
-          localStorage.setItem('data',JSON.stringify(selectProvince))
-          onData()
+    var g=[]
+    for(let i = 0; i < data.length; i ++){
+      if(data[i].viloyat === value){
+        g.push(data[i])
+      }
+    }  
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(data))
+      onUnnecessary(6)
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(8)
+      setTumanlar(g)
+    }
+    setCities([ ...new Set(g.map(item=>item.tuman))])
+    onData()
   };
+
   const handleCityChange = value => {
-          onData()
-    const selectCity = data.filter(item => item.tuman === value) 
-          setNeighborhood([ ...new Set(selectCity.map(item=>item.name))])
-          localStorage.setItem('data',JSON.stringify(selectCity))
-          setData(selectCity)
+    var g=[]
+    for(let i = 0; i < tumanlar.length; i ++){
+      if(tumanlar[i].tuman === value){
+        g.push(data[i])
+      }
+    }  
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(tumanlar))
+      onUnnecessary(8)
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(13)
+      setMahallalar(g)
+    }
+    setNeighborhood([ ...new Set(g.map(item=>item.nomi))])
+    onData()
   };
   
   const handleNeighborhoodsChange = value=>{
-    const selectNeighborhood = data.filter(item => item.name === value)
-          localStorage.setItem('selectNeighborhood', JSON.stringify(selectNeighborhood))
-         
-          onData()
-          onParam()
+    var g=[]
+    for(let i = 0; i < mahallalar.length; i ++){
+      if(mahallalar[i].nomi === value){
+        g.push(data[i])
+      }
+    }
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(mahallalar))
+        onUnnecessary(13)
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(16)
+    }
+    localStorage.setItem('param',JSON.stringify(g))
+   onData()
+   onParam()
   }
   const Result = ()=>{
     setData(props.data)
     localStorage.removeItem('data')
     localStorage.removeItem('param')
-    onParam()
     window.location.href='/'
   }
-  // const All = (e)=>{
-  //   if(e === 'viloyatlar'){
-  //     localStorage.setItem('selectNeighborhood', JSON.stringify(data))
-  //   }else if(e==='tumanlar'){
-  //     localStorage.setItem('selectNeighborhood', JSON.stringify(cities))
-  //   }else if(e==='mahallalar'){
-  //     localStorage.setItem('selectNeighborhood', JSON.stringify(neighborhoods))
-  //   }
-  // }
     return (
         <div className="map_select">
         <div className="map_item">
