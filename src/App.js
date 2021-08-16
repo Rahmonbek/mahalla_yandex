@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Points} from './server'
+//import { Points} from './server'
 import {YMaps, Map, Clusterer, Placemark, 
   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from 'react-yandex-maps'
 import pin from './boy.png'
@@ -18,37 +18,39 @@ function App() {
      const [param, setParam]= useState([41.311151, 69.279716])
      const [data,setData] = useState([])
      const [coor,setCoor] = useState([])
+     const [Points,setPoints] = useState([])
+     
      useEffect(()=>{
         axios.get(url).then((res)=>{
-          console.log(res.data)
-          setData(Points)
-        })
+          setData(res.data)
+          setPoints(res.data)
         navigator.geolocation.getCurrentPosition(function(position) {
-          console.log("Latitude is :", position.coords.latitude);
-          console.log("Longitude is :", position.coords.longitude);
+          // console.log("Latitude is :", position.coords.latitude);
+          // console.log("Longitude is :", position.coords.longitude);
         });
         var coord=[]
-        Points.map(item=>coord.push(item.coor))
-        console.log(coord)
+        res.data.map(item=>coord.push(item.coor))
+        //console.log(coord)
         setCoor(coord)
         setLoading(false)
+        })
      },[])
 
-    const Information = ()=>{
-      const dataJson = localStorage.getItem('selectNeighborhood')
-      const data = JSON.parse(dataJson)
+    const Information = (data)=>{
       setforclick(true)  
-      setVillage(data[0])
+      setVillage(data)
     }
     const handleParam = ()=>{
       let param = localStorage.getItem('param')
       setParam(JSON.parse(param))
+      console.log(param)
     }
     const handleClose = () => {
       setforclick(false);
     };
     const handleData = ()=>{
       setData(JSON.parse(localStorage.getItem('data')))
+      console.log(data)
        }
       
       return (
@@ -99,7 +101,7 @@ function App() {
             return<Placemark
               key={index}  
               geometry={info.param}
-              onClick={Information}
+              onClick={()=>Information(info)}
               properties={{
                 balloonContent: info.name,
               }}
