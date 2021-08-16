@@ -37,6 +37,7 @@ export default class Card2 extends Component {
   state = {
     searchText:'',
     rows: [],
+    search: [],
     rowsa: [],
     number: 0,
     open: false,
@@ -55,22 +56,22 @@ export default class Card2 extends Component {
   };
 
   handleChange = value => {
-    this.setState({searchText:value});
-    this.filterData(value);
+var search=[]
+if(value!=='' ||value!==' '){
+  this.state.rows.map(item=>{
+if(item.nomi.toLowerCase().indexOf(value.toLowerCase())!==-1){
+  search.push(item)
+}
+   
+  })
+  this.setState({search:search})
+
+}else{
+this.setState({search:this.state.rows})
+}    
   };
 
-  filterData = (value) => {
-    var lowercasedValue = value.toLowerCase().trim();
-    if (lowercasedValue !== "") {
-      const filteredData = this.state.rows.filter(item => {
-        return Object.keys(item).some(key =>
-          this.state.excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
-        );
-      });
-      this.setState({data: filteredData})
-    }
-  }
-
+  
 
   onMapClick = (e) => {
     var coords = e.get("coords");
@@ -90,6 +91,7 @@ export default class Card2 extends Component {
       .then((res) => {
         this.setState({
           rows: res.data,
+          search: res.data,
           loading: false,
           rowsa: res.data,
         });
@@ -241,13 +243,13 @@ export default class Card2 extends Component {
         ) : (
           <>
 
-
+<div className={style.ser}>
 <div className={style.searchbox}>
     <button className={style.btnsearch}><SearchOutlined /></button>
-    <input type="text"   value={this.state.searchText}
-        onChange={e =>this.handleChange(e.target.value)} className={style.inputsearch} placeholder="Type to Search..." />
+    <input type="text" id="search"
+        onChange={e =>this.handleChange(e.target.value)} className={style.inputsearch} placeholder="Mahalla nomini yozing" />
     </div>
-
+    </div>
 
             <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
               <Form>
@@ -422,7 +424,9 @@ export default class Card2 extends Component {
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.rows.map((text, index) =>
+                {this.state.search.length===0?
+                <div>Bunday mahalla bazada mavjud emas</div>:
+                this.state.search.map((text, index) =>
                   vil === "Hammasi" ? (
                     <Col lg={4} md={6} sm={12}>
                       <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
@@ -615,6 +619,7 @@ export default class Card2 extends Component {
                     ""
                   )
                 )}
+                
               </Row>
               <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex: "52434" }} width="80%" visible={this.state.openMap} onCancel={this.handleCloseMap}>
                 <YMaps>
