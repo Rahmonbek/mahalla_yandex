@@ -20,9 +20,8 @@ function App() {
      const [coor,setCoor] = useState([])
      const [Points,setPoints] = useState([])
 
-     const [zoom,setZoom] = useState(5)
-     const [time,setTime] = useState(1)
-     
+     const [zoom,setZoom] = useState(6)
+
      useEffect(()=>{
         axios.get(url).then((res)=>{
           setData(res.data)
@@ -40,11 +39,8 @@ function App() {
         })
      },[])
 
-     const handleUnnecessary = ()=>{
-       setTimeout(()=>{
-         setTime(()=>time*2)
-       })
-       setZoom(()=>zoom*2)
+     const handleUnnecessary = (e)=>{
+       setZoom(e)
      }
 
     const Information = (data)=>{
@@ -53,8 +49,7 @@ function App() {
     }
     const handleParam = ()=>{
       let param = localStorage.getItem('param')
-      setParam(JSON.parse(param))
-      console.log(param)
+      setParam(JSON.parse(param)[0].param)
     }
     const handleClose = () => {
       setforclick(false);
@@ -87,7 +82,7 @@ function App() {
         <Map
           width='100vw'
           height='95vh'
-          defaultState={{
+          state={{
             center: param,
             zoom
           }}
