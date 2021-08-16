@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import './CSS/select.css'
 import { Select, Button } from 'antd';
 
@@ -13,6 +13,11 @@ function SelectMap(props) {
   const [mahallalar,setMahallalar] = useState([])
 
   const AllProvinces =[ ...new Set(props.data.map(item=>item.viloyat))]
+  useEffect(()=>{
+      setCities([ ...new Set(data.map(item=>item.tuman))])
+      setNeighborhood([ ...new Set(data.map(item=>item.nomi))])
+  },[])
+
   const handleProvinceChange = value => {
     var g=[]
     for(let i = 0; i < data.length; i ++){
@@ -20,57 +25,59 @@ function SelectMap(props) {
         g.push(data[i])
       }
     }  
-    setTumanlar(g)
     if(value === "1"){
       localStorage.setItem('data',JSON.stringify(data))
+      onUnnecessary(6)
     }else{
       localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(8)
+      setTumanlar(g)
     }
     setCities([ ...new Set(g.map(item=>item.tuman))])
     onData()
-    onUnnecessary()
   };
 
   const handleCityChange = value => {
     var g=[]
-    for(let i = 0; i < data.length; i ++){
-      if(data[i].tuman === value){
+    for(let i = 0; i < tumanlar.length; i ++){
+      if(tumanlar[i].tuman === value){
         g.push(data[i])
       }
-    }
-    setMahallalar(g)  
+    }  
     if(value === "1"){
       localStorage.setItem('data',JSON.stringify(tumanlar))
+      onUnnecessary(8)
     }else{
       localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(13)
+      setMahallalar(g)
     }
     setNeighborhood([ ...new Set(g.map(item=>item.nomi))])
     onData()
-    onUnnecessary()
   };
   
   const handleNeighborhoodsChange = value=>{
     var g=[]
-    for(let i = 0; i < data.length; i ++){
-      if(data[i].nomi === value){
+    for(let i = 0; i < mahallalar.length; i ++){
+      if(mahallalar[i].nomi === value){
         g.push(data[i])
       }
     }
     if(value === "1"){
       localStorage.setItem('data',JSON.stringify(mahallalar))
+        onUnnecessary(13)
     }else{
       localStorage.setItem('data',JSON.stringify(g))
+      onUnnecessary(16)
     }
-    localStorage.setItem('param',JSON.stringify(g.param))
+    localStorage.setItem('param',JSON.stringify(g))
    onData()
    onParam()
-   onUnnecessary()
   }
   const Result = ()=>{
     setData(props.data)
     localStorage.removeItem('data')
     localStorage.removeItem('param')
-    onParam()
     window.location.href='/'
   }
     return (
