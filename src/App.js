@@ -62,9 +62,6 @@ function App() {
        g.push(JSON.parse(localStorage.getItem('data'))[i].coor)
      }
      setCoor(g)
-
-
-      console.log(JSON.parse(localStorage.getItem('data')), coor)
        }
       
       return (
@@ -99,7 +96,11 @@ function App() {
           }}
         
           options={{
+<<<<<<< Updated upstream
           fillColor:`#00FF00`,
+=======
+          fillColor: 'rgba(255,255,0,0.3)',
+>>>>>>> Stashed changes
           strokeColor: '#0000FF',
           opacity: 0.5,
           strokeWidth: 5,
