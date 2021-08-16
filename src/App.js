@@ -41,10 +41,11 @@ function App() {
      },[])
 
      const handleUnnecessary = ()=>{
-       setTimeout(()=>{
+      setZoom(()=>zoom*2) 
+      setTimeout(()=>{
          setTime(()=>time*2)
        })
-       setZoom(()=>zoom*2)
+       
      }
 
     const Information = (data)=>{
@@ -84,12 +85,13 @@ function App() {
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
       <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
+     {console.log(zoom, param)}
         <Map
           width='100vw'
           height='95vh'
-          defaultState={{
+          state={{
             center: param,
-            zoom
+            zoom:zoom,
           }}
         >
          <GeoObject  
