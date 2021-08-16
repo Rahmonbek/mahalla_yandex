@@ -9,13 +9,7 @@
   margin: 16px;
   color:#fff;
 }
-
-body{
-  margin: 0px;
-  padding: 0px;
-  background-color: #130f40;
-  font-family: 'Lato' !important;
-}
+.ser{position:fixed; top:7px; right:100px;}
 .searchbox{
   width: fit-content;
   height: fit-content;
@@ -23,23 +17,27 @@ body{
 }
 .inputsearch{
   height: 50px;
-  width: 50px;
-  border-style: none;
   padding: 10px;
   font-size: 18px;
   letter-spacing: 2px;
+border: none;
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+
   outline: none;
-  border-radius: 25px;
-  transition: all .5s ease-in-out;
-  background-color: #22a6b3;
   padding-right: 40px;
   color:#fff;
 }
 .inputsearch::placeholder{
   color:rgba(255,255,255,.5);
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 2px;
   font-weight: 100;
+
+ 
 }
 .btnsearch{
   width: 50px;
@@ -53,15 +51,12 @@ body{
   position: absolute;
   right: 0px;
   color:#ffffff ;
+  
+display: flex;
+align-items: center;
+justify-content: center;
   background-color:transparent;
   pointer-events: painted;  
-}
-.btnsearch:focus ~ .inputsearch{
-  width: 300px;
-  border-radius: 0px;
-  background-color: transparent;
-  border-bottom:1px solid rgba(255,255,255,.5);
-  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
 }
 .inputsearch:focus{
   width: 300px;
@@ -74,7 +69,7 @@ body{
 
 
 /*  footer   */
-footer {
+/* footer {
     background-color: #222;
     color: #fff;
     font-size: 14px;
@@ -84,7 +79,7 @@ footer {
     right: 0;
     text-align: center;
     z-index: 999;
-}
+} */
 
 
 .youtubeBtn{
