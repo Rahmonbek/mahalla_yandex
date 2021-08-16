@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-import React,{useState} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import PetsIcon from '@material-ui/icons/Pets';
-import SearchIcon from '@material-ui/icons/Search';
-import Card from './Card'
-import style from '../components/CSS/State.module.css'
-import ModalNavbar from './NavbarModal'
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import Footer from './Footer'
-// import Viloyat from './Viloyat'
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-const { Search } = Input;
-const onSearch = value => console.log(value);
-=======
 import React, { useState } from "react";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,7 +8,6 @@ import { UserOutlined} from "@ant-design/icons";
 import Card2 from "./Card2";
 import {Link} from 'react-router-dom'
 
->>>>>>> 4f74b7e47a97394c60c71216130a140f7e96140e
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -118,73 +96,6 @@ export default function Admin2() {
 
   return (
     <div className={classes.root}>
-<<<<<<< HEAD
-    <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-      Online Mahalla admin paneli 
-    
-       <Space direction="vertical" className={style.logo1}>
-       <Search
-       type="primary"
-      placeholder="Qidirish"
-      allowClear
-      enterButton="Izlash"
-      size="large"
-      onSearch={onSearch}
-    />
-  </Space>
-      </Menu>
-    </Header>
-    <Layout>
-      <Sider width={200} className="site-layout-background"
-         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          // defaultOpenKeys={['1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item key="1" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-        <Menu.Item key="2" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-        <Menu.Item key="4" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-        <Menu.Item key="5" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-        <Menu.Item key="6" icon={<UserOutlined />}>
-          Buxoro
-        </Menu.Item>
-
-        </Menu>
-      </Sider>
-      <Layout style={{ padding: '0 14px 14px', marginTop:'20px' }}>
-      
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            height: 530,
-            overflow:'auto',
-          }}
-        >
-         <Card/>
-          <Footer style={{ textAlign: 'center', marginTop:'20px' }}>Ant Design ©2018 Created by Ant UED</Footer>
-        </Content>
-       
-=======
       <Layout>
         <Header className="header">
           <div className="logo" style={{ float: "left", margin: "0 20px 0 0", padding: "0", height: "64px" }}>
@@ -267,7 +178,6 @@ export default function Admin2() {
             </Content>
           </Layout>
         </Layout>
->>>>>>> 4f74b7e47a97394c60c71216130a140f7e96140e
       </Layout>
     </div>
   );
