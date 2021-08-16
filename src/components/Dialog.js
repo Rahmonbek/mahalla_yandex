@@ -16,20 +16,20 @@ function PaperComponent(props) {
   );
 }
  function DraggableDialog({open, onClose, village}) {
-   const {name , viloyat, tuman, raisFIO, raisTel, email,
+   const {nomi , viloyat, tuman, raisFIO, raisTel, email,
           tel, uchasFIO, uchasTel, posbonFIO, posbonTel,
          qariyalarFIO, qariyalarTel, raiszami1FIO, raiszami1Tel,
          raiszami2FIO,raiszami2Tel, raiszami3FIO, raiszami3Tel,
-        raiszami4FIO,raiszami4Tel, kotibFIO, kotibTel} = village
+        raiszami4FIO,raiszami4Tel, kotibaFIO, kotibaTel} = village
+
   return (<Dialog
         open={open}
         onClose={onClose}
         PaperComponent={PaperComponent}
-        aria-labelledby="draggable-dialog-title"
-      >
+        aria-labelledby="draggable-dialog-title">
         <div style={{display: 'flex', justifyContent:'flex-end'}}><Button style={{width: '10px'}} onClick={onClose} color="primary"> X </Button></div>
         <DialogTitle style={{ cursor: 'move', display: 'flex', justifyContent: 'center', padding: '0 10px 15px' }} id="draggable-dialog-title" onClose={onClose}>
-          {name} mahallasi
+          {nomi} mahallasi
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -51,8 +51,8 @@ function PaperComponent(props) {
             <div><b>3-rais o'rinbosari telefon nomeri</b> : {raiszami3Tel}</div>
             <div><b>4-rais o'rinbosari familya ismi </b> : {raiszami4FIO}</div>
             <div><b>4-rais o'rinbosari telefon nomeri</b> : {raiszami4Tel}</div>
-            <diV><b>Kotib familya ismi </b> : {kotibFIO}</diV>
-            <div><b>Kotib telefon nomeri</b> : {kotibTel}</div>
+            <diV><b>Kotiba familya ismi </b> : {kotibaFIO}</diV>
+            <div><b>Kotiba telefon nomeri</b> : {kotibaTel}</div>
             <div><small>Telfon : {tel}</small></div>
             <small>Email : {email}</small>
           </DialogContentText>

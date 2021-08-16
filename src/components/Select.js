@@ -5,11 +5,12 @@ import { Select, Button } from 'antd';
 const { Option } = Select;
 
 function SelectMap(props) {
-  const {onParam, onData} = props
+  const {onParam, onData, onUnnecessary} = props
   const [data,setData]  = useState(props.data)  
-  //const [dataT,setDataT]  = useState(props.data)  
   const [cities,setCities] = useState([])
   const [neighborhoods,setNeighborhood] = useState([])
+  const [tumanlar,setTumanlar] = useState([])
+  const [mahallalar,setMahallalar] = useState([])
 
   const AllProvinces =[ ...new Set(props.data.map(item=>item.viloyat))]
   const handleProvinceChange = value => {
@@ -19,10 +20,15 @@ function SelectMap(props) {
         g.push(data[i])
       }
     }  
-          //setData(selectProvince)
-    localStorage.setItem('data',JSON.stringify(g))
+    setTumanlar(g)
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(data))
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+    }
     setCities([ ...new Set(g.map(item=>item.tuman))])
     onData()
+    onUnnecessary()
   };
 
   const handleCityChange = value => {
@@ -31,11 +37,16 @@ function SelectMap(props) {
       if(data[i].tuman === value){
         g.push(data[i])
       }
-    }  
-    setCities([ ...new Set(g.map(item=>item.tuman))])
-    localStorage.setItem('data',JSON.stringify(g))
+    }
+    setMahallalar(g)  
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(tumanlar))
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+    }
     setNeighborhood([ ...new Set(g.map(item=>item.nomi))])
     onData()
+    onUnnecessary()
   };
   
   const handleNeighborhoodsChange = value=>{
@@ -45,9 +56,15 @@ function SelectMap(props) {
         g.push(data[i])
       }
     }
-   localStorage.setItem('selectNeighborhood', JSON.stringify(g))
+    if(value === "1"){
+      localStorage.setItem('data',JSON.stringify(mahallalar))
+    }else{
+      localStorage.setItem('data',JSON.stringify(g))
+    }
+    localStorage.setItem('param',JSON.stringify(g.param))
    onData()
    onParam()
+   onUnnecessary()
   }
   const Result = ()=>{
     setData(props.data)

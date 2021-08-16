@@ -12,8 +12,7 @@ const FooterPagePro = () => {
             <p className="text-left grey-text text-primary">&copy; {new Date().getFullYear()} Mualliflik huquqi: IT Tower</p>
           </MDBCol>
           <MDBCol md="6" lg="6" sm="12">
-            <p className="text-right grey-text text-primary">
-              <p>
+            <p className="d-flex justify-content-start grey-text text-primary">
                 <a href="tel:+998999349707" style={{ textDecoration: "none" }}>
                   <i className="fa fa-phone" /> +998 99 934 97 07
                 </a>
@@ -21,7 +20,6 @@ const FooterPagePro = () => {
                   <i className="fa fa-phone" /> +998 95 007 06 50
                 </a>
               </p>
-            </p>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

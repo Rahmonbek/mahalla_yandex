@@ -19,22 +19,33 @@ function App() {
      const [data,setData] = useState([])
      const [coor,setCoor] = useState([])
      const [Points,setPoints] = useState([])
+
+     const [zoom,setZoom] = useState(5)
+     const [time,setTime] = useState(1)
      
      useEffect(()=>{
         axios.get(url).then((res)=>{
           setData(res.data)
           setPoints(res.data)
-        navigator.geolocation.getCurrentPosition(function(position) {
+        
+          navigator.geolocation.getCurrentPosition(function(position) {
           // console.log("Latitude is :", position.coords.latitude);
           // console.log("Longitude is :", position.coords.longitude);
         });
+
         var coord=[]
         res.data.map(item=>coord.push(item.coor))
-        //console.log(coord)
         setCoor(coord)
         setLoading(false)
         })
      },[])
+
+     const handleUnnecessary = ()=>{
+       setTimeout(()=>{
+         setTime(()=>time*2)
+       })
+       setZoom(()=>zoom*2)
+     }
 
     const Information = (data)=>{
       setforclick(true)  
@@ -71,14 +82,14 @@ function App() {
       <>
       <h1 style={{textAlign: 'center'}}>Online Mahalla </h1> 
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
-      <Select data={Points} onParam={handleParam} onData={handleData}/>
+      <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
         <Map
           width='100vw'
           height='95vh'
           defaultState={{
             center: param,
-            zoom : 6
+            zoom
           }}
         >
          <GeoObject  
@@ -86,11 +97,11 @@ function App() {
           type: 'Polygon',
           coordinates: coor,
           fillRule: 1,
-        }}
-        properties={{
-          balloonContent: 'Многоугольник',
-        }}
-        options={{
+          }}
+          properties={{
+            balloonContent: 'Многоугольник',
+          }}
+          options={{
           fillColor: '#00FF00',
           strokeColor: '#0000FF',
           opacity: 0.5,
