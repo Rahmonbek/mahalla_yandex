@@ -88,9 +88,7 @@ export default function Admin2() {
             <img style={{ borderRadius: "50%" }} src="https://yuz.uz/file/news/9ee76fefe2b125d5372e2cd584d74806.jpg" height="100%" alt="" />
           </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
+          Online Mahalla admin paneli
           </Menu>
         </Header>
         <Layout>

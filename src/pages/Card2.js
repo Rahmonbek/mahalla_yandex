@@ -10,14 +10,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Modal } from "antd";
 import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-
+import { UserOutlined,DeleteFilled, LaptopOutlined, NotificationOutlined , SearchOutlined } from '@ant-design/icons';
 import RingLoader from "react-spinners/RingLoader";
 
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import style from '../components/CSS/State.module.css'
 
 
 
@@ -29,8 +29,13 @@ import styles from "../components/CSS/Card.css";
 import { tuman } from "../Tumanlar";
 
 
+
+
+
+
 export default class Card2 extends Component {
   state = {
+    searchText:'',
     rows: [],
     rowsa: [],
     number: 0,
@@ -45,7 +50,27 @@ export default class Card2 extends Component {
     openMapHud: false,
     coordsHud: [],
     loading: true,
+    data: '',
+    excludeColumns: ["viloyat", "tuman", "nomi"]
   };
+
+  handleChange = value => {
+    this.setState({searchText:value});
+    this.filterData(value);
+  };
+
+  filterData = (value) => {
+    var lowercasedValue = value.toLowerCase().trim();
+    if (lowercasedValue !== "") {
+      const filteredData = this.state.rows.filter(item => {
+        return Object.keys(item).some(key =>
+          this.state.excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
+        );
+      });
+      this.setState({data: filteredData})
+    }
+  }
+
 
   onMapClick = (e) => {
     var coords = e.get("coords");
@@ -63,11 +88,6 @@ export default class Card2 extends Component {
   getMahalla = () => {
     getMahalla()
       .then((res) => {
-        
-        
-        
-        
-        
         this.setState({
           rows: res.data,
           loading: false,
@@ -220,6 +240,15 @@ export default class Card2 extends Component {
           </div>
         ) : (
           <>
+
+
+<div className={style.searchbox}>
+    <button className={style.btnsearch}><SearchOutlined /></button>
+    <input type="text"   value={this.state.searchText}
+        onChange={e =>this.handleChange(e.target.value)} className={style.inputsearch} placeholder="Type to Search..." />
+    </div>
+
+
             <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
               <Form>
                 <Row>

@@ -1,32 +1,178 @@
 .logo {
-    text-shadow: 4px 4px 2px white ;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
-    color:#fff;
+  text-shadow: 4px 4px 2px white ;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px;
+  color:#fff;
+}
+
+body{
+  margin: 0px;
+  padding: 0px;
+  background-color: #130f40;
+  font-family: 'Lato' !important;
+}
+.searchbox{
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+.inputsearch{
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  background-color: #22a6b3;
+  padding-right: 40px;
+  color:#fff;
+}
+.inputsearch::placeholder{
+  color:rgba(255,255,255,.5);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.btnsearch{
+  width: 50px;
+  height: 50px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  color:#ffffff ;
+  background-color:transparent;
+  pointer-events: painted;  
+}
+.btnsearch:focus ~ .inputsearch{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.inputsearch:focus{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+
+
+/*  footer   */
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+
+.youtubeBtn{
+    position: fixed;
+    left: 50%;
+  transform:translatex(-50%);
+    bottom: 45px;
+    cursor: pointer;
+    transition: all .3s;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+}
+.youtubeBtn i{
+   font-size:20px;
+  float:left;
+}
+.youtubeBtn a{
+    color:#ff0000;
+    animation: youtubeAnim 1000ms linear infinite;
+  float:right;
+}
+.youtubeBtn a:hover{
+  color:#c9110f;
+  transition:all .3s ease-in-out;
+  text-shadow: none;
+}
+.youtubeBtn i:active{
+  transform:scale(.9);
+  transition:all .3s ease-in-out;
+}
+.youtubeBtn span{
+    font-family: 'Lato';
+    font-weight: normal;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    float: right;
+    line-height: 20px;
+    padding-left: 5px;
+  
+}
+
+@keyframes youtubeAnim{
+  0%,100%{
+    color:#c9110f;
   }
-  @media (max-width: 800px) {
-    .logo1{
-      display: none;
-    }
+  50%{
+    color:#ff0000;
   }
-  .logo1{
-      border-radius: 5px;
-      padding-top: 16px;
+}
+/* footer  */
+
+.boxcontainer {
+  margin: 10px 0;
+}
+
+.box {
+  margin: 10px;
+  padding: 10px;
+  line-height: 25px;
+  float: left;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+.clearboth {
+  clear: both;
+}
+
+
+@media (max-width: 900px) {
+  .logo2{
+    display: none;
+  }
+}
+.logo1{
+    border-radius: 5px;
+    padding-top: 16px;
 margin:auto;
 text-align: right;
-  }
- 
-  .ant-row-rtl  {
-    float: right;
-    margin: 16px 0 16px 24px;
-  }
-  
-  .site {
-    background: #fff;
-  }
+}
+
+.ant-row-rtl  {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site {
+  background: #fff;
+}
