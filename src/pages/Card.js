@@ -19,6 +19,7 @@ import pin from "../boy.png";
 // import Modal from '@material-ui/core/Modal';
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { Points } from "../server";
+import { tuman } from "../Tumanlar";
 
 const useStyles = makeStyles({
   root: {
@@ -29,51 +30,24 @@ const useStyles = makeStyles({
   },
 });
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""}`,
-  },
-];
-
 export default function MediaCard() {
   const classes = useStyles();
-  const [rows, setRows] = useState(Points);
+  const rows = Points
+  //const [rows, setRows] = useState(Points);
   const [rowsa, setRowsa] = useState(Points);
-  const [number, setNumber]= useState(Points.length);
+  const number = Points.length
+  //const [number, setNumber]= useState(Points.length);
   // getModalStyle is not a pure function, we roll the style only on the first render
 
   const [open, setOpen] = React.useState(false);
   const [openMap, setOpenMap] = React.useState(false);
+  const [openMapHud, setOpenMapHud] = React.useState(false);
   // const [tumancheck, setTumancheck] = React.useState(true);
 
-  const [points, setPoints] = useState([]);
+  //const [points, setPoints] = useState([]);
   const [coor, setCoor] = useState([]);
   const [coords, setCoords] = useState([]);
+  const [coordsHud, setCoordsHud] = useState([]);
   
   const onMapClick = (e) => {
     const coords = e.get("coords");
@@ -87,13 +61,29 @@ export default function MediaCard() {
   setRowsa(a)
   setCoords(coords )  
 };
+const onMapClickHud = (e) => {
+  const coords = e.get("coords");
+  
+var a=coor;
+var b=coordsHud
+b.push(coords)
+
+a[number].push(coords)
+console.log(a)
+
+setCoor(a)
+setCoordsHud(b)  
+};
   const handleOpen = () => {
     setOpen(true);
     };
-  const handleOpenMap = () => {
-    setOpenMap(true);
-    };
-
+    const handleOpenMap = () => {
+      setOpenMap(true);
+      };
+      const handleOpenMapHud = () => {
+        setOpenMapHud(true);
+        };
+      
   const handleClose = () => {
     setOpen(false);
     document.getElementById("formBasictuman").value=''
@@ -125,15 +115,21 @@ setCoords([])
   const handleCloseMap = () => {
     setOpenMap(false);
   };
+  const handleCloseMapHud = () => {
+    setOpenMapHud(false);
+  };
 
 const coo=()=>{
   var coord=[]
   rows.map(item=>coord.push(item.coor))
+coord.push([])
   setCoor(coord)
 }
+
   useEffect(()=>{
  coo()
-}, [])
+ 
+},[])
 
 
 
@@ -217,11 +213,10 @@ param:coords,
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
 
                 <datalist id="tuman">
-                  <option value="Shofirkon tumani" />
-                  <option value="Buxoro shahri" />
-                  <option value="G'ijduvon tumani" />
-                  <option value="Jondor tumani" />
-                  <option value="Qorako'l tumani" />
+                  {tuman.map(item=>{
+               return(<option value={item} />
+               )
+             })}
                 </datalist>
               </Form.Group>
 
@@ -264,14 +259,15 @@ param:coords,
                 <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
               </Form.Group>
-            </Col>
-
-            <Col lg={6} md={12}>
               <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
                 <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari familiya ism ochistvasi</Form.Label>
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
               </Form.Group>
 
+            </Col>
+
+            <Col lg={6} md={12}>
+             
               <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
                 <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
@@ -327,9 +323,13 @@ param:coords,
                 <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicKotibTel">
-                <Form.Label style={{ fontSize: "14px" }}>Kotib telefon raqami</Form.Label>
+              <Form.Label style={{ fontSize: "14px" }}>Mahalla binosini belgilang</Form.Label>
               
-                <Button onClick={handleOpenMap}><LocationOnIcon /></Button>
+              <Button className="btnXarita" onClick={handleOpenMap}><LocationOnIcon /></Button>
+              <br/><br/>
+              <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
+              
+              <Button className="btnXarita" onClick={handleOpenMapHud}><LocationOnIcon /></Button>
 </Form.Group>
               
             </Col>
@@ -402,14 +402,14 @@ param:coords,
             </Col>
           ))}
         </Row>
-        <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex:'52434' }} width="80%" visible={openMap} onCancel={handleCloseMap}>
+        <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex:'52434' }} width="80%" visible={openMap} onCancel={handleCloseMap}onOk={handleCloseMap}>
         <YMaps >
         <Map
         onClick={onMapClick}
           width='100%'
           height='65vh'
           defaultState={{
-            center: rows[0].param,
+            center: rows[0].param!==[] || rows[0].param!==null?rows[0].param:[],
             zoom:6,
           }}
         >
@@ -444,6 +444,88 @@ param:coords,
             />)})}
             
          </Clusterer> 
+          <GeolocationControl options={{ float: 'left' }} />
+          <TypeSelector options={{ float: 'right' }} />
+          <TrafficControl options={{ float: 'right' }} />
+          <RouteButton options={{ float: 'right' }} />
+          <ZoomControl  options={{ float: 'left' }} />
+        </Map>
+    </YMaps>
+                </Modal>
+                <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex:'52434' }} width="80%" visible={openMapHud} 
+                onCancel={handleCloseMapHud} onOk={handleCloseMapHud}>
+        <YMaps >
+        <Map
+        onClick={onMapClickHud}
+          width='100%'
+          height='65vh'
+          defaultState={{
+            center: rows[0].param!==[] || rows[0].param!==null?rows[0].param:[],
+            zoom:6,
+          }}
+        >
+          
+          <GeoObject
+        geometry={{
+          type: 'Polygon',
+          coordinates: coor,
+          fillRule: 'nonZero',
+        }}
+        properties={{
+          balloonContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+          iconLayout: 'default#image',
+       }}
+      />
+          <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
+          {rows.map((info,index)=>{
+            
+            return(<Placemark
+              key={index}  
+              geometry={info.param}
+              properties={{
+                balloonContent: info.name,
+              }}
+            />)})}
+            {coordsHud.map((info,index)=>{
+            
+            return(<Placemark
+              key={index}  
+              geometry={info}
+              properties={{
+                balloonContent: info.name,
+              }}
+            />)})}
+            
+         </Clusterer> 
+         <GeoObject
+        geometry={{
+          type: 'Polygon',
+          coordinates: coor, 
+          fillRule: 'nonZero',
+        }}
+        properties={{
+          balloonContent: 'Многоугольник',
+        }}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+          iconLayout: 'default#image',
+          iconImageHref: pin,
+          iconImageSize: [40, 40], 
+          hideIconOnBalloonOpen: false,
+          balloonOffset: [3, -40]
+        }}
+      />
           <GeolocationControl options={{ float: 'left' }} />
           <TypeSelector options={{ float: 'right' }} />
           <TrafficControl options={{ float: 'right' }} />
