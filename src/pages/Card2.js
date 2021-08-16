@@ -255,7 +255,7 @@ export default class Card2 extends Component {
 
                       <datalist id="tuman">
                         {tuman.map((item) => {
-                          return <option value="Qorako'l tumani" />;
+                          return <option value={item} />;
                         })}
                       </datalist>
                     </Form.Group>
