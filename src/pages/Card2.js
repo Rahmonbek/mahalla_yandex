@@ -1,7 +1,7 @@
-// import { makeStyles } from "@material-ui/core";
+
 import React, { Component } from "react";
 import { createMahalla, getMahalla } from "../host/Config";
-// import { Points } from "../server";
+
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,24 +10,24 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button, Modal } from "antd";
 import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-// imoort
+
 import RingLoader from "react-spinners/RingLoader";
 
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import { DataGrid } from '@material-ui/data-grid';
-// import EditIcon from "@material-ui/icons/Edit";
-// import pin from "../boy.png";
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import Modal from './modal'
-// import Modal from '@material-ui/core/Modal';
+
+
+
+
+
+
 import { Container, Row, Col, Form, OverlayTrigger, Tooltip, Image, Table } from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import styles from "../components/CSS/Card.css";
 import { tuman } from "../Tumanlar";
-// import {getMa} from 'st'
+
 
 export default class Card2 extends Component {
   state = {
@@ -63,11 +63,11 @@ export default class Card2 extends Component {
   getMahalla = () => {
     getMahalla()
       .then((res) => {
-        //  var a=window.location.href.slice(window.location.href.indexOf('id=')+3)
-        //  console.log(a)
-        // res.data.map(item=>{
-        //   if(item)
-        // })
+        
+        
+        
+        
+        
         this.setState({
           rows: res.data,
           loading: false,
@@ -93,7 +93,7 @@ export default class Card2 extends Component {
   handleClose = () => {
     document.getElementById("formBasictuman").value = "";
     document.getElementById("formBasicname").value = "";
-    document.getElementById("formBasicviloyat").value = "Toshkent shahri";
+    document.getElementById("formBasicviloyat").value = "";
     document.getElementById("formBasicRaisFIO").value = "";
     document.getElementById("formBasicRaisTel").value = "";
     document.getElementById("formBasicemail").value = "";
@@ -110,8 +110,8 @@ export default class Card2 extends Component {
     document.getElementById("formBasicRaisOrin2Tel").value = "";
     document.getElementById("formBasicRaisOrin3FIO").value = "";
     document.getElementById("formBasicRaisOrin3Tel").value = "";
-    // document.getElementById("formBasicRaisOrin4FIO").value = "";
-    // document.getElementById("formBasicRaisOrin4Tel").value = "";
+    document.getElementById("formBasicRaisOrin4FIO").value = "";
+    document.getElementById("formBasicRaisOrin4Tel").value = "";
     document.getElementById("formBasickotibFIO").value = "";
     document.getElementById("formBasickotibTel").value = "";
     this.setState({ open: false, coords: [] });
