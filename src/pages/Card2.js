@@ -1,13 +1,13 @@
 
 import React, { Component } from "react";
-import { createMahalla, getMahalla } from "../host/Config";
+import { createMahalla, deleteMahalla, getMahalla } from "../host/Config";
 
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import { Button, Modal } from "antd";
+import { Button, message, Modal } from "antd";
 import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import {  FrownOutlined, SearchOutlined } from '@ant-design/icons';
@@ -66,17 +66,7 @@ if(item.nomi.toLowerCase().indexOf(value.toLowerCase())!==-1){
   })
   this.setState({search:search})
 
-  // filterData = (value) => {
-  //   var lowercasedValue = value.toLowerCase().trim();
-  //   if (lowercasedValue !== "") {
-  //     const filteredData = this.state.rows.filter(item => {
-  //       return Object.keys(item).some(key =>
-  //         excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
-  //       );
-  //     });
-  //     this.setState({data: filteredData})
-  //   }
-  // }
+ 
 }else{
 this.setState({search:this.state.rows})
 }    
@@ -88,7 +78,7 @@ this.setState({search:this.state.rows})
 
     var a = this.state.rowsa;
 
-    a[this.state.rows.length] = {
+    a[this.state.number] = {
       param: e.get("coords"),
     };
     this.setState({ rowsa: a });
@@ -162,50 +152,61 @@ this.setState({search:this.state.rows})
     this.setState({ coor: coord });
   };
   createPoints = () => {
-    var str = document.getElementById("formBasictuman").value;
-    if (str.indexOf(" tumani") === -1 || str.indexOf(" shahri") === -1) {
-      if (str.indexOf(" ") === -1) {
-        str += " tumani";
-      } else {
-        var a = str.substr(0, str.indexOf(" "));
-        str = a;
-        str += " tumani";
+    if(this.state.coords.length!==0 && this.state.coor[this.state.rows.length].length!==0){
+      this.setState({loading:true})
+      var str = document.getElementById("formBasictuman").value;
+      if (str.indexOf(" tumani") === -1 || str.indexOf(" shahri") === -1) {
+        if (str.indexOf(" ") === -1) {
+          str += " tumani";
+        } else {
+          var a = str.substr(0, str.indexOf(" "));
+          str = a;
+          str += " tumani";
+        }
       }
+      var point = {
+        nomi: document.getElementById("formBasicname").value,
+        viloyat: document.getElementById("formBasicviloyat").value,
+        tuman: str,
+        tel: document.getElementById("formBasictel").value,
+        email: document.getElementById("formBasicemail").value,
+        raisFIO: document.getElementById("formBasicRaisFIO").value,
+        raisTel: document.getElementById("formBasicRaisTel").value,
+        uchasFIO: document.getElementById("formBasicUchasFIO").value,
+        uchasTel: document.getElementById("formBasicUchasTel").value,
+        posbonFIO: document.getElementById("formBasicPosbonFIO").value,
+        posbonTel: document.getElementById("formBasicPosbonTel").value,
+        qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value,
+        qariyalarTel: document.getElementById("formBasicQariyalarTel").value,
+        raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value,
+        raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value,
+        raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value,
+        raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value,
+        raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value,
+        raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value,
+        RaisOrin4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
+        RaisOrin4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
+        kotibaFIO: document.getElementById("formBasickotibFIO").value,
+        kotibaTel: document.getElementById("formBasickotibTel").value,
+        param: this.state.coords,
+        coor: this.state.coor[this.state.rows.length],
+      };
+      createMahalla(point)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      this.getMahalla();
+      this.handleClose();
     }
-    var point = {
-      nomi: document.getElementById("formBasicname").value,
-      viloyat: document.getElementById("formBasicviloyat").value,
-      tuman: str,
-      tel: document.getElementById("formBasictel").value,
-      email: document.getElementById("formBasicemail").value,
-      raisFIO: document.getElementById("formBasicRaisFIO").value,
-      raisTel: document.getElementById("formBasicRaisTel").value,
-      uchasFIO: document.getElementById("formBasicUchasFIO").value,
-      uchasTel: document.getElementById("formBasicUchasTel").value,
-      posbonFIO: document.getElementById("formBasicPosbonFIO").value,
-      posbonTel: document.getElementById("formBasicPosbonTel").value,
-      qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value,
-      qariyalarTel: document.getElementById("formBasicQariyalarTel").value,
-      raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value,
-      raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value,
-      raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value,
-      raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value,
-      raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value,
-      raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value,
-      RaisOrin4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
-      RaisOrin4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
-      kotibaFIO: document.getElementById("formBasickotibFIO").value,
-      kotibaTel: document.getElementById("formBasickotibTel").value,
-      param: this.state.coords,
-      coor: this.state.coor[this.state.rows.length],
-    };
-    createMahalla(point)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    this.getMahalla();
-    this.handleClose();
+    
   };
+deleteMahalla=(id)=>{
+  this.setState({loading:true})
+  deleteMahalla(id).then(res=>{  message.success('Mahalla o\'chirildi');}).catch(err=>{  message.error('Mahalla o\'chirilmadi');})
+  setTimeout(()=>{
+    this.getMahalla()
 
+  },500)
+ }
   showPointsRead = (id) => {
     this.setState({ show: true, key: id });
   };
@@ -222,7 +223,8 @@ this.setState({search:this.state.rows})
     var a = this.state.coor;
     var b = this.state.coordsHud;
     b.push(coords);
-    a[this.state.rows.length].push(coords);
+    console.log(a, this.state.number, b)
+    a[this.state.number].push(coords);
 
     this.setState({ coor: a, coordsHud: b });
   };
@@ -230,6 +232,7 @@ this.setState({search:this.state.rows})
   
   handleCancel = () => {
     this.setState({ show: false });
+    this.getMahalla()
   };
   componentDidMount() {
     this.setState({loading:true});
@@ -242,7 +245,7 @@ this.setState({search:this.state.rows})
       this.coo();
     }, 1000);
 
-   
+    
    
   }
 
@@ -274,7 +277,21 @@ this.setState({search:this.state.rows})
                       <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
                       <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicKotibTel">
+                    <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
 
+<Button className="btnXarita" onClick={this.handleOpenMapHud}>
+  <LocationOnIcon />
+</Button>
+                     
+                      <br />
+                      <br />
+                      <Form.Label style={{ fontSize: "14px" }}>Mahalla binosini belgilang</Form.Label>
+
+                      <Button className="btnXarita" onClick={this.handleOpenMap}>
+                        <LocationOnIcon />
+                      </Button>
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicviloyat">
                       <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
                       <select id="formBasicviloyat" className="selectVil">
@@ -407,20 +424,7 @@ this.setState({search:this.state.rows})
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) telefon raqami</Form.Label>
                       <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicKotibTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla binosini belgilang</Form.Label>
-
-                      <Button className="btnXarita" onClick={this.handleOpenMap}>
-                        <LocationOnIcon />
-                      </Button>
-                      <br />
-                      <br />
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
-
-                      <Button className="btnXarita" onClick={this.handleOpenMapHud}>
-                        <LocationOnIcon />
-                      </Button>
-                    </Form.Group>
+                   
                   </Col>
                 </Row>
 
@@ -498,7 +502,8 @@ this.setState({search:this.state.rows})
                           </OverlayTrigger>
 
                           <OverlayTrigger
-                            placement="bottom"
+                        
+                         placement="bottom"
                             overlay={
                               <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "15px" }}>
                                 O'chirish
@@ -506,7 +511,7 @@ this.setState({search:this.state.rows})
                             }
                           >
                             {({ ref, ...triggerHandler }) => (
-                              <Button onClick={() => this.deletePoints} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
+                              <Button  onClick={()=>{this.deleteMahalla(text.id)}} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
                                 <Image ref={ref} />
 
                                 <IconButton>
@@ -592,7 +597,8 @@ this.setState({search:this.state.rows})
                           </OverlayTrigger>
 
                           <OverlayTrigger
-                            placement="bottom"
+                        
+                         placement="bottom"
                             overlay={
                               <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "15px" }}>
                                 O'chirish
@@ -600,7 +606,7 @@ this.setState({search:this.state.rows})
                             }
                           >
                             {({ ref, ...triggerHandler }) => (
-                              <Button onClick={() => this.deletePoints} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
+                              <Button  onClick={()=>{this.deleteMahalla(text.id)}} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
                                 <Image ref={ref} />
 
                                 <IconButton>
@@ -771,24 +777,27 @@ this.setState({search:this.state.rows})
                     zoom: 6,
                   }}
                 >
-                  <GeoObject
-                    geometry={{
-                      type: "Polygon",
-                      coordinates: this.state.coor,
-                      fillRule: "nonZero",
-                    }}
-                    properties={{
-                      balloonContent: "Многоугольник",
-                    }}
-                    options={{
-                      fillColor: "#00FF00",
-                      strokeColor: "#0000FF",
-                      opacity: 0.5,
-                      strokeWidth: 5,
-                      strokeStyle: "shortdash",
-                      iconLayout: "default#image",
-                    }}
-                  />
+               
+              <GeoObject
+                     geometry={{
+                       type: "Polygon",
+                       coordinates: this.state.coor,
+                       fillRule: "nonZero",
+                     }}
+                     properties={{
+                       balloonContent: "Многоугольник",
+                     }}
+                     options={{
+                       fillColor: "#00FF00",
+                       strokeColor: "#0000FF",
+                       opacity: 0.5,
+                       strokeWidth: 5,
+                       strokeStyle: "shortdash",
+                       iconLayout: "default#image",
+                     }}
+                   />
+                  
+                   
                   <Clusterer options={{ preset: "islands#invertedVioletClusterIcons", groupByCoordinates: false }}>
                     {this.state.rows.map((info, index) => {
                       return (

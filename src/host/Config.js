@@ -7,6 +7,14 @@ export const getMahalla = () => {
     method: "get",
   };
   return httpRequest(config);
+}
+export const deleteMahalla = (id) => {
+
+  var config = {
+    url: `${url}${id}/`,
+    method: "delete",
+  };
+  return httpRequest(config);
 };
 
 export const createMahalla = (config) => {

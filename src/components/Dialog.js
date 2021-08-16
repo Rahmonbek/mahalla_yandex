@@ -28,33 +28,33 @@ function PaperComponent(props) {
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title">
         <div style={{display: 'flex', justifyContent:'flex-end'}}><Button style={{width: '10px'}} onClick={onClose} color="primary"> X </Button></div>
-        <DialogTitle style={{ cursor: 'move', display: 'flex', justifyContent: 'center', padding: '0 10px 15px' }} id="draggable-dialog-title" onClose={onClose}>
+        <DialogTitle style={{ cursor: 'move', display: 'flex', fontSize:'30px', justifyContent: 'center', padding: '0 10px 15px', textShadow:'1px 1px 3px grey' }} id="draggable-dialog-title" onClose={onClose}>
           {nomi} mahallasi
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <div><b>Viloyat : </b>{viloyat}</div>
-            <div><b>Tuman : </b>{tuman}</div> 
-            <div><b>Rais familya ismi</b> : {raisFIO}</div>
-            <div><b>Rais telefon nomeri</b> : {raisTel}</div>
-            <div><b>Mahalla mudiri familya ismi</b> : {uchasFIO}</div>
-            <div><b>Mahalla mudiri telefon nomeri</b> : {uchasTel}</div>
-            <div><b>Mahalla posboni familya ismi </b> : {posbonFIO}</div>
-            <div><b>Mahalla posboni telefon nomeri</b> : {posbonTel}</div>
-            <div><b>Qariyalar familya ismi </b> : {qariyalarFIO}</div>
-            <div><b>Qariyalar nomeri</b> : {qariyalarTel}</div>
-            <div><b>1-rais o'rinbosari familya ismi </b> : {raiszami1FIO}</div>
-            <div><b>1-rais o'rinbosari telefon nomeri</b> : {raiszami1Tel}</div>
-            <div><b>2-rais o'rinbosari familya ismi </b> : {raiszami2FIO}</div>
-            <div><b>2-rais o'rinbosari telefon nomeri</b> : {raiszami2Tel}</div>
-            <div><b>3-rais o'rinbosari familya ismi </b> : {raiszami3FIO}</div>
-            <div><b>3-rais o'rinbosari telefon nomeri</b> : {raiszami3Tel}</div>
-            <div><b>4-rais o'rinbosari familya ismi </b> : {raiszami4FIO}</div>
-            <div><b>4-rais o'rinbosari telefon nomeri</b> : {raiszami4Tel}</div>
-            <diV><b>Kotiba familya ismi </b> : {kotibaFIO}</diV>
-            <div><b>Kotiba telefon nomeri</b> : {kotibaTel}</div>
-            <div><small>Telfon : {tel}</small></div>
-            <small>Email : {email}</small>
+            <div className="modaldiv"><b>Viloyat : </b>{viloyat}</div>
+            <div className="modaldiv"><b>Tuman : </b>{tuman}</div> 
+            <div className="modaldiv"><b>Rais familiya ismi</b> : {raisFIO}</div>
+            <div className="modaldiv"><b>Rais telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raisTel}`}>{raisTel}</a></div>
+            <div className="modaldiv"><b>Mahalla mudiri familiya ismi</b> : {uchasFIO}</div>
+            <div className="modaldiv"><b>Mahalla mudiri telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${uchasTel}`}>{uchasTel}</a></div>
+            <div className="modaldiv"><b>Mahalla posboni familiya ismi </b> : {posbonFIO}</div>
+            <div className="modaldiv"><b>Mahalla posboni telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${posbonTel}`}>{posbonTel}</a></div>
+            <div className="modaldiv"><b>Qariyalar familiya ismi </b> : {qariyalarFIO}</div>
+            <div className="modaldiv"><b>Qariyalar raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${qariyalarTel}`}>{qariyalarTel}</a></div>
+            <div className="modaldiv"><b>1-rais o'rinbosari familiya ismi </b> : {raiszami1FIO}</div>
+            <div className="modaldiv"><b>1-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami1Tel}`}>{raiszami1Tel}</a></div>
+            <div className="modaldiv"><b>2-rais o'rinbosari familiya ismi </b> : {raiszami2FIO}</div>
+            <div className="modaldiv"><b>2-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami2Tel}`}>{raiszami2Tel}</a></div>
+            <div className="modaldiv"><b>3-rais o'rinbosari familiya ismi </b> : {raiszami3FIO}</div>
+            <div className="modaldiv"><b>3-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami3Tel}`}>{raiszami3Tel}</a></div>
+            <div className="modaldiv"><b>4-rais o'rinbosari familiya ismi </b> : {raiszami4FIO}</div>
+            <div className="modaldiv"><b>4-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami4Tel}`}>{raiszami4Tel}</a></div>
+            <diV className="modaldiv"><b>Kotiba familiya ismi </b> : {kotibaFIO}</diV>
+            <div className="modaldiv"><b>Kotiba telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${kotibaTel}`}>{kotibaTel}</a></div>
+            <div className="modaldiv"><b>Telefon</b> :  <a style={{textDecoration:'none'}} href={`tel:${tel}`}>{tel}</a></div>
+            <div className="modaldiv"><b>Email</b> :<a style={{textDecoration:'none'}} href={`mailto:${email}`}> {email}</a></div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
