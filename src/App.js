@@ -50,7 +50,14 @@ function App() {
     };
     const handleData = ()=>{
       setData(JSON.parse(localStorage.getItem('data')))
-      console.log(data)
+     var g=[]
+      for(let i=0; i<data.length; i++){
+       g.push(data[i].coor)
+     }
+     setCoor(g)
+
+
+      console.log(data, coor)
        }
       
       return (
