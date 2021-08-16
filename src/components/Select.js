@@ -7,13 +7,16 @@ const { Option } = Select;
 function SelectMap(props) {
   const {onParam, onData} = props
   const [data,setData]  = useState(props.data)  
+  const [dataT,setDataT]  = useState(props.data)  
   const [cities,setCities] = useState([])
   const [neighborhoods,setNeighborhood] = useState([])
 
   const AllProvinces =[ ...new Set(props.data.map(item=>item.viloyat))]
   const handleProvinceChange = value => {
+    
     const selectProvince = data.filter(item => item.viloyat === value)  
           setData(selectProvince)
+          console.log(selectProvince)
           setCities([ ...new Set(selectProvince.map(item=>item.tuman))])
           localStorage.setItem('data',JSON.stringify(selectProvince))
           onData()
