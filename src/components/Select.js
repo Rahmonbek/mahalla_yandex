@@ -33,16 +33,15 @@ function SelectMap(props) {
     }else{
       localStorage.setItem('data',JSON.stringify(g))
       onUnnecessary(8)
-      setTumanlar(g)
     }
+    setTumanlar(g)
     setCities([ ...new Set(g.map(item=>item.tuman))])
     onData()
   };
-
+  
   const handleCityChange = value => {
     var g=[]
-    for(let i = 0; i < tumanlar.length; i ++){
-  
+    for(let i = 0; i < data.length; i++){
       if(data[i].tuman === value){
         g.push(data[i])
       }
@@ -53,15 +52,15 @@ function SelectMap(props) {
     }else{
       localStorage.setItem('data',JSON.stringify(g))
       onUnnecessary(12)
-      setMahallalar(g)
     }
+    setMahallalar(g)
     setNeighborhood([ ...new Set(g.map(item=>item.nomi))])
     onData()
   };
   
   const handleNeighborhoodsChange = value=>{
     var g=[]
-    for(let i = 0; i < mahallalar.length; i ++){
+    for(let i = 0; i < data.length; i ++){
       if(data[i].nomi === value){
         g.push(data[i])
       }
@@ -104,7 +103,7 @@ function SelectMap(props) {
                 ))}
             </Select> 
             <Select style={{ width: 120 }} defaultValue='Mahalla' onChange={handleNeighborhoodsChange}>
-                <Option key={1} >Hammasi</Option>
+                <Option key={1}>Hammasi</Option>
                 {neighborhoods.map(item => (
                 <Option key={item}>{item}</Option>
                 ))}

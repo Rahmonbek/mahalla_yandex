@@ -99,7 +99,7 @@ function App() {
           }}
         
           options={{
-          fillColor:`#00FF00`,
+          fillColor:`rgba(255,255,0,0.4)`,
           strokeColor: '#0000FF',
           opacity: 0.5,
           strokeWidth: 5,
