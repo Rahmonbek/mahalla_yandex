@@ -114,7 +114,9 @@ export default class Card2 extends Component {
     document.getElementById("formBasicRaisOrin4Tel").value = "";
     document.getElementById("formBasickotibFIO").value = "";
     document.getElementById("formBasickotibTel").value = "";
-    this.setState({ open: false, coords: [] });
+    var f=this.state.coor
+    f[this.state.rows.length]=[]
+    this.setState({ open: false, coords: [],coordsHud:[], coor:f });
   };
 
   handleCloseMap = () => {
@@ -187,7 +189,6 @@ export default class Card2 extends Component {
     var a = this.state.coor;
     var b = this.state.coordsHud;
     b.push(coords);
-    console.log(a);
     a[this.state.rows.length].push(coords);
 
     this.setState({ coor: a, coordsHud: b });
@@ -196,14 +197,16 @@ export default class Card2 extends Component {
     this.setState({ show: false });
   };
   componentDidMount() {
+    this.getMahalla();
     setTimeout(() => {
       this.setState({
         number: this.state.rows.length,
       });
+      this.coo();
     }, 1000);
 
-    this.getMahalla();
-    this.coo();
+   
+   
   }
 
   render() {
