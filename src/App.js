@@ -85,7 +85,6 @@ function App() {
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
       <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
-     {console.log(zoom, param)}
         <Map
           width='100vw'
           height='95vh'
@@ -94,6 +93,7 @@ function App() {
             zoom:zoom,
           }}
         >
+
          <GeoObject  
           geometry={{
           type: 'Polygon',
@@ -103,8 +103,9 @@ function App() {
           properties={{
             balloonContent: 'Многоугольник',
           }}
+        
           options={{
-          fillColor: '#00FF00',
+          fillColor:`#00FF00`,
           strokeColor: '#0000FF',
           opacity: 0.5,
           strokeWidth: 5,
