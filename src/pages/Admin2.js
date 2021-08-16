@@ -108,52 +108,52 @@ export default function Admin2() {
                   Hammasi
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Andijon viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Andijon viloyat">
+              <Menu.Item key="Andijon viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Andijon viloyati">
                   {" "}
-                  Andijon viloyat
+                  Andijon viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Buxoro viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Buxoro viloyat">
+              <Menu.Item key="Buxoro viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Buxoro viloyati">
                   {" "}
-                  Buxoro viloyat
+                  Buxoro viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Fargona viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Fargona viloyat">
+              <Menu.Item key="Fargona viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Fargona viloyati">
                   {" "}
-                  Farg'ona viloyat
+                  Farg'ona viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Jizzax viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Jizzax viloyat">
+              <Menu.Item key="Jizzax viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Jizzax viloyati">
                   {" "}
-                  Jizzax viloyat
+                  Jizzax viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Xorazm viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Xorazm viloyat">
+              <Menu.Item key="Xorazm viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Xorazm viloyati">
                   {" "}
-                  Xorazm viloyat
+                  Xorazm viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Namangan viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Namangan viloyat">
+              <Menu.Item key="Namangan viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Namangan viloyati">
                   {" "}
-                  Namangan viloyat
+                  Namangan viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Navoiy viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Navoiy viloyat">
+              <Menu.Item key="Navoiy viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Navoiy viloyati">
                   {" "}
-                  Navoiy viloyat
+                  Navoiy viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Qashqadaryo viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Qashqadaryo viloyat">
+              <Menu.Item key="Qashqadaryo viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Qashqadaryo viloyati">
                   {" "}
-                  Qashqadaryo viloyat
+                  Qashqadaryo viloyati
                 </Link>
               </Menu.Item>
               <Menu.Item key="Qoraqalpog'iston Respublikasi" icon={<UserOutlined />}>
@@ -162,22 +162,22 @@ export default function Admin2() {
                   Qoraqalpog'iston Respublikasi
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Samarqand viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Samarqand viloyat">
+              <Menu.Item key="Samarqand viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Samarqand viloyati">
                   {" "}
-                  Samarqand viloyat
+                  Samarqand viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Sirdaryo viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Sirdaryo viloyat">
+              <Menu.Item key="Sirdaryo viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Sirdaryo viloyati">
                   {" "}
-                  Sirdaryo viloyat
+                  Sirdaryo viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Surxondaryo viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Surxondaryo viloyat">
+              <Menu.Item key="Surxondaryo viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Surxondaryo viloyati">
                   {" "}
-                  Surxondaryo viloyat
+                  Surxondaryo viloyati
                 </Link>
               </Menu.Item>
               <Menu.Item key="Toshkent shahri" icon={<UserOutlined />}>
@@ -186,10 +186,10 @@ export default function Admin2() {
                   Toshkent shahri
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Toshkent viloyat" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Toshkent viloyat">
+              <Menu.Item key="Toshkent viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Toshkent viloyati">
                   {" "}
-                  Toshkent viloyat
+                  Toshkent viloyati
                 </Link>
               </Menu.Item>
             </Menu>
