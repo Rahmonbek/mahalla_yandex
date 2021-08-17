@@ -5606,6 +5606,11 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
+fortawesome@0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fortawesome/-/fortawesome-0.0.1-security.tgz#1c85341f2fa14e1adb28ccfaecfa7ef63796e6fa"
+  integrity sha512-o/pwn9ZSnveFLYP0d5IejSwz0rpGMDQsBaYVvR8WXSvnxILIwh7IUJK0P90QMF4cnIyouVF2BGrz0LEVSyzimA==
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/forwarded/-/forwarded-0.1.2.tgz"
@@ -10233,6 +10238,13 @@ react-event-listener@^0.6.2, react-event-listener@^0.6.6:
     "@babel/runtime" "^7.2.0"
     prop-types "^15.6.0"
     warning "^4.0.1"
+
+react-fontawesome@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.7.1.tgz#f74f5a338fef3ee3b379820109c1cba47290f035"
+  integrity sha512-kottReWW1I9Uupub6A5YX4VK7qfpFnEjAcm5zB4Aepst7iofONT27GJYdTcRsj7q5uQu9PXBL7GsxAFKANNUVg==
+  dependencies:
+    prop-types "^15.5.6"
 
 react-image-lightbox@5.1.1:
   version "5.1.1"
