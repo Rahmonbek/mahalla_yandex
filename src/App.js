@@ -76,9 +76,9 @@ function App() {
         <RingLoader loading={loading} size={150} color={'#f37a24'}></RingLoader>
       </div>
     ) : (
-      <><div style={{display:'flex'}}>
-        <img style={{ borderRadius: "50%",height:'70px',width:'70px',marginLeft:'10%' }} src={oila} alt="" />
-      <h1 style={{textAlign: 'center', paddingLeft:'40px',paddingTop:'10px', textShadow:'3px 3px 10px black'}}>Online Mahalla </h1> </div>
+      <><div style={{display:'flex',justifyContent:'center',margin:'auto',alignItems:'center',paddingRight:'20px',backgroundColor:'#FCFCE9',Shadow:'5px 10px 26px black'}}>
+        <img style={{ borderRadius: "50%",height:'70px',width:'70px',marginLeft:'20px', }} src={oila} alt="" />
+      <h1 style={{textAlign: 'center', paddingLeft:'20px',paddingTop:'10px',fontWeight:'700', fontSize:'26px'}}>O`zbekiston Respublikasi mahalla va oilani qo`llab-quvatlash vazirligi </h1> </div>
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
       <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
