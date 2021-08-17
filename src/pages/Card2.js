@@ -961,18 +961,7 @@ export default class Card2 extends Component {
                                     }}
                                   />
 
-                                  <Placemark
-                                    key={0}
-                                    geometry={text.param}
-                                    options={{
-                                      iconLayout: "default#image",
-                                      iconImageHref:
-                                        "https://w7.pngwing.com/pngs/371/489/png-transparent-computer-icons-drawing-pin-apple-icon-format-pinterest-miscellaneous-pin-business-thumbnail.png",
-                                      iconImageSize: [40, 40],
-                                      hideIconOnBalloonOpen: false,
-                                      balloonOffset: [3, -40],
-                                    }}
-                                  />
+                                  <Placemark key={0} geometry={text.param} />
                                 </Map>
                               </YMaps>
                             </CardMedia>
@@ -1475,6 +1464,14 @@ export default class Card2 extends Component {
                         <Placemark
                           key={index}
                           geometry={info}
+                          options={{
+                            iconLayout: "default#image",
+                            iconImageHref:
+                              "https://w7.pngwing.com/pngs/371/489/png-transparent-computer-icons-drawing-pin-apple-icon-format-pinterest-miscellaneous-pin-business-thumbnail.png",
+                            iconImageSize: [40, 40],
+                            hideIconOnBalloonOpen: false,
+                            balloonOffset: [3, -40],
+                          }}
                           onClick={() => {
                             this.deleteHud(index);
                           }}
