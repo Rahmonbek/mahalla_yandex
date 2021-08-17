@@ -1,143 +1,196 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 //import { Points} from './server'
-import {YMaps, Map, Clusterer, Placemark, 
-  TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from 'react-yandex-maps'
+import {
+  YMaps,
+  Map,
+  Clusterer,
+  Placemark,
+  TypeSelector,
+  ZoomControl,
+  GeolocationControl,
+  RouteButton,
+  TrafficControl,
+  GeoObject,
+} from "react-yandex-maps";
 
-import oila from './pages/new.jpg'
-import pin from './boy.png'
-import RingLoader from 'react-spinners/RingLoader'
-import Dialog from './components/Dialog'
-import 'antd/dist/antd.css'
-import './App.css'
-import Select from './components/Select'
-import Footer from './components/Footer'
-import axios  from 'axios';
-import {url} from './host/Host'
+import oila from "./pages/new.jpg";
+import pin from "./boy.png";
+import RingLoader from "react-spinners/RingLoader";
+import Dialog from "./components/Dialog";
+import "antd/dist/antd.css";
+import "./App.css";
+import Select from "./components/Select";
+import Footer from "./components/Footer";
+import axios from "axios";
+import { url } from "./host/Host";
 function App() {
-     const [loading,setLoading]= useState(true)
-     const [forclick,setforclick]= useState(false)
-     const [village, setVillage] = useState('')
-     const [param, setParam]= useState([41.311151, 69.279716])
-     const [data,setData] = useState([])
-     const [coor,setCoor] = useState([])
-     const [Points,setPoints] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [forclick, setforclick] = useState(false);
+  const [village, setVillage] = useState("");
+  const [param, setParam] = useState([41.311151, 69.279716]);
+  const [data, setData] = useState([]);
+  const [coor, setCoor] = useState([]);
+  const [Points, setPoints] = useState([]);
 
-     const [zoom,setZoom] = useState(6)
+  const [zoom, setZoom] = useState(6);
 
-     useEffect(()=>{
-        axios.get(url).then((res)=>{
-          setData(res.data)
-          setPoints(res.data)
-        
-          navigator.geolocation.getCurrentPosition(function(position) {
-          // console.log("Latitude is :", position.coords.latitude);
-          // console.log("Longitude is :", position.coords.longitude);
-        });
+  useEffect(() => {
+    axios.get(url).then((res) => {
+      setData(res.data);
+      setPoints(res.data);
 
-        var coord=[]
-        res.data.map(item=>coord.push(item.coor))
-        setCoor(coord)
-        setLoading(false)
-        })
-     },[])
+      navigator.geolocation.getCurrentPosition(function (position) {
+        // console.log("Latitude is :", position.coords.latitude);
+        // console.log("Longitude is :", position.coords.longitude);
+      });
 
-     const handleUnnecessary = (e)=>{
-       setZoom(e)
-     }
+      var coord = [];
+      res.data.map((item) => coord.push(item.coor));
+      setCoor(coord);
+      setLoading(false);
+    });
+  }, []);
 
-    const Information = (data)=>{
-      setforclick(true)  
-      setVillage(data)
+  const handleUnnecessary = (e) => {
+    setZoom(e);
+  };
+
+  const Information = (data) => {
+    setforclick(true);
+    setVillage(data);
+  };
+  const handleParam = () => {
+    let param = localStorage.getItem("param");
+    setParam(JSON.parse(param).param);
+  };
+  const handleClose = () => {
+    setforclick(false);
+  };
+  const handleData = () => {
+    setData(JSON.parse(localStorage.getItem("data")));
+    var g = [];
+
+    for (let i = 0; i < JSON.parse(localStorage.getItem("data")).length; i++) {
+      g.push(JSON.parse(localStorage.getItem("data"))[i].coor);
     }
-    const handleParam = ()=>{
-      let param = localStorage.getItem('param')
-      setParam(JSON.parse(param)[0].param)
-    }
-    const handleClose = () => {
-      setforclick(false);
-    };
-    const handleData = ()=>{
-      setData(JSON.parse(localStorage.getItem('data')))
-     var g=[]
-      
-     for(let i=0; i<JSON.parse(localStorage.getItem('data')).length; i++){
-       g.push(JSON.parse(localStorage.getItem('data'))[i].coor)
-     }
-     setCoor(g)
+    setCoor(g);
 
+    console.log(JSON.parse(localStorage.getItem("data")), coor);
+  };
 
-      console.log(JSON.parse(localStorage.getItem('data')), coor)
-       }
-      
-      return (
+  return (
     <>
-     {loading ? (
-      <div style={{width: '100vw', height: '100vh', display:'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <RingLoader loading={loading} size={150} color={'#f37a24'}></RingLoader>
-      </div>
-    ) : (
-      <><div style={{display:'flex'}}>
-        <img style={{ borderRadius: "50%",height:'70px',width:'70px',marginLeft:'10%' }} src={oila} alt="" />
-      <h1 style={{textAlign: 'center',marginLeft:'40px', margin:'auto',}}>Online Mahalla </h1> </div>
-      {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
-      <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
-        <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
-        <Map
-          width='100vw'
-          height='95vh'
-          state={{
-            center: param,
-            zoom
+      {loading ? (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-
-         <GeoObject  
-          geometry={{
-          type: 'Polygon',
-          coordinates: coor,
-          fillRule: 1,
-          }}
-          properties={{
-            balloonContent: 'Многоугольник',
-          }}
-        
-          options={{
-          fillColor:`rgba(255,255,0,0.4)`,
-          strokeColor: '#0000FF',
-          opacity: 0.5,
-          strokeWidth: 5,
-          strokeStyle: 'shortdash',
-          iconLayout: 'default#image',
-          iconImageHref: pin,
-          iconImageSize: [40, 40], 
-          hideIconOnBalloonOpen: false,
-          balloonOffset: [3, -40]
-        }} 
-      />
-          <Clusterer options={{  preset: 'islands#invertedVioletClusterIcons',  groupByCoordinates: false, }}  >
-            {data.map((info,index)=>{
-            
-            return<Placemark
-              key={index}  
-              geometry={info.param}
-              onClick={()=>Information(info)}
-              properties={{
-                balloonContent: info.name,
+          <RingLoader
+            loading={loading}
+            size={150}
+            color={"#f37a24"}
+          ></RingLoader>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: "flex" }}>
+            <img
+              style={{
+                borderRadius: "50%",
+                height: "70px",
+                width: "70px",
+                marginLeft: "10%",
               }}
-            />})}
-         </Clusterer> 
-          <GeolocationControl options={{ float: 'left' }} />
-          <TypeSelector options={{ float: 'right' }} />
-          <TrafficControl options={{ float: 'right' }} />
-          <RouteButton options={{ float: 'right' }} />
-          <ZoomControl  options={{ float: 'left' }} />
-        </Map>
-    </YMaps>
-
-   </>
-    )}
-    <Footer/>
-    </> 
+              src={oila}
+              alt=""
+            />
+            <h1
+              style={{
+                textAlign: "center",
+                marginLeft: "40px",
+                margin: "auto",
+              }}
+            >
+              Online Mahalla{" "}
+            </h1>{" "}
+          </div>
+          {forclick ? (
+            <Dialog open={forclick} onClose={handleClose} village={village} />
+          ) : (
+            ""
+          )}
+          <Select
+            data={Points}
+            onParam={handleParam}
+            onData={handleData}
+            onUnnecessary={handleUnnecessary}
+          />
+          <YMaps key={"uz_UZ"} query={{ lang: "uz_UZ" }}>
+            <Map
+              width="100vw"
+              height="95vh"
+              state={{
+                center: param,
+                zoom,
+              }}
+            >
+              <GeoObject
+                geometry={{
+                  type: "Polygon",
+                  coordinates: coor,
+                  fillRule: 1,
+                }}
+                properties={{
+                  balloonContent: "Многоугольник",
+                }}
+                options={{
+                  fillColor: `rgba(255,255,0,0.4)`,
+                  strokeColor: "#0000FF",
+                  opacity: 0.5,
+                  strokeWidth: 5,
+                  strokeStyle: "shortdash",
+                  iconLayout: "default#image",
+                  iconImageHref: pin,
+                  iconImageSize: [40, 40],
+                  hideIconOnBalloonOpen: false,
+                  balloonOffset: [3, -40],
+                }}
+              />
+              <Clusterer
+                options={{
+                  preset: "islands#invertedVioletClusterIcons",
+                  groupByCoordinates: false,
+                }}
+              >
+                {data.map((info, index) => {
+                  return (
+                    <Placemark
+                      key={index}
+                      geometry={info.param}
+                      onClick={() => Information(info)}
+                      properties={{
+                        balloonContent: info.name,
+                      }}
+                    />
+                  );
+                })}
+              </Clusterer>
+              <GeolocationControl options={{ float: "left" }} />
+              <TypeSelector options={{ float: "right" }} />
+              <TrafficControl options={{ float: "right" }} />
+              <RouteButton options={{ float: "right" }} />
+              <ZoomControl options={{ float: "left" }} />
+            </Map>
+          </YMaps>
+        </>
+      )}
+      <Footer />
+    </>
   );
 }
 export default App;

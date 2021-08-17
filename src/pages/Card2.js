@@ -1,6 +1,10 @@
-
 import React, { Component } from "react";
-import { createMahalla, deleteMahalla, editMahalla, getMahalla } from "../host/Config";
+import {
+  createMahalla,
+  deleteMahalla,
+  editMahalla,
+  getMahalla,
+} from "../host/Config";
 
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -8,34 +12,45 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, message, Modal } from "antd";
-import { YMaps, Map, Clusterer, Placemark, TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from "react-yandex-maps";
+import {
+  YMaps,
+  Map,
+  Clusterer,
+  Placemark,
+  TypeSelector,
+  ZoomControl,
+  GeolocationControl,
+  RouteButton,
+  TrafficControl,
+  GeoObject,
+} from "react-yandex-maps";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import {  FrownOutlined, SearchOutlined } from '@ant-design/icons';
+import { FrownOutlined, SearchOutlined } from "@ant-design/icons";
 import RingLoader from "react-spinners/RingLoader";
 
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import style from '../components/CSS/State.module.css'
+import style from "../components/CSS/State.module.css";
 
-
-
-
-
-import { Container, Row, Col, Form, OverlayTrigger, Tooltip, Image, Table } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  OverlayTrigger,
+  Tooltip,
+  Image,
+  Table,
+} from "react-bootstrap";
 import { IconButton } from "@material-ui/core";
 import styles from "../components/CSS/Card.css";
 import { tuman } from "../Tumanlar";
 
-
-
-
-
-
 export default class Card2 extends Component {
   state = {
-    searchText:'',
+    searchText: "",
     rows: [],
     search: [],
     rowsa: [],
@@ -52,29 +67,25 @@ export default class Card2 extends Component {
     openMapHud: false,
     coordsHud: [],
     loading: true,
-    data: '',
+    data: "",
     excludeColumns: ["viloyat", "tuman", "nomi"],
     edit:{},
     editID:true
   };
 
-  handleChange = (value) =>{
-var search=[]
-if(value!=='' ||value!==' '){
-  this.state.rows.map(item=>{
-if(item.nomi.toLowerCase().indexOf(value.toLowerCase())!==-1){
-  search.push(item)
-}
-   
-  })
-  this.setState({search:search})
-
- 
-}else{
-this.setState({search:this.state.rows})
-}    
+  handleChange = (value) => {
+    var search = [];
+    if (value !== "" || value !== " ") {
+      this.state.rows.map((item) => {
+        if (item.nomi.toLowerCase().indexOf(value.toLowerCase()) !== -1) {
+          search.push(item);
+        }
+      });
+      this.setState({ search: search });
+    } else {
+      this.setState({ search: this.state.rows });
+    }
   };
-  
 
   getMahalla = () => {
     getMahalla()
@@ -91,14 +102,13 @@ this.setState({search:this.state.rows})
             number: this.state.rows.length,
           });
         }, 1000);
-    
       })
 
       .catch((err) => console.log(err));
   };
   handleOpen = () => {
     this.setState({ open: true });
-    console.log(this.state.search, this.state.edit)
+    console.log(this.state.search, this.state.edit);
   };
   handleOpenMap = () => {
     this.setState({ openMap: true });
@@ -166,29 +176,95 @@ this.setState({search:this.state.rows})
         }
       }
       var point = {
-        nomi: document.getElementById("formBasicname").value===""?this.state.edit.nomi:document.getElementById("formBasicname").value,
-        viloyat: document.getElementById("formBasicviloyat").value===""?this.state.edit.viloyat:document.getElementById("formBasicviloyat").value,
+        nomi:
+          document.getElementById("formBasicname").value === ""
+            ? this.state.edit.nomi
+            : document.getElementById("formBasicname").value,
+        viloyat:
+          document.getElementById("formBasicviloyat").value === ""
+            ? this.state.edit.viloyat
+            : document.getElementById("formBasicviloyat").value,
         tuman: str,
-        tel: document.getElementById("formBasictel").value===""?this.state.edit.tel:document.getElementById("formBasictel").value,
-        email: document.getElementById("formBasicemail").value===""?this.state.edit.email:document.getElementById("formBasicemail").value,
-        raisFIO: document.getElementById("formBasicRaisFIO").value===""?this.state.edit.raisFIO:document.getElementById("formBasicRaisFIO").value,
-        rasiTel: document.getElementById("formBasicRasiTel").value===""?this.state.edit.rasiTel:document.getElementById("formBasicRasiTel").value,
-        uchasFIO: document.getElementById("formBasicUchasFIO").value===""?this.state.edit.uchasFIO:document.getElementById("formBasicUchasFIO").value,
-        uchasTel: document.getElementById("formBasicUchasTel").value===""?this.state.edit.uchasTel:document.getElementById("formBasicUchasTel").value,
-        posbonFIO: document.getElementById("formBasicPosbonFIO").value===""?this.state.edit.posbonFIO:document.getElementById("formBasicPosbonFIO").value,
-        posbonTel: document.getElementById("formBasicPosbonTel").value===""?this.state.edit.posbonTel:document.getElementById("formBasicPosbonTel").value,
-        qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value===""?this.state.edit.qariyalarFIO:document.getElementById("formBasicQariyalarFIO").value,
-        qariyalarTel: document.getElementById("formBasicQariyalarTel").value===""?this.state.edit.qariyalarTel:document.getElementById("formBasicQariyalarTel").value,
-        raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value===""?this.state.edit.raiszami1FIO:document.getElementById("formBasicRaisOrin1FIO").value,
-        raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value===""?this.state.edit.raiszami1Tel:document.getElementById("formBasicRaisOrin1Tel").value,
-        raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value===""?this.state.edit.raiszami2FIO:document.getElementById("formBasicRaisOrin2FIO").value,
-        raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value===""?this.state.edit.raiszami2Tel:document.getElementById("formBasicRaisOrin2Tel").value,
-        raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value===""?this.state.edit.raiszami3FIO:document.getElementById("formBasicRaisOrin3FIO").value,
-        raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value===""?this.state.edit.raiszami3Tel:document.getElementById("formBasicRaisOrin3Tel").value,
-        raiszami4FIO: document.getElementById("formBasicRaisOrin4FIO").value===""?this.state.edit.raiszami4FIO:document.getElementById("formBasicRaisOrin4FIO").value,
-        raiszami4Tel: document.getElementById("formBasicRaisOrin4Tel").value===""?this.state.edit.raiszami4Tel:document.getElementById("formBasicRaisOrin4Tel").value,
-        kotibaFIO: document.getElementById("formBasickotibFIO").value===""?this.state.edit.kotibaFIO:document.getElementById("formBasickotibFIO").value,
-        kotibaTel: document.getElementById("formBasickotibTel").value===""?this.state.edit.kotibaTel:document.getElementById("formBasickotibTel").value,
+        tel:
+          document.getElementById("formBasictel").value === ""
+            ? this.state.edit.tel
+            : document.getElementById("formBasictel").value,
+        email:
+          document.getElementById("formBasicemail").value === ""
+            ? this.state.edit.email
+            : document.getElementById("formBasicemail").value,
+        raisFIO:
+          document.getElementById("formBasicRaisFIO").value === ""
+            ? this.state.edit.raisFIO
+            : document.getElementById("formBasicRaisFIO").value,
+        rasiTel:
+          document.getElementById("formBasicRasiTel").value === ""
+            ? this.state.edit.rasiTel
+            : document.getElementById("formBasicRasiTel").value,
+        uchasFIO:
+          document.getElementById("formBasicUchasFIO").value === ""
+            ? this.state.edit.uchasFIO
+            : document.getElementById("formBasicUchasFIO").value,
+        uchasTel:
+          document.getElementById("formBasicUchasTel").value === ""
+            ? this.state.edit.uchasTel
+            : document.getElementById("formBasicUchasTel").value,
+        posbonFIO:
+          document.getElementById("formBasicPosbonFIO").value === ""
+            ? this.state.edit.posbonFIO
+            : document.getElementById("formBasicPosbonFIO").value,
+        posbonTel:
+          document.getElementById("formBasicPosbonTel").value === ""
+            ? this.state.edit.posbonTel
+            : document.getElementById("formBasicPosbonTel").value,
+        qariyalarFIO:
+          document.getElementById("formBasicQariyalarFIO").value === ""
+            ? this.state.edit.qariyalarFIO
+            : document.getElementById("formBasicQariyalarFIO").value,
+        qariyalarTel:
+          document.getElementById("formBasicQariyalarTel").value === ""
+            ? this.state.edit.qariyalarTel
+            : document.getElementById("formBasicQariyalarTel").value,
+        raiszami1FIO:
+          document.getElementById("formBasicRaisOrin1FIO").value === ""
+            ? this.state.edit.raiszami1FIO
+            : document.getElementById("formBasicRaisOrin1FIO").value,
+        raiszami1Tel:
+          document.getElementById("formBasicRaisOrin1Tel").value === ""
+            ? this.state.edit.raiszami1Tel
+            : document.getElementById("formBasicRaisOrin1Tel").value,
+        raiszami2FIO:
+          document.getElementById("formBasicRaisOrin2FIO").value === ""
+            ? this.state.edit.raiszami2FIO
+            : document.getElementById("formBasicRaisOrin2FIO").value,
+        raiszami2Tel:
+          document.getElementById("formBasicRaisOrin2Tel").value === ""
+            ? this.state.edit.raiszami2Tel
+            : document.getElementById("formBasicRaisOrin2Tel").value,
+        raiszami3FIO:
+          document.getElementById("formBasicRaisOrin3FIO").value === ""
+            ? this.state.edit.raiszami3FIO
+            : document.getElementById("formBasicRaisOrin3FIO").value,
+        raiszami3Tel:
+          document.getElementById("formBasicRaisOrin3Tel").value === ""
+            ? this.state.edit.raiszami3Tel
+            : document.getElementById("formBasicRaisOrin3Tel").value,
+        raiszami4FIO:
+          document.getElementById("formBasicRaisOrin4FIO").value === ""
+            ? this.state.edit.raiszami4FIO
+            : document.getElementById("formBasicRaisOrin4FIO").value,
+        raiszami4Tel:
+          document.getElementById("formBasicRaisOrin4Tel").value === ""
+            ? this.state.edit.raiszami4Tel
+            : document.getElementById("formBasicRaisOrin4Tel").value,
+        kotibaFIO:
+          document.getElementById("formBasickotibFIO").value === ""
+            ? this.state.edit.kotibaFIO
+            : document.getElementById("formBasickotibFIO").value,
+        kotibaTel:
+          document.getElementById("formBasickotibTel").value === ""
+            ? this.state.edit.kotibaTel
+            : document.getElementById("formBasickotibTel").value,
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
@@ -207,25 +283,29 @@ this.setState({search:this.state.rows})
       }
       
     }
-    
   };
-deleteMahalla=(id)=>{
-  this.setState({loading:true})
-  deleteMahalla(id).then(res=>{  message.success('Mahalla o\'chirildi');}).catch(err=>{  message.error('Mahalla o\'chirilmadi');})
-  setTimeout(()=>{
-    this.getMahalla()
-
-  },500)
- }
+  deleteMahalla = (id) => {
+    this.setState({ loading: true });
+    deleteMahalla(id)
+      .then((res) => {
+        message.success("Mahalla o'chirildi");
+      })
+      .catch((err) => {
+        message.error("Mahalla o'chirilmadi");
+      });
+    setTimeout(() => {
+      this.getMahalla();
+    }, 500);
+  };
   showPointsRead = (id) => {
     this.setState({ show: true, key: id });
   };
   handleOpenMapHud = () => {
-    this.setState({ openMapHud: true , });
+    this.setState({ openMapHud: true });
   };
 
   handleCloseMapHud = () => {
-    this.setState({ openMapHud: false,   });
+    this.setState({ openMapHud: false });
   };
   onMapClickHud = (e) => {
     const coords = e.get("coords");
@@ -233,7 +313,7 @@ deleteMahalla=(id)=>{
     var a = this.state.coor;
     var b = this.state.coordsHud;
     b.push(coords);
-    console.log(a, this.state.number, b)
+    console.log(a, this.state.number, b);
     a[this.state.number].push(coords);
 
     this.setState({ coor: a, coordsHud: b });
@@ -251,15 +331,14 @@ deleteMahalla=(id)=>{
       coords: coords,
     });
   };
- 
-  
+
   handleCancel = () => {
     this.setState({ show: false });
-    this.getMahalla()
+    this.getMahalla();
   };
-  editPoints=(item)=>{
-    var r=this.state.rows[item]
-    console.log(r)
+  editPoints = (item) => {
+    var r = this.state.rows[item];
+    console.log(r);
     var a = this.state.coor;
   a[this.state.number]=r.coor
  var b=this.state.rowsa
@@ -283,12 +362,9 @@ deleteMahalla=(id)=>{
     }
   
   componentDidMount() {
-    this.setState({loading:true});
+    this.setState({ loading: true });
 
     this.getMahalla();
- 
-    
-   
   }
 
   formChange=(e)=>{
@@ -301,8 +377,25 @@ const {edit, nomi} = this.state
     return (
       <div>
         {this.state.loading ? (
-          <div style={{ position: "fixed" ,top: "0px", left: "0px", alignItems: "center", zIndex: "3945", width: "100%",background:'white', height: "100vh", display: "flex", justifyContent: "center" }}>
-            <RingLoader loading={this.state.loading} size={150} color={"#f37a24"}></RingLoader>
+          <div
+            style={{
+              position: "fixed",
+              top: "0px",
+              left: "0px",
+              alignItems: "center",
+              zIndex: "3945",
+              width: "100%",
+              background: "white",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <RingLoader
+              loading={this.state.loading}
+              size={150}
+              color={"#f37a24"}
+            ></RingLoader>
           </div>
         ) : (
           <>
@@ -336,9 +429,14 @@ const {edit, nomi} = this.state
                
                       <br />
                       <br />
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla binosini belgilang</Form.Label>
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Mahalla binosini belgilang
+                      </Form.Label>
 
-                      <Button className="btnXarita" onClick={this.handleOpenMap}>
+                      <Button
+                        className="btnXarita"
+                        onClick={this.handleOpenMap}
+                      >
                         <LocationOnIcon />
                       </Button>
                       
@@ -348,19 +446,37 @@ const {edit, nomi} = this.state
                       <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
                       <select  onChange={(e)=>{var edit1=this.state.edit; edit1.viloyat=e.target.value; this.setState({edit:edit1})}} value={edit.viloyat}  required={true} id="formBasicviloyat" className="selectVil">
                         <option value="Toshkent shahri">Toshkent shahri</option>
-                        <option value="Toshkent viloyati">Toshkent viloyati</option>
+                        <option value="Toshkent viloyati">
+                          Toshkent viloyati
+                        </option>
                         <option value="Buxoro viloyati">Buxoro viloyati</option>
                         <option value="Xorazm viloyati">Xorazm viloyati</option>
-                        <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
-                        <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
-                        <option value="Andijon viloyati">Andijon viloyati</option>
+                        <option value="Surxondaryo viloyati">
+                          Surxondaryo viloyati
+                        </option>
+                        <option value="Qashqadaryo viloyati">
+                          Qashqadaryo viloyati
+                        </option>
+                        <option value="Andijon viloyati">
+                          Andijon viloyati
+                        </option>
                         <option value="Navoiy viloyati">Navoiy viloyati</option>
-                        <option value="Farg'ona viloyati">Farg'ona viloyati</option>
-                        <option value="Namangan viloyati">Namangan viloyati</option>
+                        <option value="Farg'ona viloyati">
+                          Farg'ona viloyati
+                        </option>
+                        <option value="Namangan viloyati">
+                          Namangan viloyati
+                        </option>
                         <option value="Jizzax viloyati">Jizzax viloyati</option>
-                        <option value="Samarqand viloyati">Samarqand viloyati</option>
-                        <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
-                        <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+                        <option value="Samarqand viloyati">
+                          Samarqand viloyati
+                        </option>
+                        <option value="Sirdaryo viloyati">
+                          Sirdaryo viloyati
+                        </option>
+                        <option value="Qoraqalpog'iston Respublikasi">
+                          Qoraqalpog'iston Respublikasi
+                        </option>
                       </select>
                       
                     </Form.Group>
@@ -479,7 +595,6 @@ const {edit, nomi} = this.state
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) telefon raqami</Form.Label>
                       <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.kotibaTel=e.target.value; this.setState({edit:edit1})}} value={edit.kotibaTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
-                   
                   </Col>
                 </Row>
 
@@ -498,222 +613,370 @@ const {edit, nomi} = this.state
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.search.length===0?
-                <div style={{paddingTop:'50px'}} ><FrownOutlined style={{fontSize:'20px',paddingRight:'20px',paddingBotton:'10px'}} /> Bunday mahalla bazada mavjud emas</div>:
-                this.state.search.map((text, index) =>
-                  vil === "Hammasi" && text.param.length!==0 ? (
-                    <Col lg={4} md={6} sm={12}>
-                      <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
-                        <CardActionArea>
-                          <CardMedia className={styles.media}>
-                            <YMaps>
-                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 6 }}>
-                                <GeoObject
-                                  geometry={{
-                                    type: "Polygon",
-                                    coordinates: text.coor,
-                                    fillRule: "nonZero",
-                                  }}
-                                  properties={{
-                                    balloonContent: "Многоугольник",
-                                  }}
-                                  options={{
-                                    fillColor: "#00FF00",
-                                    strokeColor: "#0000FF",
-                                    opacity: 0.5,
-                                    strokeWidth: 3,
-                                    strokeStyle: "shortdash",
-                                  }}
-                                />
+                {this.state.search.length === 0 ? (
+                  <div style={{ paddingTop: "50px" }}>
+                    <FrownOutlined
+                      style={{
+                        fontSize: "20px",
+                        paddingRight: "20px",
+                        paddingBotton: "10px",
+                      }}
+                    />{" "}
+                    Bunday mahalla bazada mavjud emas
+                  </div>
+                ) : (
+                  this.state.search.map((text, index) =>
+                    vil === "Hammasi" && text.param.length !== 0 ? (
+                      <Col lg={4} md={6} sm={12}>
+                        <Card
+                          style={{ marginTop: "30px", marginLeft: "20px" }}
+                          className={styles.root}
+                        >
+                          <CardActionArea>
+                            <CardMedia className={styles.media}>
+                              <YMaps>
+                                <Map
+                                  style={{ height: "140px" }}
+                                  defaultState={{ center: text.param, zoom: 6 }}
+                                >
+                                  <GeoObject
+                                    geometry={{
+                                      type: "Polygon",
+                                      coordinates: text.coor,
+                                      fillRule: "nonZero",
+                                    }}
+                                    properties={{
+                                      balloonContent: "Многоугольник",
+                                    }}
+                                    options={{
+                                      fillColor: "#00FF00",
+                                      strokeColor: "#0000FF",
+                                      opacity: 0.5,
+                                      strokeWidth: 3,
+                                      strokeStyle: "shortdash",
+                                    }}
+                                  />
 
-                                <Placemark key={0} geometry={text.param} />
-                              </Map>
-                            </YMaps>
-                          </CardMedia>
-                          <CardContent>
-                            <Typography gutterBottom variant="h6" component="h2">
-                              {text.viloyat + " " + text.tuman + " " + text.nomi + " MFY"}
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions disableSpacing style={{ display: "flex", justifyContent: "space-around" }}>
-                          <OverlayTrigger
-                            placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "14px" }}>
-                                O'zgartirish
-                              </Tooltip>
-                            }
+                                  <Placemark key={0} geometry={text.param} />
+                                </Map>
+                              </YMaps>
+                            </CardMedia>
+                            <CardContent>
+                              <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="h2"
+                              >
+                                {text.viloyat +
+                                  " " +
+                                  text.tuman +
+                                  " " +
+                                  text.nomi +
+                                  " MFY"}
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                          <CardActions
+                            disableSpacing
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
                           >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button onClick={() => this.editPoints(index)} variant="success" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
-
-                                <IconButton>
-                                  <BorderColorIcon style={{ color: "green" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
-
-                          <OverlayTrigger
-                        
-                         placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "15px" }}>
-                                O'chirish
-                              </Tooltip>
-                            }
-                          >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button  onClick={()=>{this.deleteMahalla(text.id)}} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
-
-                                <IconButton>
-                                  <DeleteIcon style={{ color: "#f30838" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
-
-                          <OverlayTrigger
-                            placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "18px" }}>
-                                Mahalla haqida batafsil ma'lumot
-                              </Tooltip>
-                            }
-                          >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button variant="black" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
-                                <IconButton onClick={() => this.showPointsRead(index)} aria-label="Ko'proq ma'lumotni ko'rish">
-                                  <ExpandMoreIcon style={{ color: "black" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
-                        </CardActions>
-                      </Card>
-                    </Col>
-                  ) : text.viloyat === vil && text.param.length!==0 ? (
-                    <Col lg={4} md={6} sm={12}>
-                      <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
-                        <CardActionArea>
-                          <CardMedia className={styles.media}>
-                            <YMaps>
-                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 6 }}>
-                                <GeoObject
-                                  geometry={{
-                                    type: "Polygon",
-                                    coordinates: text.coor,
-                                    fillRule: "nonZero",
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "14px",
                                   }}
-                                  properties={{
-                                    balloonContent: "Многоугольник",
+                                >
+                                  O'zgartirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => this.editPoints(index)}
+                                  variant="success"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+
+                                  <IconButton>
+                                    <BorderColorIcon
+                                      style={{ color: "green" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "15px",
                                   }}
-                                  options={{
-                                    fillColor: "#00FF00",
-                                    strokeColor: "#0000FF",
-                                    opacity: 0.5,
-                                    strokeWidth: 3,
-                                    strokeStyle: "shortdash",
+                                >
+                                  O'chirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => {
+                                    this.deleteMahalla(text.id);
                                   }}
-                                />
+                                  variant="#f30838"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
 
-                                <Placemark key={0} geometry={text.param} />
-                              </Map>
-                            </YMaps>
-                          </CardMedia>
-                          <CardContent>
-                            <Typography gutterBottom variant="h6" component="h2">
-                              {text.viloyat + " " + text.tuman + " " + text.nomi + " MFY"}
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions disableSpacing style={{ display: "flex", justifyContent: "space-around" }}>
-                          <OverlayTrigger
-                            placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "14px" }}>
-                                O'zgartirish
-                              </Tooltip>
-                            }
+                                  <IconButton>
+                                    <DeleteIcon style={{ color: "#f30838" }} />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "18px",
+                                  }}
+                                >
+                                  Mahalla haqida batafsil ma'lumot
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  variant="black"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+                                  <IconButton
+                                    onClick={() => this.showPointsRead(index)}
+                                    aria-label="Ko'proq ma'lumotni ko'rish"
+                                  >
+                                    <ExpandMoreIcon
+                                      style={{ color: "black" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+                          </CardActions>
+                        </Card>
+                      </Col>
+                    ) : text.viloyat === vil && text.param.length !== 0 ? (
+                      <Col lg={4} md={6} sm={12}>
+                        <Card
+                          style={{ marginTop: "30px", marginLeft: "20px" }}
+                          className={styles.root}
+                        >
+                          <CardActionArea>
+                            <CardMedia className={styles.media}>
+                              <YMaps>
+                                <Map
+                                  style={{ height: "140px" }}
+                                  defaultState={{ center: text.param, zoom: 6 }}
+                                >
+                                  <GeoObject
+                                    geometry={{
+                                      type: "Polygon",
+                                      coordinates: text.coor,
+                                      fillRule: "nonZero",
+                                    }}
+                                    properties={{
+                                      balloonContent: "Многоугольник",
+                                    }}
+                                    options={{
+                                      fillColor: "#00FF00",
+                                      strokeColor: "#0000FF",
+                                      opacity: 0.5,
+                                      strokeWidth: 3,
+                                      strokeStyle: "shortdash",
+                                    }}
+                                  />
+
+                                  <Placemark key={0} geometry={text.param} />
+                                </Map>
+                              </YMaps>
+                            </CardMedia>
+                            <CardContent>
+                              <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="h2"
+                              >
+                                {text.viloyat +
+                                  " " +
+                                  text.tuman +
+                                  " " +
+                                  text.nomi +
+                                  " MFY"}
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                          <CardActions
+                            disableSpacing
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
                           >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button onClick={() => this.editPoints(index)} variant="success" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "14px",
+                                  }}
+                                >
+                                  O'zgartirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => this.editPoints(index)}
+                                  variant="success"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
 
-                                <IconButton>
-                                  <BorderColorIcon style={{ color: "green" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
+                                  <IconButton>
+                                    <BorderColorIcon
+                                      style={{ color: "green" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
 
-                          <OverlayTrigger
-                        
-                         placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "15px" }}>
-                                O'chirish
-                              </Tooltip>
-                            }
-                          >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button  onClick={()=>{this.deleteMahalla(text.id)}} variant="#f30838" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "15px",
+                                  }}
+                                >
+                                  O'chirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => {
+                                    this.deleteMahalla(text.id);
+                                  }}
+                                  variant="#f30838"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
 
-                                <IconButton>
-                                  <DeleteIcon style={{ color: "#f30838" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
+                                  <IconButton>
+                                    <DeleteIcon style={{ color: "#f30838" }} />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
 
-                          <OverlayTrigger
-                            placement="bottom"
-                            overlay={
-                              <Tooltip id="button-tooltip-2" style={{ marginTop: "15px", marginLeft: "18px" }}>
-                                Mahalla haqida batafsil ma'lumot
-                              </Tooltip>
-                            }
-                          >
-                            {({ ref, ...triggerHandler }) => (
-                              <Button variant="black" {...triggerHandler} className="d-inline-flex align-items-center">
-                                <Image ref={ref} />
-                                <IconButton onClick={() => this.showPointsRead(index)} aria-label="Ko'proq ma'lumotni ko'rish">
-                                  <ExpandMoreIcon style={{ color: "black" }} />
-                                </IconButton>
-                              </Button>
-                            )}
-                          </OverlayTrigger>
-                        </CardActions>
-                      </Card>
-                    </Col>
-                  ) : (
-                    ""
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "18px",
+                                  }}
+                                >
+                                  Mahalla haqida batafsil ma'lumot
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  variant="black"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+                                  <IconButton
+                                    onClick={() => this.showPointsRead(index)}
+                                    aria-label="Ko'proq ma'lumotni ko'rish"
+                                  >
+                                    <ExpandMoreIcon
+                                      style={{ color: "black" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+                          </CardActions>
+                        </Card>
+                      </Col>
+                    ) : (
+                      ""
+                    )
                   )
                 )}
-                
               </Row>
-              <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex: "52434" }} width="80%" visible={this.state.openMap} onCancel={this.handleCloseMap}>
+              <Modal
+                title="Mahalla binosini belgilash"
+                bodyStyle={{ padding: "0", zIndex: "52434" }}
+                width="80%"
+                visible={this.state.openMap}
+                onCancel={this.handleCloseMap}
+              >
                 <YMaps>
                   <Map
                     onClick={this.onMapClick}
                     width="100%"
                     height="65vh"
                     defaultState={{
-                      center: this.state.rows !== [] ? this.state.rows[0].param : [],
+                      center:
+                        this.state.rows !== [] ? this.state.rows[0].param : [],
                       zoom: 6,
                     }}
                   >
-                    <Clusterer options={{ preset: "islands#invertedVioletClusterIcons", groupByCoordinates: false }}>
+                    <Clusterer
+                      options={{
+                        preset: "islands#invertedVioletClusterIcons",
+                        groupByCoordinates: false,
+                      }}
+                    >
                       {this.state.rowsa.map((info, index) => {
                         return (
                           <Placemark
                             key={index}
-                            geometry={info.param !== [] || info.param !== null ? info.param : ""}
+                            geometry={
+                              info.param !== [] || info.param !== null
+                                ? info.param
+                                : ""
+                            }
                             properties={{
                               balloonContent: info.name,
                             }}
@@ -721,7 +984,7 @@ const {edit, nomi} = this.state
                         );
                       })}
                     </Clusterer>
-                    
+
                     <GeolocationControl options={{ float: "left" }} />
                     <TypeSelector options={{ float: "right" }} />
                     <TrafficControl options={{ float: "right" }} />
@@ -731,7 +994,13 @@ const {edit, nomi} = this.state
                 </YMaps>
               </Modal>
             </Container>
-            <Modal title="Mahalla haqida batafsil ma'lumot" width="60%" visible={this.state.show} footer={false} onCancel={this.handleCancel}>
+            <Modal
+              title="Mahalla haqida batafsil ma'lumot"
+              width="60%"
+              visible={this.state.show}
+              footer={false}
+              onCancel={this.handleCancel}
+            >
               {this.state.key !== null ? (
                 <>
                   <Table striped bordered hover>
@@ -809,7 +1078,9 @@ const {edit, nomi} = this.state
                     <tbody>
                       <tr>
                         <td></td>
-                        <td colSpan="2">{this.state.rows[this.state.key].email}</td>
+                        <td colSpan="2">
+                          {this.state.rows[this.state.key].email}
+                        </td>
                         <td>{this.state.rows[this.state.key].tel}</td>
                       </tr>
                     </tbody>
@@ -822,39 +1093,50 @@ const {edit, nomi} = this.state
                 ""
               )}
             </Modal>
-            <Modal title="Mahalla binosini belgilash" bodyStyle={{ padding: "0", zIndex: "52434" }} width="80%" visible={this.state.openMapHud} onCancel={this.handleCloseMapHud} onOk={this.handleCloseMapHud}>
+            <Modal
+              title="Mahalla binosini belgilash"
+              bodyStyle={{ padding: "0", zIndex: "52434" }}
+              width="80%"
+              visible={this.state.openMapHud}
+              onCancel={this.handleCloseMapHud}
+              onOk={this.handleCloseMapHud}
+            >
               <YMaps>
                 <Map
                   onClick={this.onMapClickHud}
                   width="100%"
                   height="65vh"
                   defaultState={{
-                    center: this.state.rows !== [] ? this.state.rows[0].param : [],
+                    center:
+                      this.state.rows !== [] ? this.state.rows[0].param : [],
                     zoom: 6,
                   }}
                 >
-               
-              <GeoObject
-                     geometry={{
-                       type: "Polygon",
-                       coordinates: this.state.coor,
-                       fillRule: "nonZero",
-                     }}
-                     properties={{
-                       balloonContent: "Многоугольник",
-                     }}
-                     options={{
-                       fillColor: "#00FF00",
-                       strokeColor: "#0000FF",
-                       opacity: 0.5,
-                       strokeWidth: 5,
-                       strokeStyle: "shortdash",
-                       iconLayout: "default#image",
-                     }}
-                   />
-                  
-                   
-                  <Clusterer options={{ preset: "islands#invertedVioletClusterIcons", groupByCoordinates: false }}>
+                  <GeoObject
+                    geometry={{
+                      type: "Polygon",
+                      coordinates: this.state.coor,
+                      fillRule: "nonZero",
+                    }}
+                    properties={{
+                      balloonContent: "Многоугольник",
+                    }}
+                    options={{
+                      fillColor: "#00FF00",
+                      strokeColor: "#0000FF",
+                      opacity: 0.5,
+                      strokeWidth: 5,
+                      strokeStyle: "shortdash",
+                      iconLayout: "default#image",
+                    }}
+                  />
+
+                  <Clusterer
+                    options={{
+                      preset: "islands#invertedVioletClusterIcons",
+                      groupByCoordinates: false,
+                    }}
+                  >
                     {this.state.rows.map((info, index) => {
                       return (
                         <Placemark
@@ -867,12 +1149,25 @@ const {edit, nomi} = this.state
                       );
                     })}
                   </Clusterer>
-                  <Clusterer options={{ preset: "islands#invertedRedClusterIcons", groupByCoordinates: false }}>
+                  <Clusterer
+                    options={{
+                      preset: "islands#invertedRedClusterIcons",
+                      groupByCoordinates: false,
+                    }}
+                  >
                     {this.state.coordsHud.map((info, index) => {
                       return (
                         <Placemark
                           key={index}
                           geometry={info}
+                          options={{
+                            iconLayout: "default#image",
+                            iconImageHref:
+                              "https://w7.pngwing.com/pngs/371/489/png-transparent-computer-icons-drawing-pin-apple-icon-format-pinterest-miscellaneous-pin-business-thumbnail.png",
+                            iconImageSize: [40, 40],
+                            hideIconOnBalloonOpen: false,
+                            balloonOffset: [3, -40],
+                          }}
                           onClick={() => {
                             this.deleteHud(index);
                           }}
@@ -887,7 +1182,11 @@ const {edit, nomi} = this.state
                   <GeoObject
                     geometry={{
                       type: "Polygon",
-                      coordinates: [this.state.coor[this.state.rows.length] ? this.state.coor[this.state.rows.length] : []],
+                      coordinates: [
+                        this.state.coor[this.state.rows.length]
+                          ? this.state.coor[this.state.rows.length]
+                          : [],
+                      ],
                       fillRule: "nonZero",
                     }}
                     properties={{

@@ -1,18 +1,19 @@
-.map_select{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    background-color: #546A8E;
+.map_select {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #546a8e;
 }
-.map_item{
-    width: 40%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+.map_item {
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
-.map_item .ant-select{
-    margin: 5px 0;
+
+.map_item .ant-select {
+  margin: 5px 0;
 }
