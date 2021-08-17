@@ -39,6 +39,7 @@ export default class Card2 extends Component {
     rows: [],
     search: [],
     rowsa: [],
+    nomi:'',
     number: 0,
     open: false,
     openMap: false,
@@ -53,7 +54,8 @@ export default class Card2 extends Component {
     loading: true,
     data: '',
     excludeColumns: ["viloyat", "tuman", "nomi"],
-    edit:{}
+    edit:{},
+    editID:true
   };
 
   handleChange = (value) =>{
@@ -135,7 +137,7 @@ this.setState({search:this.state.rows})
     document.getElementById("formBasickotibTel").value = "";
     var f=this.state.coor
     f[this.state.number]=[]
-    this.setState({edit:{}, open: false, coords: [],coordsHud:[], coor:f,  });
+    this.setState({edit:{}, nomi:'', editID:true, open: false, coords: [],coordsHud:[], coor:f,  });
   };
 
   handleCloseMap = () => {
@@ -148,8 +150,9 @@ this.setState({search:this.state.rows})
     coord.push([]);
     this.setState({ coor: coord });
   };
-  createPoints = () => {
+  createPoints = (value) => {
     console.log(this.state.coords, this.state.coor[this.state.number].length!==0)
+  
     if(this.state.coords.length!==0 && this.state.coor[this.state.number].length!==0){
       this.setState({loading:true})
       var str = document.getElementById("formBasictuman").value;
@@ -189,20 +192,20 @@ this.setState({search:this.state.rows})
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
-      if(this.state.edit==={}){
-        createMahalla(point)
-        .then((res) =>{ message.success('Mahalla yaratildi'); this.getMahalla();})
-        .catch((err) => {message.error('Mahalla yaratilmadi');});
-      
-      }
-      else{
-        editMahalla(point, this.state.edit.id)
-        .then((res) =>{ message.success('Mahalla o\'zgartirildi'); this.getMahalla();})
-        .catch((err) => {message.error('Mahalla o\'zgartirilmadi');});
+  
+      if(this.state.editID){
+ 
+    createMahalla(point)
+    .then((res) =>{ message.success('Mahalla yaratildi');this.handleClose(); this.getMahalla();})
+    .catch((err) => {message.error('Mahalla yaratilmadi');this.setState({loading:false})});
+}if(!this.state.editID){
+        editMahalla(this.state.edit, this.state.edit.id)
+        .then((res) =>{ message.success('Mahalla o\'zgartirildi');this.handleClose(); this.getMahalla();})
+        .catch((err) => {message.error('Mahalla o\'zgartirilmadi');this.setState({loading:false})});
       
         
       }
-      this.handleClose();
+      
     }
     
   };
@@ -264,12 +267,14 @@ deleteMahalla=(id)=>{
    param:r.param
  }
   this.setState({
+    editID:false,
     edit:r,
     coordsHud:r.coor,
       coor:a,
       rowsa:b,
       coords: r.param,
-    
+    nomi:r.nomi,
+   
     })
     setTimeout(()=>{
       this.handleOpen()
@@ -285,9 +290,14 @@ deleteMahalla=(id)=>{
     
    
   }
+
+  formChange=(e)=>{
+    console.log(e)
+    
+  }
   render() {
     const { vil } = this.props;
-const {edit} = this.state
+const {edit, nomi} = this.state
     return (
       <div>
         {this.state.loading ? (
@@ -306,20 +316,24 @@ const {edit} = this.state
     </div>
 
             <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
-              <Form>
+              <Form
+              // onChange={e=>{this.formChange(e)}}
+              onSubmit={this.createPoints}
+              >
                 <Row>
                   <Col lg={6} md={12}>
                     <Form.Group className="mb-3" controlId="formBasicname">
                       <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.nomi} required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.nomi=e.target.value; this.setState({edit:edit1})}} value={edit.nomi} name="nomi" required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
+                      
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicKotibTel">
+                   {this.state.editID? <Form.Group className="mb-3" controlId="formBasicKotibTel">
                     <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
 
 <Button className="btnXarita" onClick={this.handleOpenMapHud}>
   <LocationOnIcon />
 </Button>
-                     
+               
                       <br />
                       <br />
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla binosini belgilang</Form.Label>
@@ -327,10 +341,12 @@ const {edit} = this.state
                       <Button className="btnXarita" onClick={this.handleOpenMap}>
                         <LocationOnIcon />
                       </Button>
-                    </Form.Group>
+                      
+                    </Form.Group>:''
+                   }
                     <Form.Group className="mb-3" controlId="formBasicviloyat">
                       <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
-                      <select defaultValue={this.state.edit.viloyat} required id="formBasicviloyat" className="selectVil">
+                      <select  onChange={(e)=>{var edit1=this.state.edit; edit1.viloyat=e.target.value; this.setState({edit:edit1})}} value={edit.viloyat}  required={true} id="formBasicviloyat" className="selectVil">
                         <option value="Toshkent shahri">Toshkent shahri</option>
                         <option value="Toshkent viloyati">Toshkent viloyati</option>
                         <option value="Buxoro viloyati">Buxoro viloyati</option>
@@ -346,129 +362,132 @@ const {edit} = this.state
                         <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
                         <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
                       </select>
+                      
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasictuman">
                       <Form.Label style={{ fontSize: "14px" }}>Tumanni kiriting</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.tuman}  required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.tuman=e.target.value; this.setState({edit:edit1})}} value={edit.tuman}  required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }}list="tuman" type="text" placeholder="Yunusobod tumani" />
 
                       <datalist id="tuman">
                         {tuman.map((item) => {
                           return <option value={item} />;
                         })}
                       </datalist>
+                      
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasictel">
                       <Form.Label style={{ fontSize: "14px" }}>Mahallani telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.tel}  required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.tel=e.target.value; this.setState({edit:edit1})}} value={edit.tel}  required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicemail">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla elektron pochtasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.email} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="email" placeholder="Email" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.email=e.target.value; this.setState({edit:edit1})}} value={edit.email} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="email" placeholder="Email" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raisFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raisFIO=e.target.value; this.setState({edit:edit1})}} value={edit.raisFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRasiTel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.rasiTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.rasiTel=e.target.value; this.setState({edit:edit1})}} value={edit.rasiTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin1FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami1FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami1FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami1FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin1Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami1Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami1Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami1Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin2FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami2FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami2FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami2FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin2Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami2Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami2Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami2Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
                   </Col>
 
                   <Col lg={6} md={12}>
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami3FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami3FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami3FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami3Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami3Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami3Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami4FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami4FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami4FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.raiszami4Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami4Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami4Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.uchasFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.uchasFIO=e.target.value; this.setState({edit:edit1})}} value={edit.uchasFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasTel">
                       <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.uchasTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.uchasTel=e.target.value; this.setState({edit:edit1})}} value={edit.uchasTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.posbonFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.posbonFIO=e.target.value; this.setState({edit:edit1})}} value={edit.posbonFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonTel">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.posbonTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.posbonTel=e.target.value; this.setState({edit:edit1})}} value={edit.posbonTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicQariyalarFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Qariyalar familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.qariyalarFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.qariyalarFIO=e.target.value; this.setState({edit:edit1})}} value={edit.qariyalarFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicQariyalarTel">
                       <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.qariyalarTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.qariyalarTel=e.target.value; this.setState({edit:edit1})}} value={edit.qariyalarTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) familiya ism ochistvasi</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.kotibaFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.kotibaFIO=e.target.value; this.setState({edit:edit1})}} value={edit.kotibaFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibTel">
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) telefon raqami</Form.Label>
-                      <Form.Control defaultValue={this.state.edit.kotibaTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.kotibaTel=e.target.value; this.setState({edit:edit1})}} value={edit.kotibaTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
                    
                   </Col>
                 </Row>
 
-                <Button type="primary" htmlType="button" onClick={() => this.handleClose()}>
+                <Button type="danger" htmlType="button" onClick={() => this.handleClose()}>
                   Bekor qilish
                 </Button>
 
-                <Button type="primary" htmlType="button" onClick={() => this.createPoints()}>
+                <Button type="primary" htmlType="submit">
                   Yaratish
                 </Button>
               </Form>
