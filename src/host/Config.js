@@ -25,3 +25,12 @@ export const createMahalla = (config) => {
   };
   return httpRequest(configs);
 };
+
+export const editMahalla = (config, id) => {
+  var configs = {
+    url: `${url}${id}/`,
+    method: "put",
+    data: config,
+  };
+  return httpRequest(configs);
+};
