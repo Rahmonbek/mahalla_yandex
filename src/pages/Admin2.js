@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import oila from './new.jpg'
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Card2 from "./Card2";
@@ -85,7 +85,7 @@ export default function Admin2() {
       <Layout>
         <Header className="header">
           <div className="logo" style={{ float: "left", margin: "0 20px 0 0", padding: "0", height: "64px" }}>
-            <img style={{ borderRadius: "50%" }} src="https://yuz.uz/file/news/9ee76fefe2b125d5372e2cd584d74806.jpg" height="100%" alt="" />
+            <img style={{ borderRadius: "50%",height:'60px',width:'60px' }} src={oila} alt="" />
           </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
           Online Mahalla admin paneli
@@ -104,6 +104,18 @@ export default function Admin2() {
                 <Link style={{ textDecoration: "none" }} to="Hammasi">
                   {" "}
                   Hammasi
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="Toshkent shahri" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Toshkent shahri">
+                  {" "}
+                  Toshkent shahri
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="Toshkent viloyati" icon={<UserOutlined />}>
+                <Link style={{ textDecoration: "none" }} to="Toshkent viloyati">
+                  {" "}
+                  Toshkent viloyati
                 </Link>
               </Menu.Item>
               <Menu.Item key="Andijon viloyati" icon={<UserOutlined />}>
@@ -178,18 +190,7 @@ export default function Admin2() {
                   Surxondaryo viloyati
                 </Link>
               </Menu.Item>
-              <Menu.Item key="Toshkent shahri" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Toshkent shahri">
-                  {" "}
-                  Toshkent shahri
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="Toshkent viloyati" icon={<UserOutlined />}>
-                <Link style={{ textDecoration: "none" }} to="Toshkent viloyati">
-                  {" "}
-                  Toshkent viloyati
-                </Link>
-              </Menu.Item>
+              
             </Menu>
           </Sider>
           <Layout style={{ padding: "0 14px 14px", marginTop: "20px" }}>
@@ -203,7 +204,7 @@ export default function Admin2() {
               }}
             >
               <Card2 vil={key} />
-              <Footer style={{ textAlign: "center", marginTop: "20px" }}>©2021 IT Tower tomonidan yaratildi.</Footer>
+              <Footer style={{ textAlign: "center", marginTop: "20px" }}><a href="tel:+998950070650" style={{textDecoration:'none',color:'black'}}>©2021 IT Tower tomonidan yaratildi.</a></Footer>
             </Content>
           </Layout>
         </Layout>

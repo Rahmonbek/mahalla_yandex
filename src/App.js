@@ -2,6 +2,8 @@ import React,{useState, useEffect} from 'react';
 //import { Points} from './server'
 import {YMaps, Map, Clusterer, Placemark, 
   TypeSelector, ZoomControl, GeolocationControl, RouteButton, TrafficControl, GeoObject } from 'react-yandex-maps'
+
+import oila from './pages/new.jpg'
 import pin from './boy.png'
 import RingLoader from 'react-spinners/RingLoader'
 import Dialog from './components/Dialog'
@@ -74,8 +76,9 @@ function App() {
         <RingLoader loading={loading} size={150} color={'#f37a24'}></RingLoader>
       </div>
     ) : (
-      <>
-      <h1 style={{textAlign: 'center'}}>Online Mahalla </h1> 
+      <><div style={{display:'flex'}}>
+        <img style={{ borderRadius: "50%",height:'70px',width:'70px',marginLeft:'10%' }} src={oila} alt="" />
+      <h1 style={{textAlign: 'center',marginLeft:'40px', margin:'auto',}}>Online Mahalla </h1> </div>
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
       <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
