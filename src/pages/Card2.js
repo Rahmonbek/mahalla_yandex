@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { createMahalla, deleteMahalla, getMahalla } from "../host/Config";
+import { createMahalla, deleteMahalla, editMahalla, getMahalla } from "../host/Config";
 
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -52,10 +52,11 @@ export default class Card2 extends Component {
     coordsHud: [],
     loading: true,
     data: '',
-    excludeColumns: ["viloyat", "tuman", "nomi"]
+    excludeColumns: ["viloyat", "tuman", "nomi"],
+    edit:{}
   };
 
-  handleChange = value => {
+  handleChange = (value) =>{
 var search=[]
 if(value!=='' ||value!==' '){
   this.state.rows.map(item=>{
@@ -73,19 +74,6 @@ this.setState({search:this.state.rows})
   };
   
 
-  onMapClick = (e) => {
-    var coords = e.get("coords");
-
-    var a = this.state.rowsa;
-
-    a[this.state.number] = {
-      param: e.get("coords"),
-    };
-    this.setState({ rowsa: a });
-    this.setState({
-      coords: coords,
-    });
-  };
   getMahalla = () => {
     getMahalla()
       .then((res) => {
@@ -95,11 +83,20 @@ this.setState({search:this.state.rows})
           loading: false,
           rowsa: res.data,
         });
+        this.coo();
+        setTimeout(() => {
+          this.setState({
+            number: this.state.rows.length,
+          });
+        }, 1000);
+    
       })
+
       .catch((err) => console.log(err));
   };
   handleOpen = () => {
     this.setState({ open: true });
+    console.log(this.state.search, this.state.edit)
   };
   handleOpenMap = () => {
     this.setState({ openMap: true });
@@ -117,7 +114,7 @@ this.setState({search:this.state.rows})
     document.getElementById("formBasicname").value = "";
     document.getElementById("formBasicviloyat").value = "";
     document.getElementById("formBasicRaisFIO").value = "";
-    document.getElementById("formBasicRaisTel").value = "";
+    document.getElementById("formBasicRasiTel").value = "";
     document.getElementById("formBasicemail").value = "";
     document.getElementById("formBasictel").value = "";
     document.getElementById("formBasicUchasFIO").value = "";
@@ -137,8 +134,8 @@ this.setState({search:this.state.rows})
     document.getElementById("formBasickotibFIO").value = "";
     document.getElementById("formBasickotibTel").value = "";
     var f=this.state.coor
-    f[this.state.rows.length]=[]
-    this.setState({ open: false, coords: [],coordsHud:[], coor:f });
+    f[this.state.number]=[]
+    this.setState({edit:{}, open: false, coords: [],coordsHud:[], coor:f,  });
   };
 
   handleCloseMap = () => {
@@ -152,7 +149,8 @@ this.setState({search:this.state.rows})
     this.setState({ coor: coord });
   };
   createPoints = () => {
-    if(this.state.coords.length!==0 && this.state.coor[this.state.rows.length].length!==0){
+    console.log(this.state.coords, this.state.coor[this.state.number].length!==0)
+    if(this.state.coords.length!==0 && this.state.coor[this.state.number].length!==0){
       this.setState({loading:true})
       var str = document.getElementById("formBasictuman").value;
       if (str.indexOf(" tumani") === -1 || str.indexOf(" shahri") === -1) {
@@ -165,36 +163,45 @@ this.setState({search:this.state.rows})
         }
       }
       var point = {
-        nomi: document.getElementById("formBasicname").value,
-        viloyat: document.getElementById("formBasicviloyat").value,
+        nomi: document.getElementById("formBasicname").value===""?this.state.edit.nomi:document.getElementById("formBasicname").value,
+        viloyat: document.getElementById("formBasicviloyat").value===""?this.state.edit.viloyat:document.getElementById("formBasicviloyat").value,
         tuman: str,
-        tel: document.getElementById("formBasictel").value,
-        email: document.getElementById("formBasicemail").value,
-        raisFIO: document.getElementById("formBasicRaisFIO").value,
-        raisTel: document.getElementById("formBasicRaisTel").value,
-        uchasFIO: document.getElementById("formBasicUchasFIO").value,
-        uchasTel: document.getElementById("formBasicUchasTel").value,
-        posbonFIO: document.getElementById("formBasicPosbonFIO").value,
-        posbonTel: document.getElementById("formBasicPosbonTel").value,
-        qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value,
-        qariyalarTel: document.getElementById("formBasicQariyalarTel").value,
-        raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value,
-        raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value,
-        raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value,
-        raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value,
-        raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value,
-        raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value,
-        RaisOrin4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
-        RaisOrin4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
-        kotibaFIO: document.getElementById("formBasickotibFIO").value,
-        kotibaTel: document.getElementById("formBasickotibTel").value,
+        tel: document.getElementById("formBasictel").value===""?this.state.edit.tel:document.getElementById("formBasictel").value,
+        email: document.getElementById("formBasicemail").value===""?this.state.edit.email:document.getElementById("formBasicemail").value,
+        raisFIO: document.getElementById("formBasicRaisFIO").value===""?this.state.edit.raisFIO:document.getElementById("formBasicRaisFIO").value,
+        rasiTel: document.getElementById("formBasicRasiTel").value===""?this.state.edit.rasiTel:document.getElementById("formBasicRasiTel").value,
+        uchasFIO: document.getElementById("formBasicUchasFIO").value===""?this.state.edit.uchasFIO:document.getElementById("formBasicUchasFIO").value,
+        uchasTel: document.getElementById("formBasicUchasTel").value===""?this.state.edit.uchasTel:document.getElementById("formBasicUchasTel").value,
+        posbonFIO: document.getElementById("formBasicPosbonFIO").value===""?this.state.edit.posbonFIO:document.getElementById("formBasicPosbonFIO").value,
+        posbonTel: document.getElementById("formBasicPosbonTel").value===""?this.state.edit.posbonTel:document.getElementById("formBasicPosbonTel").value,
+        qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value===""?this.state.edit.qariyalarFIO:document.getElementById("formBasicQariyalarFIO").value,
+        qariyalarTel: document.getElementById("formBasicQariyalarTel").value===""?this.state.edit.qariyalarTel:document.getElementById("formBasicQariyalarTel").value,
+        raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value===""?this.state.edit.raiszami1FIO:document.getElementById("formBasicRaisOrin1FIO").value,
+        raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value===""?this.state.edit.raiszami1Tel:document.getElementById("formBasicRaisOrin1Tel").value,
+        raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value===""?this.state.edit.raiszami2FIO:document.getElementById("formBasicRaisOrin2FIO").value,
+        raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value===""?this.state.edit.raiszami2Tel:document.getElementById("formBasicRaisOrin2Tel").value,
+        raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value===""?this.state.edit.raiszami3FIO:document.getElementById("formBasicRaisOrin3FIO").value,
+        raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value===""?this.state.edit.raiszami3Tel:document.getElementById("formBasicRaisOrin3Tel").value,
+        raiszami4FIO: document.getElementById("formBasicRaisOrin4FIO").value===""?this.state.edit.raiszami4FIO:document.getElementById("formBasicRaisOrin4FIO").value,
+        raiszami4Tel: document.getElementById("formBasicRaisOrin4Tel").value===""?this.state.edit.raiszami4Tel:document.getElementById("formBasicRaisOrin4Tel").value,
+        kotibaFIO: document.getElementById("formBasickotibFIO").value===""?this.state.edit.kotibaFIO:document.getElementById("formBasickotibFIO").value,
+        kotibaTel: document.getElementById("formBasickotibTel").value===""?this.state.edit.kotibaTel:document.getElementById("formBasickotibTel").value,
         param: this.state.coords,
-        coor: this.state.coor[this.state.rows.length],
+        coor: this.state.coor[this.state.number],
       };
-      createMahalla(point)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      this.getMahalla();
+      if(this.state.edit==={}){
+        createMahalla(point)
+        .then((res) =>{ message.success('Mahalla yaratildi'); this.getMahalla();})
+        .catch((err) => {message.error('Mahalla yaratilmadi');});
+      
+      }
+      else{
+        editMahalla(point, this.state.edit.id)
+        .then((res) =>{ message.success('Mahalla o\'zgartirildi'); this.getMahalla();})
+        .catch((err) => {message.error('Mahalla o\'zgartirilmadi');});
+      
+        
+      }
       this.handleClose();
     }
     
@@ -228,30 +235,59 @@ deleteMahalla=(id)=>{
 
     this.setState({ coor: a, coordsHud: b });
   };
+  onMapClick = (e) => {
+    var coords = e.get("coords");
 
+    var a = this.state.rowsa;
+
+    a[this.state.number] = {
+      param: e.get("coords"),
+    };
+    this.setState({ rowsa: a });
+    this.setState({
+      coords: coords,
+    });
+  };
+ 
   
   handleCancel = () => {
     this.setState({ show: false });
     this.getMahalla()
   };
+  editPoints=(item)=>{
+    var r=this.state.rows[item]
+    console.log(r)
+    var a = this.state.coor;
+  a[this.state.number]=r.coor
+ var b=this.state.rowsa
+ b[this.state.number]={
+   param:r.param
+ }
+  this.setState({
+    edit:r,
+    coordsHud:r.coor,
+      coor:a,
+      rowsa:b,
+      coords: r.param,
+    
+    })
+    setTimeout(()=>{
+      this.handleOpen()
+    
+    }, 500)
+    }
+  
   componentDidMount() {
     this.setState({loading:true});
 
     this.getMahalla();
-    setTimeout(() => {
-      this.setState({
-        number: this.state.rows.length,
-      });
-      this.coo();
-    }, 1000);
-
+ 
     
    
   }
-
   render() {
     const { vil } = this.props;
-
+const {edit} = this.state
     return (
       <div>
         {this.state.loading ? (
@@ -275,7 +311,7 @@ deleteMahalla=(id)=>{
                   <Col lg={6} md={12}>
                     <Form.Group className="mb-3" controlId="formBasicname">
                       <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
+                      <Form.Control defaultValue={this.state.edit.nomi} required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicKotibTel">
                     <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
@@ -294,7 +330,7 @@ deleteMahalla=(id)=>{
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicviloyat">
                       <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
-                      <select id="formBasicviloyat" className="selectVil">
+                      <select defaultValue={this.state.edit.viloyat} required id="formBasicviloyat" className="selectVil">
                         <option value="Toshkent shahri">Toshkent shahri</option>
                         <option value="Toshkent viloyati">Toshkent viloyati</option>
                         <option value="Buxoro viloyati">Buxoro viloyati</option>
@@ -314,7 +350,7 @@ deleteMahalla=(id)=>{
 
                     <Form.Group className="mb-3" controlId="formBasictuman">
                       <Form.Label style={{ fontSize: "14px" }}>Tumanni kiriting</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
+                      <Form.Control defaultValue={this.state.edit.tuman}  required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required list="tuman" type="text" placeholder="Yunusobod tumani" />
 
                       <datalist id="tuman">
                         {tuman.map((item) => {
@@ -325,104 +361,104 @@ deleteMahalla=(id)=>{
 
                     <Form.Group className="mb-3" controlId="formBasictel">
                       <Form.Label style={{ fontSize: "14px" }}>Mahallani telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.tel}  required style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicemail">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla elektron pochtasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="email" placeholder="Email" />
+                      <Form.Control defaultValue={this.state.edit.email} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="email" placeholder="Email" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.raisFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisTel">
+                    <Form.Group className="mb-3" controlId="formBasicRasiTel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.rasiTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin1FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.raiszami1FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin1Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.raiszami1Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin2FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.raiszami2FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin2Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.raiszami2Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
                   </Col>
 
                   <Col lg={6} md={12}>
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.raiszami3FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.raiszami3Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.raiszami4FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
                       <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.raiszami4Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.uchasFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasTel">
                       <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.uchasTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.posbonFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonTel">
                       <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.posbonTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicQariyalarFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Qariyalar familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.qariyalarFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicQariyalarTel">
                       <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.qariyalarTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibFIO">
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) familiya ism ochistvasi</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Control defaultValue={this.state.edit.kotibaFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Familiya ism ochistva" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibTel">
                       <Form.Label style={{ fontSize: "14px" }}>Kotib(a) telefon raqami</Form.Label>
-                      <Form.Control style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
+                      <Form.Control defaultValue={this.state.edit.kotibaTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} required type="text" placeholder="Telefon raqam" />
                     </Form.Group>
                    
                   </Col>
@@ -446,13 +482,13 @@ deleteMahalla=(id)=>{
                 {this.state.search.length===0?
                 <div style={{paddingTop:'50px'}} ><FrownOutlined style={{fontSize:'20px',paddingRight:'20px',paddingBotton:'10px'}} /> Bunday mahalla bazada mavjud emas</div>:
                 this.state.search.map((text, index) =>
-                  vil === "Hammasi" ? (
+                  vil === "Hammasi" && text.param.length!==0 ? (
                     <Col lg={4} md={6} sm={12}>
                       <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
                         <CardActionArea>
                           <CardMedia className={styles.media}>
                             <YMaps>
-                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 12 }}>
+                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 6 }}>
                                 <GeoObject
                                   geometry={{
                                     type: "Polygon",
@@ -541,13 +577,13 @@ deleteMahalla=(id)=>{
                         </CardActions>
                       </Card>
                     </Col>
-                  ) : text.viloyat === vil ? (
+                  ) : text.viloyat === vil && text.param.length!==0 ? (
                     <Col lg={4} md={6} sm={12}>
                       <Card style={{ marginTop: "30px", marginLeft: "20px" }} className={styles.root}>
                         <CardActionArea>
                           <CardMedia className={styles.media}>
                             <YMaps>
-                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 12 }}>
+                              <Map style={{ height: "140px" }} defaultState={{ center: text.param, zoom: 6 }}>
                                 <GeoObject
                                   geometry={{
                                     type: "Polygon",
@@ -693,7 +729,7 @@ deleteMahalla=(id)=>{
                         <td>1</td>
                         <td>Rais</td>
                         <td>{this.state.rows[this.state.key].raisFIO}</td>
-                        <td>{this.state.rows[this.state.key].raisTel}</td>
+                        <td>{this.state.rows[this.state.key].rasiTel}</td>
                       </tr>
                       <tr>
                         <td>2</td>
