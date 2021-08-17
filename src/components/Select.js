@@ -33,19 +33,21 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(data));
+
+      localStorage.setItem("param", JSON.stringify(data[0]));
       onUnnecessary(6);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
+      localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(8);
     }
 
     //Param set
-    localStorage.setItem("param", JSON.stringify(g[0]));
     onParam();
-    onData();
     //set tuman
     setTumanlar(g);
     setCities([...new Set(g.map((item) => item.tuman))]);
+
     onData();
   };
 
@@ -58,20 +60,21 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(tumanlar));
+
+      localStorage.setItem("param", JSON.stringify(tumanlar[0]));
       onUnnecessary(8);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
+      localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(12);
     }
     //Param set
-    localStorage.setItem("param", JSON.stringify(g[0]));
     onParam();
     onData();
 
     //set mahalla
     setMahallalar(g);
     setNeighborhood([...new Set(g.map((item) => item.nomi))]);
-    onData();
   };
 
   const handleNeighborhoodsChange = (value) => {
@@ -83,13 +86,14 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(mahallalar));
+      localStorage.setItem("param", JSON.stringify(mahallalar[0]));
       onUnnecessary(12);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
+      localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(15);
 
-      //    //Param set
-      localStorage.setItem("param", JSON.stringify(g[0]));
+      //Param set
       onParam();
       onData();
     }

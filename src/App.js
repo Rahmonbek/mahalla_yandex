@@ -61,7 +61,7 @@ function App() {
   };
   const handleParam = () => {
     let param = localStorage.getItem("param");
-    setParam(JSON.parse(param)[0].param);
+    setParam(JSON.parse(param).param);
   };
   const handleClose = () => {
     setforclick(false);
