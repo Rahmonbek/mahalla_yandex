@@ -78,7 +78,7 @@ function App() {
     ) : (
       <><div style={{display:'flex'}}>
         <img style={{ borderRadius: "50%",height:'70px',width:'70px',marginLeft:'10%' }} src={oila} alt="" />
-      <h1 style={{textAlign: 'center',marginLeft:'20%', margin:'auto',}}>Online Mahalla </h1> </div>
+      <h1 style={{textAlign: 'center',marginLeft:'40px', margin:'auto',}}>Online Mahalla </h1> </div>
       {forclick ? <Dialog open= {forclick} onClose={handleClose} village={village}/> : ''} 
       <Select data={Points} onParam={handleParam} onData={handleData} onUnnecessary={handleUnnecessary}/>
         <YMaps key={'uz_UZ'}  query={{lang: 'uz_UZ'}} >
