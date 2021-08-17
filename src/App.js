@@ -93,7 +93,7 @@ function App() {
           <RingLoader
             loading={loading}
             size={150}
-            color={"#f37a24"}
+            color={"darkblue"}
           ></RingLoader>
         </div>
       ) : (

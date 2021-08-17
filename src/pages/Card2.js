@@ -12,6 +12,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, message, Modal } from "antd";
+import pin from './pin.png'
 import {
   YMaps,
   Map,
@@ -90,6 +91,7 @@ export default class Card2 extends Component {
   getMahalla = () => {
     getMahalla()
       .then((res) => {
+        console.log('cdmk')
         this.setState({
           rows: res.data,
           search: res.data,
@@ -122,32 +124,33 @@ export default class Card2 extends Component {
     this.setState({ coordsHud: a, coor: b });
   };
   handleClose = () => {
-    document.getElementById("formBasictuman").value = "";
-    document.getElementById("formBasicname").value = "";
-    document.getElementById("formBasicviloyat").value = "";
-    document.getElementById("formBasicRaisFIO").value = "";
-    document.getElementById("formBasicRasiTel").value = "";
-    document.getElementById("formBasicemail").value = "";
-    document.getElementById("formBasictel").value = "";
-    document.getElementById("formBasicUchasFIO").value = "";
-    document.getElementById("formBasicUchasTel").value = "";
-    document.getElementById("formBasicPosbonFIO").value = "";
-    document.getElementById("formBasicPosbonTel").value = "";
-    document.getElementById("formBasicQariyalarFIO").value = "";
-    document.getElementById("formBasicQariyalarTel").value = "";
-    document.getElementById("formBasicRaisOrin1FIO").value = "";
-    document.getElementById("formBasicRaisOrin1Tel").value = "";
-    document.getElementById("formBasicRaisOrin2FIO").value = "";
-    document.getElementById("formBasicRaisOrin2Tel").value = "";
-    document.getElementById("formBasicRaisOrin3FIO").value = "";
-    document.getElementById("formBasicRaisOrin3Tel").value = "";
-    document.getElementById("formBasicRaisOrin4FIO").value = "";
-    document.getElementById("formBasicRaisOrin4Tel").value = "";
-    document.getElementById("formBasickotibFIO").value = "";
-    document.getElementById("formBasickotibTel").value = "";
+    // document.getElementById("formBasictuman").value = "";
+    // document.getElementById("formBasicname").value = "";
+    // document.getElementById("formBasicviloyat").value = "";
+    // document.getElementById("formBasicRaisFIO").value = "";
+    // document.getElementById("formBasicRasiTel").value = "";
+    // document.getElementById("formBasicemail").value = "";
+    // document.getElementById("formBasictel").value = "";
+    // document.getElementById("formBasicUchasFIO").value = "";
+    // document.getElementById("formBasicUchasTel").value = "";
+    // document.getElementById("formBasicPosbonFIO").value = "";
+    // document.getElementById("formBasicPosbonTel").value = "";
+    // document.getElementById("formBasicQariyalarFIO").value = "";
+    // document.getElementById("formBasicQariyalarTel").value = "";
+    // document.getElementById("formBasicRaisOrin1FIO").value = "";
+    // document.getElementById("formBasicRaisOrin1Tel").value = "";
+    // document.getElementById("formBasicRaisOrin2FIO").value = "";
+    // document.getElementById("formBasicRaisOrin2Tel").value = "";
+    // document.getElementById("formBasicRaisOrin3FIO").value = "";
+    // document.getElementById("formBasicRaisOrin3Tel").value = "";
+    // document.getElementById("formBasicRaisOrin4FIO").value = "";
+    // document.getElementById("formBasicRaisOrin4Tel").value = "";
+    // document.getElementById("formBasickotibFIO").value = "";
+    // document.getElementById("formBasickotibTel").value = "";
     var f=this.state.coor
     f[this.state.number]=[]
     this.setState({edit:{}, nomi:'', editID:true, open: false, coords: [],coordsHud:[], coor:f,  });
+    this.getMahalla();
   };
 
   handleCloseMap = () => {
@@ -177,107 +180,61 @@ export default class Card2 extends Component {
       }
       var point = {
         nomi:
-          document.getElementById("formBasicname").value === ""
-            ? this.state.edit.nomi
-            : document.getElementById("formBasicname").value,
+          document.getElementById("formBasicname").value ,
         viloyat:
-          document.getElementById("formBasicviloyat").value === ""
-            ? this.state.edit.viloyat
-            : document.getElementById("formBasicviloyat").value,
+          document.getElementById("formBasicviloyat").value ,
         tuman: str,
         tel:
-          document.getElementById("formBasictel").value === ""
-            ? this.state.edit.tel
-            : document.getElementById("formBasictel").value,
+          document.getElementById("formBasictel").value ,
         email:
-          document.getElementById("formBasicemail").value === ""
-            ? this.state.edit.email
-            : document.getElementById("formBasicemail").value,
+          document.getElementById("formBasicemail").value ,
         raisFIO:
-          document.getElementById("formBasicRaisFIO").value === ""
-            ? this.state.edit.raisFIO
-            : document.getElementById("formBasicRaisFIO").value,
+          document.getElementById("formBasicRaisFIO").value ,
         rasiTel:
-          document.getElementById("formBasicRasiTel").value === ""
-            ? this.state.edit.rasiTel
-            : document.getElementById("formBasicRasiTel").value,
+          document.getElementById("formBasicRasiTel").value ,
         uchasFIO:
-          document.getElementById("formBasicUchasFIO").value === ""
-            ? this.state.edit.uchasFIO
-            : document.getElementById("formBasicUchasFIO").value,
+          document.getElementById("formBasicUchasFIO").value ,
         uchasTel:
-          document.getElementById("formBasicUchasTel").value === ""
-            ? this.state.edit.uchasTel
-            : document.getElementById("formBasicUchasTel").value,
+          document.getElementById("formBasicUchasTel").value ,
         posbonFIO:
-          document.getElementById("formBasicPosbonFIO").value === ""
-            ? this.state.edit.posbonFIO
-            : document.getElementById("formBasicPosbonFIO").value,
+          document.getElementById("formBasicPosbonFIO").value ,
         posbonTel:
-          document.getElementById("formBasicPosbonTel").value === ""
-            ? this.state.edit.posbonTel
-            : document.getElementById("formBasicPosbonTel").value,
+          document.getElementById("formBasicPosbonTel").value ,
         qariyalarFIO:
-          document.getElementById("formBasicQariyalarFIO").value === ""
-            ? this.state.edit.qariyalarFIO
-            : document.getElementById("formBasicQariyalarFIO").value,
+          document.getElementById("formBasicQariyalarFIO").value ,
         qariyalarTel:
-          document.getElementById("formBasicQariyalarTel").value === ""
-            ? this.state.edit.qariyalarTel
-            : document.getElementById("formBasicQariyalarTel").value,
+          document.getElementById("formBasicQariyalarTel").value ,
         raiszami1FIO:
-          document.getElementById("formBasicRaisOrin1FIO").value === ""
-            ? this.state.edit.raiszami1FIO
-            : document.getElementById("formBasicRaisOrin1FIO").value,
+          document.getElementById("formBasicRaisOrin1FIO").value ,
         raiszami1Tel:
-          document.getElementById("formBasicRaisOrin1Tel").value === ""
-            ? this.state.edit.raiszami1Tel
-            : document.getElementById("formBasicRaisOrin1Tel").value,
+          document.getElementById("formBasicRaisOrin1Tel").value ,
         raiszami2FIO:
-          document.getElementById("formBasicRaisOrin2FIO").value === ""
-            ? this.state.edit.raiszami2FIO
-            : document.getElementById("formBasicRaisOrin2FIO").value,
+          document.getElementById("formBasicRaisOrin2FIO").value ,
         raiszami2Tel:
-          document.getElementById("formBasicRaisOrin2Tel").value === ""
-            ? this.state.edit.raiszami2Tel
-            : document.getElementById("formBasicRaisOrin2Tel").value,
+          document.getElementById("formBasicRaisOrin2Tel").value ,
         raiszami3FIO:
-          document.getElementById("formBasicRaisOrin3FIO").value === ""
-            ? this.state.edit.raiszami3FIO
-            : document.getElementById("formBasicRaisOrin3FIO").value,
+          document.getElementById("formBasicRaisOrin3FIO").value ,
         raiszami3Tel:
-          document.getElementById("formBasicRaisOrin3Tel").value === ""
-            ? this.state.edit.raiszami3Tel
-            : document.getElementById("formBasicRaisOrin3Tel").value,
+          document.getElementById("formBasicRaisOrin3Tel").value ,
         raiszami4FIO:
-          document.getElementById("formBasicRaisOrin4FIO").value === ""
-            ? this.state.edit.raiszami4FIO
-            : document.getElementById("formBasicRaisOrin4FIO").value,
+          document.getElementById("formBasicRaisOrin4FIO").value ,
         raiszami4Tel:
-          document.getElementById("formBasicRaisOrin4Tel").value === ""
-            ? this.state.edit.raiszami4Tel
-            : document.getElementById("formBasicRaisOrin4Tel").value,
+          document.getElementById("formBasicRaisOrin4Tel").value ,
         kotibaFIO:
-          document.getElementById("formBasickotibFIO").value === ""
-            ? this.state.edit.kotibaFIO
-            : document.getElementById("formBasickotibFIO").value,
+          document.getElementById("formBasickotibFIO").value ,
         kotibaTel:
-          document.getElementById("formBasickotibTel").value === ""
-            ? this.state.edit.kotibaTel
-            : document.getElementById("formBasickotibTel").value,
+          document.getElementById("formBasickotibTel").value ,
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
   
       if(this.state.editID){
  
-    createMahalla(point)
-    .then((res) =>{ message.success('Mahalla yaratildi');this.handleClose(); this.getMahalla();})
-    .catch((err) => {message.error('Mahalla yaratilmadi');this.setState({loading:false})});
+    createMahalla(point).then((res) =>{ message.success('Mahalla yaratildi');this.handleClose(); 
+  }).catch((err) => {message.error('Mahalla yaratilmadi');this.setState({loading:false})});
 }if(!this.state.editID){
-        editMahalla(this.state.edit, this.state.edit.id)
-        .then((res) =>{ message.success('Mahalla o\'zgartirildi');this.handleClose(); this.getMahalla();})
-        .catch((err) => {message.error('Mahalla o\'zgartirilmadi');this.setState({loading:false})});
+        editMahalla(this.state.edit, this.state.edit.id).then((res) =>{console.log(res); message.success('Mahalla o\'zgartirildi');this.handleClose();
+      }).catch((err) => {console.log(err);message.error('Mahalla o\'zgartirilmadi');this.setState({loading:false})});
       
         
       }
@@ -950,6 +907,7 @@ const {edit, nomi} = this.state
                 width="80%"
                 visible={this.state.openMap}
                 onCancel={this.handleCloseMap}
+                onOk={this.handleCloseMap}
               >
                 <YMaps>
                   <Map
@@ -1162,11 +1120,11 @@ const {edit, nomi} = this.state
                           geometry={info}
                           options={{
                             iconLayout: "default#image",
-                            iconImageHref:
-                              "https://w7.pngwing.com/pngs/371/489/png-transparent-computer-icons-drawing-pin-apple-icon-format-pinterest-miscellaneous-pin-business-thumbnail.png",
-                            iconImageSize: [40, 40],
+                            iconImageHref:pin,
+                            iconImageSize: [30, 30],
                             hideIconOnBalloonOpen: false,
-                            balloonOffset: [3, -40],
+                            balloonOffset: [3, 40],
+                            iconImageOffset:[-1, -28],
                           }}
                           onClick={() => {
                             this.deleteHud(index);
