@@ -98,7 +98,7 @@ function App() {
         </div>
       ) : (
         <>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex",justifyContent:'center',alignItems:'center',backgroundColor:'#FCFCE7' }}>
             <img
               style={{
                 borderRadius: "50%",
@@ -111,12 +111,12 @@ function App() {
             />
             <h1
               style={{
-                textAlign: "center",
-                marginLeft: "40px",
-                margin: "auto",
+                fontSize:'26px',
+                paddingLeft: "20px",
+              
               }}
             >
-              Online Mahalla{" "}
+              O`zbekiston Reapublikasi mahalla va oilani qo`llab-quvvatlash vazirligi{" "}
             </h1>{" "}
           </div>
           {forclick ? (
