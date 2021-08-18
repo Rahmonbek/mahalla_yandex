@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: #546a8e;
+  background-color: #004882;
 }
 .map_item {
   width: 40%;
@@ -13,7 +13,22 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.map_item .ant-select {
-  margin: 5px 0;
+.map_item .ant-select-selector {
+  margin: 10px 0;
+}
+.map_item .anticon-down {
+  transform: rotate(90deg);
+  color: black;
+}
+.map_item .ant-select-open .anticon-down {
+  transform: rotate(0deg);
+}
+footer {
+  background-color: #004882;
+  padding: 15px;
+}
+.page-footer p {
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
