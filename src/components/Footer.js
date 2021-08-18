@@ -8,7 +8,7 @@ const FooterPagePro = () => {
       <MDBContainer className="text-center text-md-left">
         <MDBRow className="d-flex align-items-center">
           <MDBCol md="6" lg="6" sm="12">
-            <p className="text-left grey-text text-primary">
+            <p className="text-left">
               &copy; {new Date().getFullYear()} Mualliflik huquqi: IT Tower
             </p>
           </MDBCol>

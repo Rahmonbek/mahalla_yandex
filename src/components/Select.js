@@ -50,7 +50,6 @@ function SelectMap(props) {
 
     onData();
   };
-
   const handleCityChange = (value) => {
     var g = [];
     for (let i = 0; i < data.length; i++) {
@@ -76,7 +75,6 @@ function SelectMap(props) {
     setMahallalar(g);
     setNeighborhood([...new Set(g.map((item) => item.nomi))]);
   };
-
   const handleNeighborhoodsChange = (value) => {
     var g = [];
     for (let i = 0; i < data.length; i++) {
@@ -92,7 +90,6 @@ function SelectMap(props) {
       localStorage.setItem("data", JSON.stringify(g));
       localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(15);
-
       //Param set
       onParam();
       onData();
