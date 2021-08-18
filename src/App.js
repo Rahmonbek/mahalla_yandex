@@ -101,19 +101,21 @@ function App() {
                 borderRadius: "50%",
                 height: "70px",
                 width: "70px",
-                marginLeft: "10%",
+                marginLeft: "30px",
               }}
               src={oila}
               alt=""
             />
             <h1
               style={{
-                fontSize:'26px',
+                fontSize:'22px',
                 paddingLeft: "20px",
+              
+                marginRight:'30px'
               
               }}
             >
-              O`zbekiston Reapublikasi mahalla va oilani qo`llab-quvvatlash vazirligi{" "}
+              O`zbekiston Reapublikasi Mahalla va oilani qo`llab-quvvatlash vazirligi huzuridagi "Mahalla va oila" ilmiy-tadqiqot instituti{" "}
             </h1>{" "}
           </div>
           {forclick ? (
