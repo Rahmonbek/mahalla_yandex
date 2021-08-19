@@ -12,7 +12,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Button, message, Modal } from "antd";
-import pin from './pin.png'
+import pin from "./pin.png";
 import {
   YMaps,
   Map,
@@ -55,7 +55,7 @@ export default class Card2 extends Component {
     rows: [],
     search: [],
     rowsa: [],
-    nomi:'',
+    nomi: "",
     number: 0,
     open: false,
     openMap: false,
@@ -70,8 +70,8 @@ export default class Card2 extends Component {
     loading: true,
     data: "",
     excludeColumns: ["viloyat", "tuman", "nomi"],
-    edit:{},
-    editID:true
+    edit: {},
+    editID: true,
   };
 
   handleChange = (value) => {
@@ -89,31 +89,31 @@ export default class Card2 extends Component {
   };
 
   getMahalla = () => {
-    getMahalla().then((res) => {
-      console.log(res.data.length)
-      var h=res.data
-      if(h!==null){
-        this.setState({
-          number:res.data.length,
-          rows: res.data,
-          search: res.data,
-          loading: false,
-          rowsa: res.data,
-        });
-      }else{
-        this.setState({
-          number:0,
-          rows: [],
-          search: [],
-          loading: false,
-          rowsa: [],
-        });
-      }
-        
+    getMahalla()
+      .then((res) => {
+        console.log(res.data.length);
+        var h = res.data;
+        if (h !== null) {
+          this.setState({
+            number: res.data.length,
+            rows: res.data,
+            search: res.data,
+            loading: false,
+            rowsa: res.data,
+          });
+        } else {
+          this.setState({
+            number: 0,
+            rows: [],
+            search: [],
+            loading: false,
+            rowsa: [],
+          });
+        }
+
         this.coo();
-        
-      }
-       ) .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
   handleOpen = () => {
     this.setState({ open: true });
@@ -131,10 +131,17 @@ export default class Card2 extends Component {
     this.setState({ coordsHud: a, coor: b });
   };
   handleClose = () => {
-    
-    var f=this.state.coor
-    f[this.state.number]=[]
-    this.setState({edit:{}, nomi:'', editID:true, open: false, coords: [],coordsHud:[], coor:f,  });
+    var f = this.state.coor;
+    f[this.state.number] = [];
+    this.setState({
+      edit: {},
+      nomi: "",
+      editID: true,
+      open: false,
+      coords: [],
+      coordsHud: [],
+      coor: f,
+    });
     this.getMahalla();
   };
 
@@ -149,10 +156,16 @@ export default class Card2 extends Component {
     this.setState({ coor: coord });
   };
   createPoints = (value) => {
-    console.log(this.state.coords, this.state.coor[this.state.number].length!==0)
-  
-    if(this.state.coords.length!==0 && this.state.coor[this.state.number].length!==0){
-      this.setState({loading:true})
+    console.log(
+      this.state.coords,
+      this.state.coor[this.state.number].length !== 0
+    );
+
+    if (
+      this.state.coords.length !== 0 &&
+      this.state.coor[this.state.number].length !== 0
+    ) {
+      this.setState({ loading: true });
       var str = document.getElementById("formBasictuman").value;
       if (str.indexOf(" tumani") === -1 || str.indexOf(" shahri") === -1) {
         if (str.indexOf(" ") === -1) {
@@ -164,66 +177,57 @@ export default class Card2 extends Component {
         }
       }
       var point = {
-        nomi:
-          document.getElementById("formBasicname").value ,
-        viloyat:
-          document.getElementById("formBasicviloyat").value ,
+        nomi: document.getElementById("formBasicname").value,
+        viloyat: document.getElementById("formBasicviloyat").value,
         tuman: str,
-        tel:
-          document.getElementById("formBasictel").value ,
-        email:
-          document.getElementById("formBasicemail").value ,
-        raisFIO:
-          document.getElementById("formBasicRaisFIO").value ,
-        rasiTel:
-          document.getElementById("formBasicRasiTel").value ,
-        uchasFIO:
-          document.getElementById("formBasicUchasFIO").value ,
-        uchasTel:
-          document.getElementById("formBasicUchasTel").value ,
-        posbonFIO:
-          document.getElementById("formBasicPosbonFIO").value ,
-        posbonTel:
-          document.getElementById("formBasicPosbonTel").value ,
-        qariyalarFIO:
-          document.getElementById("formBasicQariyalarFIO").value ,
-        qariyalarTel:
-          document.getElementById("formBasicQariyalarTel").value ,
-        raiszami1FIO:
-          document.getElementById("formBasicRaisOrin1FIO").value ,
-        raiszami1Tel:
-          document.getElementById("formBasicRaisOrin1Tel").value ,
-        raiszami2FIO:
-          document.getElementById("formBasicRaisOrin2FIO").value ,
-        raiszami2Tel:
-          document.getElementById("formBasicRaisOrin2Tel").value ,
-        raiszami3FIO:
-          document.getElementById("formBasicRaisOrin3FIO").value ,
-        raiszami3Tel:
-          document.getElementById("formBasicRaisOrin3Tel").value ,
-        raiszami4FIO:
-          document.getElementById("formBasicRaisOrin4FIO").value ,
-        raiszami4Tel:
-          document.getElementById("formBasicRaisOrin4Tel").value ,
-        kotibaFIO:
-          document.getElementById("formBasickotibFIO").value ,
-        kotibaTel:
-          document.getElementById("formBasickotibTel").value ,
+        tel: document.getElementById("formBasictel").value,
+        email: document.getElementById("formBasicemail").value,
+        raisFIO: document.getElementById("formBasicRaisFIO").value,
+        rasiTel: document.getElementById("formBasicRasiTel").value,
+        uchasFIO: document.getElementById("formBasicUchasFIO").value,
+        uchasTel: document.getElementById("formBasicUchasTel").value,
+        posbonFIO: document.getElementById("formBasicPosbonFIO").value,
+        posbonTel: document.getElementById("formBasicPosbonTel").value,
+        qariyalarFIO: document.getElementById("formBasicQariyalarFIO").value,
+        qariyalarTel: document.getElementById("formBasicQariyalarTel").value,
+        raiszami1FIO: document.getElementById("formBasicRaisOrin1FIO").value,
+        raiszami1Tel: document.getElementById("formBasicRaisOrin1Tel").value,
+        raiszami2FIO: document.getElementById("formBasicRaisOrin2FIO").value,
+        raiszami2Tel: document.getElementById("formBasicRaisOrin2Tel").value,
+        raiszami3FIO: document.getElementById("formBasicRaisOrin3FIO").value,
+        raiszami3Tel: document.getElementById("formBasicRaisOrin3Tel").value,
+        raiszami4FIO: document.getElementById("formBasicRaisOrin4FIO").value,
+        raiszami4Tel: document.getElementById("formBasicRaisOrin4Tel").value,
+        kotibaFIO: document.getElementById("formBasickotibFIO").value,
+        kotibaTel: document.getElementById("formBasickotibTel").value,
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
-  
-      if(this.state.editID){
- 
-    createMahalla(point).then((res) =>{ message.success('Mahalla yaratildi');this.handleClose(); 
-  }).catch((err) => {message.error('Mahalla yaratilmadi');this.setState({loading:false})});
-}if(!this.state.editID){
-        editMahalla(this.state.edit, this.state.edit.id).then((res) =>{console.log(res); message.success('Mahalla o\'zgartirildi');this.handleClose();
-      }).catch((err) => {console.log(err);message.error('Mahalla o\'zgartirilmadi');this.setState({loading:false})});
-      
-        
+
+      if (this.state.editID) {
+        createMahalla(point)
+          .then((res) => {
+            message.success("Mahalla yaratildi");
+            this.handleClose();
+          })
+          .catch((err) => {
+            message.error("Mahalla yaratilmadi");
+            this.setState({ loading: false });
+          });
       }
-      
+      if (!this.state.editID) {
+        editMahalla(this.state.edit, this.state.edit.id)
+          .then((res) => {
+            console.log(res);
+            message.success("Mahalla o'zgartirildi");
+            this.handleClose();
+          })
+          .catch((err) => {
+            console.log(err);
+            message.error("Mahalla o'zgartirilmadi");
+            this.setState({ loading: false });
+          });
+      }
     }
   };
   deleteMahalla = (id) => {
@@ -282,40 +286,37 @@ export default class Card2 extends Component {
     var r = this.state.rows[item];
     console.log(r);
     var a = this.state.coor;
-  a[this.state.number]=r.coor
- var b=this.state.rowsa
- b[this.state.number]={
-   param:r.param
- }
-  this.setState({
-    editID:false,
-    edit:r,
-    coordsHud:r.coor,
-      coor:a,
-      rowsa:b,
+    a[this.state.number] = r.coor;
+    var b = this.state.rowsa;
+    b[this.state.number] = {
+      param: r.param,
+    };
+    this.setState({
+      editID: false,
+      edit: r,
+      coordsHud: r.coor,
+      coor: a,
+      rowsa: b,
       coords: r.param,
-    nomi:r.nomi,
-   
-    })
-    setTimeout(()=>{
-      this.handleOpen()
-    
-    }, 500)
-    }
-  
+      nomi: r.nomi,
+    });
+    setTimeout(() => {
+      this.handleOpen();
+    }, 500);
+  };
+
   componentDidMount() {
     this.setState({ loading: true });
 
     this.getMahalla();
   }
 
-  formChange=(e)=>{
-    console.log(e)
-    
-  }
+  formChange = (e) => {
+    console.log(e);
+  };
   render() {
     const { vil } = this.props;
-const {edit, nomi} = this.state
+    const { edit, nomi } = this.state;
     return (
       <div>
         {this.state.loading ? (
@@ -341,52 +342,103 @@ const {edit, nomi} = this.state
           </div>
         ) : (
           <>
+            <div className={style.ser}>
+              <div className={style.searchbox}>
+                <button className={style.btnsearch}>
+                  <SearchOutlined />
+                </button>
+                <input
+                  type="text"
+                  id="search"
+                  onChange={(e) => this.handleChange(e.target.value)}
+                  className={style.inputsearch}
+                  placeholder="Mahalla nomini yozing"
+                />
+              </div>
+            </div>
 
-<div className={style.ser}>
-<div className={style.searchbox}>
-    <button className={style.btnsearch}><SearchOutlined /></button>
-    <input type="text" id="search"
-        onChange={e =>this.handleChange(e.target.value)} className={style.inputsearch} placeholder="Mahalla nomini yozing" />
-    </div>
-    </div>
-
-            <Modal title="Mahalla yaratish" width="80%" visible={this.state.open} onCancel={this.handleClose} footer={false} onFinish={this.createPoints}>
+            <Modal
+              title="Mahalla yaratish"
+              width="80%"
+              visible={this.state.open}
+              onCancel={this.handleClose}
+              footer={false}
+              onFinish={this.createPoints}
+            >
               <Form
-              // onChange={e=>{this.formChange(e)}}
-              onSubmit={this.createPoints}
+                // onChange={e=>{this.formChange(e)}}
+                onSubmit={this.createPoints}
               >
                 <Row>
                   <Col lg={6} md={12}>
                     <Form.Group className="mb-3" controlId="formBasicname">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahallani nomi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.nomi=e.target.value; this.setState({edit:edit1})}} value={edit.nomi} name="nomi" required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Mahallani nomi" />
-                      
-                    </Form.Group>
-                   {this.state.editID? <Form.Group className="mb-3" controlId="formBasicKotibTel">
-                    <Form.Label style={{ fontSize: "14px" }}>Mahalla hududini belgilang</Form.Label>
-
-<Button className="btnXarita" onClick={this.handleOpenMapHud}>
-  <LocationOnIcon />
-</Button>
-               
-                      <br />
-                      <br />
                       <Form.Label style={{ fontSize: "14px" }}>
-                        Mahalla binosini belgilang
+                        Mahallani nomi
                       </Form.Label>
-
-                      <Button
-                        className="btnXarita"
-                        onClick={this.handleOpenMap}
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.nomi = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.nomi}
+                        name="nomi"
+                        required={true}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Mahallani nomi"
+                      />
+                    </Form.Group>
+                    {this.state.editID ? (
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicKotibTel"
                       >
-                        <LocationOnIcon />
-                      </Button>
-                      
-                    </Form.Group>:''
-                   }
+                        <Form.Label style={{ fontSize: "14px" }}>
+                          Mahalla hududini belgilang
+                        </Form.Label>
+
+                        <Button
+                          className="btnXarita"
+                          onClick={this.handleOpenMapHud}
+                        >
+                          <LocationOnIcon />
+                        </Button>
+
+                        <br />
+                        <br />
+                        <Form.Label style={{ fontSize: "14px" }}>
+                          Mahalla binosini belgilang
+                        </Form.Label>
+
+                        <Button
+                          className="btnXarita"
+                          onClick={this.handleOpenMap}
+                        >
+                          <LocationOnIcon />
+                        </Button>
+                      </Form.Group>
+                    ) : (
+                      ""
+                    )}
                     <Form.Group className="mb-3" controlId="formBasicviloyat">
-                      <Form.Label style={{ fontSize: "14px" }}>Viloyatni kiriting</Form.Label>
-                      <select  onChange={(e)=>{var edit1=this.state.edit; edit1.viloyat=e.target.value; this.setState({edit:edit1})}} value={edit.viloyat}  required={true} id="formBasicviloyat" className="selectVil">
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Viloyatni kiriting
+                      </Form.Label>
+                      <select
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.viloyat = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.viloyat}
+                        required={true}
+                        id="formBasicviloyat"
+                        className="selectVil"
+                      >
                         <option value="Toshkent shahri">Toshkent shahri</option>
                         <option value="Toshkent viloyati">
                           Toshkent viloyati
@@ -420,127 +472,476 @@ const {edit, nomi} = this.state
                           Qoraqalpog'iston Respublikasi
                         </option>
                       </select>
-                      
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasictuman">
-                      <Form.Label style={{ fontSize: "14px" }}>Tumanni kiriting</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.tuman=e.target.value; this.setState({edit:edit1})}} value={edit.tuman}  required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }}list="tuman" type="text" placeholder="Yunusobod tumani" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Tumanni kiriting
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.tuman = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.tuman}
+                        required={true}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        list="tuman"
+                        type="text"
+                        placeholder="Yunusobod tumani"
+                      />
 
                       <datalist id="tuman">
                         {tuman.map((item) => {
                           return <option value={item} />;
                         })}
                       </datalist>
-                      
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasictel">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahallani telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.tel=e.target.value; this.setState({edit:edit1})}} value={edit.tel}  required={true} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
-                      
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Mahallani telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.tel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.tel}
+                        required={true}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicemail">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla elektron pochtasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.email=e.target.value; this.setState({edit:edit1})}} value={edit.email} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="email" placeholder="Email" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Mahalla elektron pochtasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.email = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.email}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="email"
+                        placeholder="Email"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRaisFIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raisFIO=e.target.value; this.setState({edit:edit1})}} value={edit.raisFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raisFIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raisFIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRasiTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.rasiTel=e.target.value; this.setState({edit:edit1})}} value={edit.rasiTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.rasiTel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.rasiTel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin1FIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami1FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami1FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin1FIO"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 1-o'rinbosari familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami1FIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami1FIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin1Tel">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 1-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami1Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami1Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin1Tel"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 1-o'rinbosari telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami1Tel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami1Tel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin2FIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami2FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami2FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin2FIO"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 2-o'rinbosari familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami2FIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami2FIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin2Tel">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 2-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami2Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami2Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin2Tel"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 2-o'rinbosari telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami2Tel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami2Tel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
                   </Col>
 
                   <Col lg={6} md={12}>
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin3FIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami3FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami3FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin3FIO"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 3-o'rinbosari familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami3FIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami3FIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin3Tel">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 3-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami3Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami3Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin3Tel"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 3-o'rinbosari telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami3Tel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami3Tel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin4FIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami4FIO=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami4FIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin4FIO"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 4-o'rinbosari familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami4FIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami4FIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicRaisOrin4Tel">
-                      <Form.Label style={{ fontSize: "14px" }}>Rais 4-o'rinbosari telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.raiszami4Tel=e.target.value; this.setState({edit:edit1})}} value={edit.raiszami4Tel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicRaisOrin4Tel"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Rais 4-o'rinbosari telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.raiszami4Tel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.raiszami4Tel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasFIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.uchasFIO=e.target.value; this.setState({edit:edit1})}} value={edit.uchasFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Uchastkavoy familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.uchasFIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.uchasFIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicUchasTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Uchastkavoy telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.uchasTel=e.target.value; this.setState({edit:edit1})}} value={edit.uchasTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Uchastkavoy telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.uchasTel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.uchasTel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonFIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.posbonFIO=e.target.value; this.setState({edit:edit1})}} value={edit.posbonFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Mahalla posboni familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.posbonFIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.posbonFIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPosbonTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Mahalla posboni telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.posbonTel=e.target.value; this.setState({edit:edit1})}} value={edit.posbonTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Mahalla posboni telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.posbonTel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.posbonTel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicQariyalarFIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Qariyalar familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.qariyalarFIO=e.target.value; this.setState({edit:edit1})}} value={edit.qariyalarFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicQariyalarFIO"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Qariyalar familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.qariyalarFIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.qariyalarFIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicQariyalarTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Qariyalar telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.qariyalarTel=e.target.value; this.setState({edit:edit1})}} value={edit.qariyalarTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicQariyalarTel"
+                    >
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Qariyalar telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.qariyalarTel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.qariyalarTel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibFIO">
-                      <Form.Label style={{ fontSize: "14px" }}>Kotib(a) familiya ism ochistvasi</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.kotibaFIO=e.target.value; this.setState({edit:edit1})}} value={edit.kotibaFIO} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Familiya ism ochistva" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Kotib(a) familiya ism ochistvasi
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.kotibaFIO = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.kotibaFIO}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Familiya ism ochistva"
+                      />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasickotibTel">
-                      <Form.Label style={{ fontSize: "14px" }}>Kotib(a) telefon raqami</Form.Label>
-                      <Form.Control  onChange={(e)=>{var edit1=this.state.edit; edit1.kotibaTel=e.target.value; this.setState({edit:edit1})}} value={edit.kotibaTel} style={{ fontSize: "13px", backgroundColor: "#c2ffff91" }} type="text" placeholder="Telefon raqam" />
+                      <Form.Label style={{ fontSize: "14px" }}>
+                        Kotib(a) telefon raqami
+                      </Form.Label>
+                      <Form.Control
+                        onChange={(e) => {
+                          var edit1 = this.state.edit;
+                          edit1.kotibaTel = e.target.value;
+                          this.setState({ edit: edit1 });
+                        }}
+                        value={edit.kotibaTel}
+                        style={{
+                          fontSize: "13px",
+                          backgroundColor: "#c2ffff91",
+                        }}
+                        type="text"
+                        placeholder="Telefon raqam"
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
 
-                <Button type="danger" htmlType="button" onClick={() => this.handleClose()}>
+                <Button
+                  type="danger"
+                  htmlType="button"
+                  onClick={() => this.handleClose()}
+                >
                   Bekor qilish
                 </Button>
 
@@ -555,7 +956,7 @@ const {edit, nomi} = this.state
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.number === 0 ? (
+                {this.state.number === 0 || this.state.number !== null ? (
                   <div style={{ paddingTop: "50px" }}>
                     <FrownOutlined
                       style={{
@@ -901,7 +1302,9 @@ const {edit, nomi} = this.state
                     height="65vh"
                     defaultState={{
                       center:
-                        this.state.rows[0].param !== null ? this.state.rows[0].param : [],
+                        this.state.rows[0].param !== null
+                          ? this.state.rows[0].param
+                          : [],
                       zoom: 6,
                     }}
                   >
@@ -1051,7 +1454,9 @@ const {edit, nomi} = this.state
                   height="65vh"
                   defaultState={{
                     center:
-                      this.state.rows[0].param !== null ? this.state.rows[0].param : [],
+                      this.state.rows[0].param !== null
+                        ? this.state.rows[0].param
+                        : [],
                     zoom: 6,
                   }}
                 >
@@ -1105,11 +1510,11 @@ const {edit, nomi} = this.state
                           geometry={info}
                           options={{
                             iconLayout: "default#image",
-                            iconImageHref:pin,
+                            iconImageHref: pin,
                             iconImageSize: [30, 30],
                             hideIconOnBalloonOpen: false,
                             balloonOffset: [3, 40],
-                            iconImageOffset:[-1, -28],
+                            iconImageOffset: [-1, -28],
                           }}
                           onClick={() => {
                             this.deleteHud(index);
