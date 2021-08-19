@@ -89,25 +89,21 @@ export default class Card2 extends Component {
   };
 
   getMahalla = () => {
-    getMahalla()
-      .then((res) => {
-        console.log(res.data)
-
+    getMahalla().then((res) => {
+        var h=res.data
+        console.log(res)
         this.setState({
+          number: h,
           rows: res.data,
           search: res.data,
           loading: false,
           rowsa: res.data,
         });
-        this.coo();
-        setTimeout(() => {
-          this.setState({
-            number: res.data.length,
-          });
-        }, 1000);
-      })
 
-      .catch((err) => console.log(err));
+        this.coo();
+        
+      }
+       ) .catch((err) => console.log(err));
   };
   handleOpen = () => {
     this.setState({ open: true });
