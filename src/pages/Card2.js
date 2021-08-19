@@ -90,16 +90,26 @@ export default class Card2 extends Component {
 
   getMahalla = () => {
     getMahalla().then((res) => {
-        var h=res.data
-        console.log(res)
+      console.log(res.data.length)
+      var h=res.data
+      if(h!==null){
         this.setState({
-          number: h,
+          number:res.data.length,
           rows: res.data,
           search: res.data,
           loading: false,
           rowsa: res.data,
         });
-
+      }else{
+        this.setState({
+          number:0,
+          rows: [],
+          search: [],
+          loading: false,
+          rowsa: [],
+        });
+      }
+        
         this.coo();
         
       }
@@ -121,29 +131,7 @@ export default class Card2 extends Component {
     this.setState({ coordsHud: a, coor: b });
   };
   handleClose = () => {
-    // document.getElementById("formBasictuman").value = "";
-    // document.getElementById("formBasicname").value = "";
-    // document.getElementById("formBasicviloyat").value = "";
-    // document.getElementById("formBasicRaisFIO").value = "";
-    // document.getElementById("formBasicRasiTel").value = "";
-    // document.getElementById("formBasicemail").value = "";
-    // document.getElementById("formBasictel").value = "";
-    // document.getElementById("formBasicUchasFIO").value = "";
-    // document.getElementById("formBasicUchasTel").value = "";
-    // document.getElementById("formBasicPosbonFIO").value = "";
-    // document.getElementById("formBasicPosbonTel").value = "";
-    // document.getElementById("formBasicQariyalarFIO").value = "";
-    // document.getElementById("formBasicQariyalarTel").value = "";
-    // document.getElementById("formBasicRaisOrin1FIO").value = "";
-    // document.getElementById("formBasicRaisOrin1Tel").value = "";
-    // document.getElementById("formBasicRaisOrin2FIO").value = "";
-    // document.getElementById("formBasicRaisOrin2Tel").value = "";
-    // document.getElementById("formBasicRaisOrin3FIO").value = "";
-    // document.getElementById("formBasicRaisOrin3Tel").value = "";
-    // document.getElementById("formBasicRaisOrin4FIO").value = "";
-    // document.getElementById("formBasicRaisOrin4Tel").value = "";
-    // document.getElementById("formBasickotibFIO").value = "";
-    // document.getElementById("formBasickotibTel").value = "";
+    
     var f=this.state.coor
     f[this.state.number]=[]
     this.setState({edit:{}, nomi:'', editID:true, open: false, coords: [],coordsHud:[], coor:f,  });
@@ -913,7 +901,7 @@ const {edit, nomi} = this.state
                     height="65vh"
                     defaultState={{
                       center:
-                        this.state.number !== 0 ? this.state.rows[0].param : [],
+                        this.state.rows[0].param !== null ? this.state.rows[0].param : [],
                       zoom: 6,
                     }}
                   >
@@ -1063,7 +1051,7 @@ const {edit, nomi} = this.state
                   height="65vh"
                   defaultState={{
                     center:
-                      this.state.rows !== [] ? this.state.rows[0].param : [],
+                      this.state.rows[0].param !== null ? this.state.rows[0].param : [],
                     zoom: 6,
                   }}
                 >
@@ -1138,8 +1126,8 @@ const {edit, nomi} = this.state
                     geometry={{
                       type: "Polygon",
                       coordinates: [
-                        this.state.coor[this.state.rows.length]
-                          ? this.state.coor[this.state.rows.length]
+                        this.state.coor[this.state.number]
+                          ? this.state.coor[this.state.number]
                           : [],
                       ],
                       fillRule: "nonZero",
