@@ -134,7 +134,7 @@ function SelectMap(props) {
             <Option key={item}>{item}</Option>
           ))}
         </Select>
-        <Button onClick={Result}>Barcha mahallalar</Button>
+        <Button onClick={Result}>Qaytish kiritish</Button>
       </div>
     </div>
   );
