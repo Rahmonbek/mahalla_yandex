@@ -101,6 +101,7 @@ export default class Card2 extends Component {
             loading: false,
             rowsa: res.data,
           });
+          console.log(this.state.number)
         } else {
           this.setState({
             number: 0,
@@ -240,7 +241,7 @@ export default class Card2 extends Component {
         message.error("Mahalla o'chirilmadi");
       });
     setTimeout(() => {
-      this.getMahallaG();
+      this.getMahalla();
     }, 500);
   };
   showPointsRead = (id) => {
@@ -248,6 +249,7 @@ export default class Card2 extends Component {
   };
   handleOpenMapHud = () => {
     this.setState({ openMapHud: true });
+    console.log(this.state.coor)
   };
 
   handleCloseMapHud = () => {
@@ -280,7 +282,7 @@ export default class Card2 extends Component {
 
   handleCancel = () => {
     this.setState({ show: false });
-    this.getMahallaG();
+    this.getMahalla();
   };
   editPoints = (item) => {
     var r = this.state.rows[item];
@@ -308,7 +310,7 @@ export default class Card2 extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.getMahallaG();
+    this.getMahalla();
   }
 
   formChange = (e) => {
@@ -956,7 +958,7 @@ export default class Card2 extends Component {
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.number === 0 || this.state.number !== null ? (
+                {this.state.number === 0 || this.state.search===[] ? 
                   <div style={{ paddingTop: "50px" }}>
                     <FrownOutlined
                       style={{
@@ -967,7 +969,7 @@ export default class Card2 extends Component {
                     />{" "}
                     Bunday mahalla bazada mavjud emas
                   </div>
-                ) : (
+               : 
                   this.state.search.map((text, index) =>
                     vil === "Hammasi" && text.param.length !== 0 ? (
                       <Col lg={4} md={6} sm={12}>
@@ -1285,7 +1287,7 @@ export default class Card2 extends Component {
                       ""
                     )
                   )
-                )}
+                }
               </Row>
               <Modal
                 title="Mahalla binosini belgilash"
