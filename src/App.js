@@ -115,7 +115,7 @@ function App() {
               
               }}
             >
-              O`zbekiston Reapublikasi Mahalla va oilani qo`llab-quvvatlash vazirligi huzuridagi "Mahalla va oila" ilmiy-tadqiqot instituti{" "}
+              O`zbekiston Respublikasi Mahalla va oilani qo`llab-quvvatlash vazirligi huzuridagi "Mahalla va oila" ilmiy-tadqiqot instituti{" "}
             </h1>{" "}
           </div>
           {forclick ? (
