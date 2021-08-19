@@ -11,7 +11,7 @@ export const getMahalla = () => {
 export const deleteMahalla = (id) => {
 
   var config = {
-    url: `${url}${id}`,
+    url: `${url}${id}/`,
     method: "delete",
   };
   return httpRequest(config);

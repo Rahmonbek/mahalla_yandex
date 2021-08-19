@@ -91,7 +91,8 @@ export default class Card2 extends Component {
   getMahalla = () => {
     getMahalla()
       .then((res) => {
-        console.log('cdmk')
+        console.log(res.data)
+
         this.setState({
           rows: res.data,
           search: res.data,
@@ -101,7 +102,7 @@ export default class Card2 extends Component {
         this.coo();
         setTimeout(() => {
           this.setState({
-            number: this.state.rows.length,
+            number: res.data.length,
           });
         }, 1000);
       })
@@ -570,7 +571,7 @@ const {edit, nomi} = this.state
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.search.length === 0 ? (
+                {this.state.number === 0 ? (
                   <div style={{ paddingTop: "50px" }}>
                     <FrownOutlined
                       style={{
@@ -916,7 +917,7 @@ const {edit, nomi} = this.state
                     height="65vh"
                     defaultState={{
                       center:
-                        this.state.rows !== [] ? this.state.rows[0].param : [],
+                        this.state.number !== 0 ? this.state.rows[0].param : [],
                       zoom: 6,
                     }}
                   >
