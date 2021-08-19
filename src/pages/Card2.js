@@ -200,7 +200,7 @@ export default class Card2 extends Component {
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
-
+console.log(point.coor)
       if (this.state.editID) {
         createMahalla(point)
           .then((res) => {
@@ -1150,7 +1150,7 @@ console.log(e)
                         groupByCoordinates: false,
                       }}
                     >
-                      {/* {this.state.rowsa.map((info, index) => {
+                      {this.state.rowsa.map((info, index) => {
                         return (
                           <Placemark
                             key={index}
@@ -1164,7 +1164,7 @@ console.log(e)
                             }}
                           />
                         );
-                      })} */}
+                      })}
                     </Clusterer>
 
                     <GeolocationControl options={{ float: "left" }} />
@@ -1315,7 +1315,7 @@ console.log(e)
                     }}
                   />
 
-                  {/* <Clusterer
+                  <Clusterer
                     options={{
                       preset: "islands#invertedVioletClusterIcons",
                       groupByCoordinates: false,
@@ -1333,7 +1333,7 @@ console.log(e)
                         />
                       );
                     })}
-                  </Clusterer> */}
+                  </Clusterer>
                   <Clusterer
                     options={{
                       preset: "islands#invertedRedClusterIcons",

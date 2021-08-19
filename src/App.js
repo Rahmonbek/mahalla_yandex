@@ -12,7 +12,7 @@ import {
   TrafficControl,
   GeoObject,
 } from "react-yandex-maps";
-
+import person from './person.png'
 import oila from "./pages/new.jpg";
 import pin from "./boy.png";
 import RingLoader from "react-spinners/RingLoader";
@@ -29,6 +29,7 @@ function App() {
   const [village, setVillage] = useState("");
   const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
   const [Points, setPoints] = useState([]);
 
@@ -40,13 +41,20 @@ function App() {
       setPoints(res.data);
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        // console.log("Latitude is :", position.coords.latitude);
+       setUser([position.coords.latitude, position.coords.longitude]);
         // console.log("Longitude is :", position.coords.longitude);
       });
 
       var coord = [];
-      res.data.map((item) => coord.push(item.coor));
+      res.data.map((item) => {
+        if(item.coor!==null){
+          coord.push(item.coor)
+        }else{
+          coord.push([])
+        }
+        });
       setCoor(coord);
+      console.log(coord)
       setLoading(false);
     });
   }, []);
@@ -134,7 +142,7 @@ function App() {
               width="100vw"
               height="95vh"
               state={{
-                center: param,
+                center: user,
                 zoom,
               }}
             >
@@ -170,7 +178,8 @@ function App() {
                   return (
                     <Placemark
                       key={index}
-                      geometry={info.param}
+                      className="placeMark"
+                      geometry={info.param!==null?info.param:[]}
                       onClick={() => Information(info)}
                       properties={{
                         balloonContent: info.name,
@@ -179,6 +188,30 @@ function App() {
                   );
                 })}
               </Clusterer>
+              <Clusterer
+                    options={{
+                      preset: "islands#invertedRedClusterIcons",
+                      groupByCoordinates: false,
+                    }}
+                  >
+                        <Placemark
+                          key={-1}
+                          geometry={user}
+                          options={{
+                            iconLayout: "default#image",
+                            iconImageHref: person,
+                            iconImageSize: [60, 90],
+                            hideIconOnBalloonOpen: false,
+                            balloonOffset: [3, 40],
+                            iconImageOffset: [-1, -28],
+                          }}
+                       
+                          properties={{
+                            balloonContent: "Siz",
+                          }}
+                        />
+                   
+                  </Clusterer>
               <GeolocationControl options={{ float: "left" }} />
               <TypeSelector options={{ float: "right" }} />
               <TrafficControl options={{ float: "right" }} />
