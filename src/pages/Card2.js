@@ -240,7 +240,7 @@ export default class Card2 extends Component {
         message.error("Mahalla o'chirilmadi");
       });
     setTimeout(() => {
-      this.getMahalla();
+      this.getMahallaG();
     }, 500);
   };
   showPointsRead = (id) => {
@@ -280,7 +280,7 @@ export default class Card2 extends Component {
 
   handleCancel = () => {
     this.setState({ show: false });
-    this.getMahalla();
+    this.getMahallaG();
   };
   editPoints = (item) => {
     var r = this.state.rows[item];
@@ -308,7 +308,7 @@ export default class Card2 extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.getMahalla();
+    this.getMahallaG();
   }
 
   formChange = (e) => {
