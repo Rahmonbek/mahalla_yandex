@@ -51,7 +51,6 @@ function App() {
         item.coor !== null ? coord.push(item.coor) : coord.push([])
       );
       setCoor(coord);
-      console.log(coord);
       setLoading(false);
     });
   }, []);
@@ -142,7 +141,6 @@ function App() {
           />
           <YMaps key={"uz_UZ"} query={{ lang: "uz_UZ" }}>
             <Map
-              onLoad={(ymaps) => console.log(ymaps)}
               width="100vw"
               height="95vh"
               state={{
@@ -155,9 +153,6 @@ function App() {
                   type: "Polygon",
                   coordinates: coor,
                   fillRule: 1,
-                }}
-                properties={{
-                  balloonContent: "Многоугольник",
                 }}
                 options={{
                   fillColor: `rgba(255,255,0,0.4)`,
@@ -182,14 +177,13 @@ function App() {
                   return (
                     <Placemark
                       key={index}
-                      onMouse
                       className="placeMark"
                       geometry={info.param !== null ? info.param : []}
                       onClick={() => Information(info)}
                       properties={{
-                        balloonContent: info.nomi,
+                        hintContent: info.nomi,
                       }}
-                      options={{ balloonContentLayout: info.nomi }}
+                      modules={["geoObject.addon.hint"]}
                     />
                   );
                 })}
@@ -206,14 +200,15 @@ function App() {
                   options={{
                     iconLayout: "default#image",
                     iconImageHref: person,
-                    iconImageSize: [60, 90],
+                    iconImageSize: [50, 70],
                     hideIconOnBalloonOpen: false,
                     balloonOffset: [3, 40],
                     iconImageOffset: [-1, -28],
                   }}
                   properties={{
-                    balloonContent: "Siz",
+                    hintContent: `<span style={{color: '#555', backGround: '#555'}}>Siz</span>`,
                   }}
+                  modules={["geoObject.addon.hint"]}
                 />
               </Clusterer>
               <GeolocationControl options={{ float: "left" }} />
