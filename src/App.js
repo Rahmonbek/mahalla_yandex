@@ -63,6 +63,7 @@ function App() {
   const Information = (data) => {
     setforclick(true);
     setVillage(data);
+    console.log(data)
   };
   const handleParam = () => {
     // let param = localStorage.getItem("param");
