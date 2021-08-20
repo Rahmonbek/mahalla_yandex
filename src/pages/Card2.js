@@ -240,7 +240,7 @@ export default class Card2 extends Component {
         message.error("Mahalla o'chirilmadi");
       });
     setTimeout(() => {
-      this.getMahallaG();
+      this.getMahalla();
     }, 500);
   };
   showPointsRead = (id) => {
@@ -280,7 +280,7 @@ export default class Card2 extends Component {
 
   handleCancel = () => {
     this.setState({ show: false });
-    this.getMahallaG();
+    this.getMahalla();
   };
   editPoints = (item) => {
     var r = this.state.rows[item];
@@ -956,7 +956,7 @@ export default class Card2 extends Component {
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-                {this.state.number === 0 || this.state.number !== null ? (
+                {this.state.number === 0 ? 
                   <div style={{ paddingTop: "50px" }}>
                     <FrownOutlined
                       style={{
@@ -967,325 +967,167 @@ export default class Card2 extends Component {
                     />{" "}
                     Bunday mahalla bazada mavjud emas
                   </div>
-                ) : (
-                  this.state.search.map((text, index) =>
-                    vil === "Hammasi" && text.param.length !== 0 ? (
+                 : this.state.search.map((text, index)=>{
+                   if(vil==="Hammasi" || vil===text.viloyat){
+                     return(
                       <Col lg={4} md={6} sm={12}>
-                        <Card
-                          style={{ marginTop: "30px", marginLeft: "20px" }}
-                          className={styles.root}
-                        >
-                          <CardActionArea>
-                            <CardMedia className={styles.media}>
-                              <YMaps>
-                                <Map
-                                  style={{ height: "140px" }}
-                                  defaultState={{ center: text.param, zoom: 6 }}
-                                >
-                                  <GeoObject
-                                    geometry={{
-                                      type: "Polygon",
-                                      coordinates: text.coor,
-                                      fillRule: "nonZero",
-                                    }}
-                                    properties={{
-                                      balloonContent: "Многоугольник",
-                                    }}
-                                    options={{
-                                      fillColor: "#00FF00",
-                                      strokeColor: "#0000FF",
-                                      opacity: 0.5,
-                                      strokeWidth: 3,
-                                      strokeStyle: "shortdash",
-                                    }}
-                                  />
-
-                                  <Placemark key={0} geometry={text.param} />
-                                </Map>
-                              </YMaps>
-                            </CardMedia>
-                            <CardContent>
-                              <Typography
-                                gutterBottom
-                                variant="h6"
-                                component="h2"
+                      <Card
+                        style={{ marginTop: "30px", marginLeft: "20px" }}
+                        className={styles.root}
+                      >
+                        <CardActionArea>
+                          <CardMedia className={styles.media}>
+                            <YMaps>
+                              <Map
+                                style={{ height: "140px" }}
+                                defaultState={{ center: text.param, zoom: 6 }}
                               >
-                                {text.viloyat +
-                                  " " +
-                                  text.tuman +
-                                  " " +
-                                  text.nomi +
-                                  " MFY"}
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                          <CardActions
-                            disableSpacing
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-around",
-                            }}
-                          >
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "14px",
+                                <GeoObject
+                                  geometry={{
+                                    type: "Polygon",
+                                    coordinates: text.coor,
+                                    fillRule: "nonZero",
                                   }}
-                                >
-                                  O'zgartirish
-                                </Tooltip>
-                              }
+                                  properties={{
+                                    balloonContent: "Многоугольник",
+                                  }}
+                                  options={{
+                                    fillColor: "#00FF00",
+                                    strokeColor: "#0000FF",
+                                    opacity: 0.5,
+                                    strokeWidth: 3,
+                                    strokeStyle: "shortdash",
+                                  }}
+                                />
+
+                                <Placemark key={0} geometry={text.param} />
+                              </Map>
+                            </YMaps>
+                          </CardMedia>
+                          <CardContent>
+                            <Typography
+                              gutterBottom
+                              variant="h6"
+                              component="h2"
                             >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  onClick={() => this.editPoints(index)}
-                                  variant="success"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
-
-                                  <IconButton>
-                                    <BorderColorIcon
-                                      style={{ color: "green" }}
-                                    />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
-
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "15px",
-                                  }}
-                                >
-                                  O'chirish
-                                </Tooltip>
-                              }
-                            >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  onClick={() => {
-                                    this.deleteMahalla(text.id);
-                                  }}
-                                  variant="#f30838"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
-
-                                  <IconButton>
-                                    <DeleteIcon style={{ color: "#f30838" }} />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
-
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "18px",
-                                  }}
-                                >
-                                  Mahalla haqida batafsil ma'lumot
-                                </Tooltip>
-                              }
-                            >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  variant="black"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
-                                  <IconButton
-                                    onClick={() => this.showPointsRead(index)}
-                                    aria-label="Ko'proq ma'lumotni ko'rish"
-                                  >
-                                    <ExpandMoreIcon
-                                      style={{ color: "black" }}
-                                    />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
-                          </CardActions>
-                        </Card>
-                      </Col>
-                    ) : text.viloyat === vil && text.param.length !== 0 ? (
-                      <Col lg={4} md={6} sm={12}>
-                        <Card
-                          style={{ marginTop: "30px", marginLeft: "20px" }}
-                          className={styles.root}
+                              {text.viloyat +
+                                " " +
+                                text.tuman +
+                                " " +
+                                text.nomi +
+                                " MFY"}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <CardActions
+                          disableSpacing
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                          }}
                         >
-                          <CardActionArea>
-                            <CardMedia className={styles.media}>
-                              <YMaps>
-                                <Map
-                                  style={{ height: "140px" }}
-                                  defaultState={{ center: text.param, zoom: 6 }}
-                                >
-                                  <GeoObject
-                                    geometry={{
-                                      type: "Polygon",
-                                      coordinates: text.coor,
-                                      fillRule: "nonZero",
-                                    }}
-                                    properties={{
-                                      balloonContent: "Многоугольник",
-                                    }}
-                                    options={{
-                                      fillColor: "#00FF00",
-                                      strokeColor: "#0000FF",
-                                      opacity: 0.5,
-                                      strokeWidth: 3,
-                                      strokeStyle: "shortdash",
-                                    }}
-                                  />
-
-                                  <Placemark key={0} geometry={text.param} />
-                                </Map>
-                              </YMaps>
-                            </CardMedia>
-                            <CardContent>
-                              <Typography
-                                gutterBottom
-                                variant="h6"
-                                component="h2"
+                          <OverlayTrigger
+                            placement="bottom"
+                            overlay={
+                              <Tooltip
+                                id="button-tooltip-2"
+                                style={{
+                                  marginTop: "15px",
+                                  marginLeft: "14px",
+                                }}
                               >
-                                {text.viloyat +
-                                  " " +
-                                  text.tuman +
-                                  " " +
-                                  text.nomi +
-                                  " MFY"}
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                          <CardActions
-                            disableSpacing
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-around",
-                            }}
+                                O'zgartirish
+                              </Tooltip>
+                            }
                           >
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "14px",
-                                  }}
-                                >
-                                  O'zgartirish
-                                </Tooltip>
-                              }
-                            >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  onClick={() => this.editPoints(index)}
-                                  variant="success"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
+                            {({ ref, ...triggerHandler }) => (
+                              <Button
+                                onClick={() => this.editPoints(index)}
+                                variant="success"
+                                {...triggerHandler}
+                                className="d-inline-flex align-items-center"
+                              >
+                                <Image ref={ref} />
 
-                                  <IconButton>
-                                    <BorderColorIcon
-                                      style={{ color: "green" }}
-                                    />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
+                                <IconButton>
+                                  <BorderColorIcon
+                                    style={{ color: "green" }}
+                                  />
+                                </IconButton>
+                              </Button>
+                            )}
+                          </OverlayTrigger>
 
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "15px",
-                                  }}
-                                >
-                                  O'chirish
-                                </Tooltip>
-                              }
-                            >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  onClick={() => {
-                                    this.deleteMahalla(text.id);
-                                  }}
-                                  variant="#f30838"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
+                          <OverlayTrigger
+                            placement="bottom"
+                            overlay={
+                              <Tooltip
+                                id="button-tooltip-2"
+                                style={{
+                                  marginTop: "15px",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                O'chirish
+                              </Tooltip>
+                            }
+                          >
+                            {({ ref, ...triggerHandler }) => (
+                              <Button
+                                onClick={() => {
+                                  this.deleteMahalla(text.id);
+                                }}
+                                variant="#f30838"
+                                {...triggerHandler}
+                                className="d-inline-flex align-items-center"
+                              >
+                                <Image ref={ref} />
 
-                                  <IconButton>
-                                    <DeleteIcon style={{ color: "#f30838" }} />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
+                                <IconButton>
+                                  <DeleteIcon style={{ color: "#f30838" }} />
+                                </IconButton>
+                              </Button>
+                            )}
+                          </OverlayTrigger>
 
-                            <OverlayTrigger
-                              placement="bottom"
-                              overlay={
-                                <Tooltip
-                                  id="button-tooltip-2"
-                                  style={{
-                                    marginTop: "15px",
-                                    marginLeft: "18px",
-                                  }}
+                          <OverlayTrigger
+                            placement="bottom"
+                            overlay={
+                              <Tooltip
+                                id="button-tooltip-2"
+                                style={{
+                                  marginTop: "15px",
+                                  marginLeft: "18px",
+                                }}
+                              >
+                                Mahalla haqida batafsil ma'lumot
+                              </Tooltip>
+                            }
+                          >
+                            {({ ref, ...triggerHandler }) => (
+                              <Button
+                                variant="black"
+                                {...triggerHandler}
+                                className="d-inline-flex align-items-center"
+                              >
+                                <Image ref={ref} />
+                                <IconButton
+                                  onClick={() => this.showPointsRead(index)}
+                                  aria-label="Ko'proq ma'lumotni ko'rish"
                                 >
-                                  Mahalla haqida batafsil ma'lumot
-                                </Tooltip>
-                              }
-                            >
-                              {({ ref, ...triggerHandler }) => (
-                                <Button
-                                  variant="black"
-                                  {...triggerHandler}
-                                  className="d-inline-flex align-items-center"
-                                >
-                                  <Image ref={ref} />
-                                  <IconButton
-                                    onClick={() => this.showPointsRead(index)}
-                                    aria-label="Ko'proq ma'lumotni ko'rish"
-                                  >
-                                    <ExpandMoreIcon
-                                      style={{ color: "black" }}
-                                    />
-                                  </IconButton>
-                                </Button>
-                              )}
-                            </OverlayTrigger>
-                          </CardActions>
-                        </Card>
-                      </Col>
-                    ) : (
-                      ""
-                    )
-                  )
-                )}
+                                  <ExpandMoreIcon
+                                    style={{ color: "black" }}
+                                  />
+                                </IconButton>
+                              </Button>
+                            )}
+                          </OverlayTrigger>
+                        </CardActions>
+                      </Card>
+                    </Col>
+                     )
+                   }
+                 })}
               </Row>
               <Modal
                 title="Mahalla binosini belgilash"
