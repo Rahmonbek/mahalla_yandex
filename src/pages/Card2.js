@@ -1321,7 +1321,7 @@ export default class Card2 extends Component {
                     }}
                   />
 
-                  {/* <Clusterer
+                  <Clusterer
                     options={{
                       preset: "islands#invertedVioletClusterIcons",
                       groupByCoordinates: false,
@@ -1338,7 +1338,7 @@ export default class Card2 extends Component {
                         />
                       );
                     })}
-                  </Clusterer> */}
+                  </Clusterer>
                   <Clusterer
                     options={{
                       preset: "islands#invertedRedClusterIcons",
