@@ -169,7 +169,7 @@ function App() {
               />
               <Clusterer
                 options={{
-                  preset: "islands#invertedVioletClusterIcons",
+                  preset: "islands#blueWorshipIcons",
                   groupByCoordinates: false,
                 }}
               >
@@ -181,7 +181,7 @@ function App() {
                       geometry={info.param !== null ? info.param : []}
                       onClick={() => Information(info)}
                       properties={{
-                        hintContent: info.nomi,
+                        hintContent: `<h6><b className="personStyle">${info.nomi}</b></h6>`,
                       }}
                       modules={["geoObject.addon.hint"]}
                     />
@@ -200,13 +200,12 @@ function App() {
                   options={{
                     iconLayout: "default#image",
                     iconImageHref: person,
-                    iconImageSize: [50, 70],
+                    iconImageSize: [40, 60],
                     hideIconOnBalloonOpen: false,
-                    balloonOffset: [3, 40],
                     iconImageOffset: [-1, -28],
                   }}
                   properties={{
-                    hintContent: `<span style={{color: '#555', backGround: '#555'}}>Siz</span>`,
+                    hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
                   }}
                   modules={["geoObject.addon.hint"]}
                 />
