@@ -43,6 +43,7 @@ function App() {
 
       navigator.geolocation.getCurrentPosition(function (position) {
         setUser([position.coords.latitude, position.coords.longitude]);
+        console.log([position.coords.latitude, position.coords.longitude])
         // console.log("Longitude is :", position.coords.longitude);
       });
 
@@ -205,7 +206,11 @@ function App() {
                     // iconImageOffset: [0, 0],
                   }}
                   properties={{
+<<<<<<< Updated upstream
                     hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
+=======
+                    hintContent: <div style={{color: '#555', fontSize:'23px', backgroundColor: '#555'}}>Siz</div>,
+>>>>>>> Stashed changes
                   }}
                   modules={["geoObject.addon.hint"]}
                 />
