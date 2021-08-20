@@ -203,14 +203,21 @@ function App() {
                     iconImageHref: person,
                     iconImageSize: [40, 60],
                     hideIconOnBalloonOpen: false,
+
                     // iconImageOffset: [0, 0],
                   }}
                   properties={{
-<<<<<<< Updated upstream
+
                     hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
-=======
+
                     hintContent: <div style={{color: '#555', fontSize:'23px', backgroundColor: '#555'}}>Siz</div>,
->>>>>>> Stashed changes
+
+
+                    iconImageOffset: [-1, -28],
+                  }}
+                  properties={{
+                    hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
+
                   }}
                   modules={["geoObject.addon.hint"]}
                 />
