@@ -12,7 +12,7 @@ import {
   TrafficControl,
   GeoObject,
 } from "react-yandex-maps";
-import person from "./boy.png";
+import person from "./person.png";
 import oila from "./pages/new.jpg";
 import pin from "./boy.png";
 import RingLoader from "react-spinners/RingLoader";
