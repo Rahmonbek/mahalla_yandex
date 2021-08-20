@@ -91,29 +91,27 @@ export default class Card2 extends Component {
   getMahalla = () => {
     getMahalla()
       .then((res) => {
-     
+        console.log(res.data.length);
         var h = res.data;
-        var coord = [];
-        h.map((item) => {
-          console.log(item.coor)
-          if(item.coor!==null){
-            coord.push(item.coor)  
-          }
-        else{
-          coord.push([]);  
-        }})
-        coord.push([]);  
-        // this.setState({  });
+        if (h !== null) {
           this.setState({
             number: res.data.length,
             rows: res.data,
             search: res.data,
             loading: false,
             rowsa: res.data,
-            coor: coord
           });
-         
-     
+        } else {
+          this.setState({
+            number: 0,
+            rows: [],
+            search: [],
+            loading: false,
+            rowsa: [],
+          });
+        }
+
+        this.coo();
       })
       .catch((err) => console.log(err));
   };
@@ -151,7 +149,12 @@ export default class Card2 extends Component {
     this.setState({ openMap: false });
   };
 
-
+  coo = () => {
+    var coord = [];
+    this.state.rows.map((item) => coord.push(item.coor));
+    coord.push([]);
+    this.setState({ coor: coord });
+  };
   createPoints = (value) => {
     console.log(
       this.state.coords,
@@ -200,7 +203,7 @@ export default class Card2 extends Component {
         param: this.state.coords,
         coor: this.state.coor[this.state.number],
       };
-console.log(point.coor)
+
       if (this.state.editID) {
         createMahalla(point)
           .then((res) => {
@@ -245,14 +248,12 @@ console.log(point.coor)
   };
   handleOpenMapHud = () => {
     this.setState({ openMapHud: true });
-    console.log(this.state.coor, this.state.coordsHud, this.state.rows, this.state.number)
   };
 
   handleCloseMapHud = () => {
     this.setState({ openMapHud: false });
   };
   onMapClickHud = (e) => {
-console.log(e)
     const coords = e.get("coords");
 
     var a = this.state.coor;
@@ -316,10 +317,7 @@ console.log(e)
   render() {
     const { vil } = this.props;
     const { edit, nomi } = this.state;
-    console.log(this.state.rows, this.state.search, this.state.coordsHud, this.state.coor)
     return (
-
-     
       <div>
         {this.state.loading ? (
           <div
@@ -958,14 +956,21 @@ console.log(e)
                 Mahalla qo'shish{" "}
               </Button>
               <Row>
-               {
-                 this.state.search.length===0?
-                 <div>
-                   Bunday mahalla bazada mavjud emas!!!
-                 </div>:
-                 this.state.search.map((text, index)=>{
-                   if(vil==="Hammasi" || vil===text.vil){
-                   return(<Col lg={4} md={6} sm={12}>
+                {this.state.number === 0 || this.state.number !== null ? (
+                  <div style={{ paddingTop: "50px" }}>
+                    <FrownOutlined
+                      style={{
+                        fontSize: "20px",
+                        paddingRight: "20px",
+                        paddingBotton: "10px",
+                      }}
+                    />{" "}
+                    Bunday mahalla bazada mavjud emas
+                  </div>
+                ) : (
+                  this.state.search.map((text, index) =>
+                    vil === "Hammasi" && text.param.length !== 0 ? (
+                      <Col lg={4} md={6} sm={12}>
                         <Card
                           style={{ marginTop: "30px", marginLeft: "20px" }}
                           className={styles.root}
@@ -975,12 +980,12 @@ console.log(e)
                               <YMaps>
                                 <Map
                                   style={{ height: "140px" }}
-                                  defaultState={{ center: text.param!==null?text.param:[], zoom: 6 }}
+                                  defaultState={{ center: text.param, zoom: 6 }}
                                 >
                                   <GeoObject
                                     geometry={{
                                       type: "Polygon",
-                                      coordinates: text.coor!==null?text.coor:[],
+                                      coordinates: text.coor,
                                       fillRule: "nonZero",
                                     }}
                                     properties={{
@@ -995,7 +1000,7 @@ console.log(e)
                                     }}
                                   />
 
-                                  <Placemark key={0} geometry={text.param!==null?text.param:[]} />
+                                  <Placemark key={0} geometry={text.param} />
                                 </Map>
                               </YMaps>
                             </CardMedia>
@@ -1120,8 +1125,167 @@ console.log(e)
                           </CardActions>
                         </Card>
                       </Col>
-                      // :''
-                 )}} )              }
+                    ) : text.viloyat === vil && text.param.length !== 0 ? (
+                      <Col lg={4} md={6} sm={12}>
+                        <Card
+                          style={{ marginTop: "30px", marginLeft: "20px" }}
+                          className={styles.root}
+                        >
+                          <CardActionArea>
+                            <CardMedia className={styles.media}>
+                              <YMaps>
+                                <Map
+                                  style={{ height: "140px" }}
+                                  defaultState={{ center: text.param, zoom: 6 }}
+                                >
+                                  <GeoObject
+                                    geometry={{
+                                      type: "Polygon",
+                                      coordinates: text.coor,
+                                      fillRule: "nonZero",
+                                    }}
+                                    properties={{
+                                      balloonContent: "Многоугольник",
+                                    }}
+                                    options={{
+                                      fillColor: "#00FF00",
+                                      strokeColor: "#0000FF",
+                                      opacity: 0.5,
+                                      strokeWidth: 3,
+                                      strokeStyle: "shortdash",
+                                    }}
+                                  />
+
+                                  <Placemark key={0} geometry={text.param} />
+                                </Map>
+                              </YMaps>
+                            </CardMedia>
+                            <CardContent>
+                              <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="h2"
+                              >
+                                {text.viloyat +
+                                  " " +
+                                  text.tuman +
+                                  " " +
+                                  text.nomi +
+                                  " MFY"}
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                          <CardActions
+                            disableSpacing
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
+                          >
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "14px",
+                                  }}
+                                >
+                                  O'zgartirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => this.editPoints(index)}
+                                  variant="success"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+
+                                  <IconButton>
+                                    <BorderColorIcon
+                                      style={{ color: "green" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "15px",
+                                  }}
+                                >
+                                  O'chirish
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  onClick={() => {
+                                    this.deleteMahalla(text.id);
+                                  }}
+                                  variant="#f30838"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+
+                                  <IconButton>
+                                    <DeleteIcon style={{ color: "#f30838" }} />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={
+                                <Tooltip
+                                  id="button-tooltip-2"
+                                  style={{
+                                    marginTop: "15px",
+                                    marginLeft: "18px",
+                                  }}
+                                >
+                                  Mahalla haqida batafsil ma'lumot
+                                </Tooltip>
+                              }
+                            >
+                              {({ ref, ...triggerHandler }) => (
+                                <Button
+                                  variant="black"
+                                  {...triggerHandler}
+                                  className="d-inline-flex align-items-center"
+                                >
+                                  <Image ref={ref} />
+                                  <IconButton
+                                    onClick={() => this.showPointsRead(index)}
+                                    aria-label="Ko'proq ma'lumotni ko'rish"
+                                  >
+                                    <ExpandMoreIcon
+                                      style={{ color: "black" }}
+                                    />
+                                  </IconButton>
+                                </Button>
+                              )}
+                            </OverlayTrigger>
+                          </CardActions>
+                        </Card>
+                      </Col>
+                    ) : (
+                      ""
+                    )
+                  )
+                )}
               </Row>
               <Modal
                 title="Mahalla binosini belgilash"
@@ -1322,11 +1486,10 @@ console.log(e)
                     }}
                   >
                     {this.state.rows.map((info, index) => {
-                     
                       return (
                         <Placemark
                           key={index}
-                          geometry={info.param!==null?info.param:[]}
+                          geometry={info.param}
                           properties={{
                             balloonContent: info.name,
                           }}
@@ -1368,8 +1531,8 @@ console.log(e)
                     geometry={{
                       type: "Polygon",
                       coordinates: [
-                        this.state.coor[this.state.rows.length]
-                          ? this.state.coor[this.state.rows.length]
+                        this.state.coor[this.state.number]
+                          ? this.state.coor[this.state.number]
                           : [],
                       ],
                       fillRule: "nonZero",

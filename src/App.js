@@ -12,7 +12,7 @@ import {
   TrafficControl,
   GeoObject,
 } from "react-yandex-maps";
-import person from './person.png'
+import person from "./person.png";
 import oila from "./pages/new.jpg";
 import pin from "./boy.png";
 import RingLoader from "react-spinners/RingLoader";
@@ -23,11 +23,12 @@ import Select from "./components/Select";
 import Footer from "./components/Footer";
 import axios from "axios";
 import { url } from "./host/Host";
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [forclick, setforclick] = useState(false);
   const [village, setVillage] = useState("");
-  const [param, setParam] = useState([41.311151, 69.279716]);
+  //const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
@@ -41,20 +42,20 @@ function App() {
       setPoints(res.data);
 
       navigator.geolocation.getCurrentPosition(function (position) {
-       setUser([position.coords.latitude, position.coords.longitude]);
+        setUser([position.coords.latitude, position.coords.longitude]);
         // console.log("Longitude is :", position.coords.longitude);
       });
 
       var coord = [];
       res.data.map((item) => {
-        if(item.coor!==null){
-          coord.push(item.coor)
-        }else{
-          coord.push([])
+        if (item.coor !== null) {
+          coord.push(item.coor);
+        } else {
+          coord.push([]);
         }
-        });
+      });
       setCoor(coord);
-      console.log(coord)
+      console.log(coord);
       setLoading(false);
     });
   }, []);
@@ -68,8 +69,8 @@ function App() {
     setVillage(data);
   };
   const handleParam = () => {
-    let param = localStorage.getItem("param");
-    setParam(JSON.parse(param).param);
+    // let param = localStorage.getItem("param");
+    // setParam(JSON.parse(param).param);
   };
   const handleClose = () => {
     setforclick(false);
@@ -103,7 +104,14 @@ function App() {
         </div>
       ) : (
         <>
-          <div style={{ display: "flex",justifyContent:'center',alignItems:'center',backgroundColor:'#FCFCE7' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#FCFCE7",
+            }}
+          >
             <img
               style={{
                 borderRadius: "50%",
@@ -116,14 +124,13 @@ function App() {
             />
             <h1
               style={{
-                fontSize:'22px',
+                fontSize: "22px",
                 paddingLeft: "20px",
-              
-                marginRight:'30px'
-              
+                marginRight: "30px",
               }}
             >
-              O`zbekiston Reapublikasi Mahalla va oilani qo`llab-quvvatlash vazirligi huzuridagi "Mahalla va oila" ilmiy-tadqiqot instituti{" "}
+              O`zbekiston Reapublikasi mahalla va oilani qo`llab-quvvatlash
+              vazirligi{" "}
             </h1>{" "}
           </div>
           {forclick ? (
@@ -139,6 +146,7 @@ function App() {
           />
           <YMaps key={"uz_UZ"} query={{ lang: "uz_UZ" }}>
             <Map
+              onLoad={(ymaps) => console.log(ymaps)}
               width="100vw"
               height="95vh"
               state={{
@@ -178,40 +186,40 @@ function App() {
                   return (
                     <Placemark
                       key={index}
+                      onMouse
                       className="placeMark"
-                      geometry={info.param!==null?info.param:[]}
+                      geometry={info.param !== null ? info.param : []}
                       onClick={() => Information(info)}
                       properties={{
-                        balloonContent: info.name,
+                        balloonContent: info.nomi,
                       }}
+                      options={{ balloonContentLayout: info.nomi }}
                     />
                   );
                 })}
               </Clusterer>
               <Clusterer
-                    options={{
-                      preset: "islands#invertedRedClusterIcons",
-                      groupByCoordinates: false,
-                    }}
-                  >
-                        <Placemark
-                          key={-1}
-                          geometry={user}
-                          options={{
-                            iconLayout: "default#image",
-                            iconImageHref: person,
-                            iconImageSize: [60, 90],
-                            hideIconOnBalloonOpen: false,
-                            balloonOffset: [3, 40],
-                            iconImageOffset: [-1, -28],
-                          }}
-                       
-                          properties={{
-                            balloonContent: "Siz",
-                          }}
-                        />
-                   
-                  </Clusterer>
+                options={{
+                  preset: "islands#invertedRedClusterIcons",
+                  groupByCoordinates: false,
+                }}
+              >
+                <Placemark
+                  key={-1}
+                  geometry={user}
+                  options={{
+                    iconLayout: "default#image",
+                    iconImageHref: person,
+                    iconImageSize: [60, 90],
+                    hideIconOnBalloonOpen: false,
+                    balloonOffset: [3, 40],
+                    iconImageOffset: [-1, -28],
+                  }}
+                  properties={{
+                    balloonContent: "Siz",
+                  }}
+                />
+              </Clusterer>
               <GeolocationControl options={{ float: "left" }} />
               <TypeSelector options={{ float: "right" }} />
               <TrafficControl options={{ float: "right" }} />
