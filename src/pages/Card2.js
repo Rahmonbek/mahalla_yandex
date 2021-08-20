@@ -1314,7 +1314,7 @@ export default class Card2 extends Component {
                         groupByCoordinates: false,
                       }}
                     >
-                      {this.state.rowsa.map((info, index) => {
+                      {/* {this.state.rowsa.map((info, index) => {
                         return (
                           <Placemark
                             key={index}
@@ -1328,7 +1328,7 @@ export default class Card2 extends Component {
                             }}
                           />
                         );
-                      })}
+                      })} */}
                     </Clusterer>
 
                     <GeolocationControl options={{ float: "left" }} />
@@ -1479,7 +1479,7 @@ export default class Card2 extends Component {
                     }}
                   />
 
-                  <Clusterer
+                  {/* <Clusterer
                     options={{
                       preset: "islands#invertedVioletClusterIcons",
                       groupByCoordinates: false,
@@ -1496,7 +1496,7 @@ export default class Card2 extends Component {
                         />
                       );
                     })}
-                  </Clusterer>
+                  </Clusterer> */}
                   <Clusterer
                     options={{
                       preset: "islands#invertedRedClusterIcons",

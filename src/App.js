@@ -30,7 +30,6 @@ function App() {
   const [village, setVillage] = useState("");
   //const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
-  const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
   const [Points, setPoints] = useState([]);
 
@@ -146,7 +145,7 @@ function App() {
               width="100vw"
               height="95vh"
               state={{
-                center: user,
+                center: param,
                 zoom,
               }}
             >
