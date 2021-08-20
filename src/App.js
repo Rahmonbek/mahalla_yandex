@@ -12,7 +12,7 @@ import {
   TrafficControl,
   GeoObject,
 } from "react-yandex-maps";
-import person from "./person.png";
+import person from "./boy.png";
 import oila from "./pages/new.jpg";
 import pin from "./boy.png";
 import RingLoader from "react-spinners/RingLoader";
@@ -30,6 +30,7 @@ function App() {
   const [village, setVillage] = useState("");
   //const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
   const [Points, setPoints] = useState([]);
 
@@ -145,7 +146,7 @@ function App() {
               width="100vw"
               height="95vh"
               state={{
-                center: param,
+                center: user,
                 zoom,
               }}
             >

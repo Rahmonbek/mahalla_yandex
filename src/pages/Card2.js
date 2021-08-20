@@ -308,7 +308,7 @@ export default class Card2 extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.getMahallaG();
+    this.getMahalla();
   }
 
   formChange = (e) => {
