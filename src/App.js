@@ -47,13 +47,9 @@ function App() {
       });
 
       var coord = [];
-      res.data.map((item) => {
-        if (item.coor !== null) {
-          coord.push(item.coor);
-        } else {
-          coord.push([]);
-        }
-      });
+      res.data.map((item) =>
+        item.coor !== null ? coord.push(item.coor) : coord.push([])
+      );
       setCoor(coord);
       console.log(coord);
       setLoading(false);

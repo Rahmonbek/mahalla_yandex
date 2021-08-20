@@ -77,11 +77,11 @@ export default class Card2 extends Component {
   handleChange = (value) => {
     var search = [];
     if (value !== "" || value !== " ") {
-      this.state.rows.map((item) => {
-        if (item.nomi.toLowerCase().indexOf(value.toLowerCase()) !== -1) {
-          search.push(item);
-        }
-      });
+      this.state.rows.map((item) =>
+        item.nomi.toLowerCase().indexOf(value.toLowerCase()) !== -1
+          ? search.push(item)
+          : ""
+      );
       this.setState({ search: search });
     } else {
       this.setState({ search: this.state.rows });
@@ -316,7 +316,7 @@ export default class Card2 extends Component {
   };
   render() {
     const { vil } = this.props;
-    const { edit, nomi } = this.state;
+    const { edit } = this.state;
     return (
       <div>
         {this.state.loading ? (

@@ -9,10 +9,6 @@ function SelectMap(props) {
   const [data, setData] = useState(props.data);
   const [cities, setCities] = useState([]);
   const [neighborhoods, setNeighborhood] = useState([]);
-  useEffect(() => {
-    setCities([...new Set(data.map((item) => item.tuman))]);
-    setNeighborhood([...new Set(data.map((item) => item.nomi))]);
-  }, []);
 
   const [tumanlar, setTumanlar] = useState([
     ...new Set(data.map((item) => item.tuman)),
@@ -22,6 +18,11 @@ function SelectMap(props) {
   ]);
 
   const AllProvinces = [...new Set(props.data.map((item) => item.viloyat))];
+
+  useEffect(() => {
+    setCities([...new Set(data.map((item) => item.tuman))]);
+    setNeighborhood([...new Set(data.map((item) => item.nomi))]);
+  }, []);
 
   const handleProvinceChange = (value) => {
     var g = [];
