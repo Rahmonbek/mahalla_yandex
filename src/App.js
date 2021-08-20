@@ -202,7 +202,7 @@ function App() {
               >
                 <Placemark
                   key={-1}
-                  geometry={user}
+                  geometry={user !== null ? user : []}
                   options={{
                     iconLayout: "default#image",
                     iconImageHref: person,
