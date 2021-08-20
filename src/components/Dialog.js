@@ -34,28 +34,28 @@ function PaperComponent(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <div style={{marginTop:'20px'}}><b>Viloyat : </b>{viloyat}</div>
-            <div style={{marginTop:'20px'}}><b>Tuman : </b>{tuman}</div> 
-            <div style={{marginTop:'20px'}}><b>Rais familiya ismi</b> : {raisFIO}</div>
-            <div style={{marginTop:'20px'}}><b>Rais telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raisTel}`}>{raisTel}</a></div>
-            <div style={{marginTop:'20px'}}><b>Mahalla noziri familiya ismi</b> : {uchasFIO}</div>
-            <div style={{marginTop:'20px'}}><b>Mahalla noziri telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${uchasTel}`}>{uchasTel}</a></div>
-            <div style={{marginTop:'20px'}}><b>Mahalla posboni familiya ismi </b> : {posbonFIO}</div>
-            <div style={{marginTop:'20px'}}><b>Mahalla posboni telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${posbonTel}`}>{posbonTel}</a></div>
-            {/*  style={{marginTop:'20px'}}div ><b>Qariyalar familiya ismi </b> : {qariyalarFIO}</div>
-            <div style={{marginTop:'20px'}}><b>Qariyalar raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${qariyalarTel}`}>{qariyalarTel}</a></div> */}
-            <div style={{marginTop:'20px'}}><b>Rais o'rinbosari familiya ismi </b> : {raiszami1FIO}</div>
-            <div style={{marginTop:'20px'}}><b>Rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami1Tel}`}>{raiszami1Tel}</a></div>
-            {/*  style={{marginTop:'20px'}}div ><b>2-rais o'rinbosari familiya ismi </b> : {raiszami2FIO}</div>
-            <div style={{marginTop:'20px'}}><b>2-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami2Tel}`}>{raiszami2Tel}</a></div>
-            <div style={{marginTop:'20px'}}><b>3-rais o'rinbosari familiya ismi </b> : {raiszami3FIO}</div>
-            <div style={{marginTop:'20px'}}><b>3-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami3Tel}`}>{raiszami3Tel}</a></div>
-            <div style={{marginTop:'20px'}}><b>4-rais o'rinbosari familiya ismi </b> : {raiszami4FIO}</div>
-            <div style={{marginTop:'20px'}}><b>4-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami4Tel}`}>{raiszami4Tel}</a></div> */}
-            <div style={{marginTop:'20px'}}><b>Kotiba familiya ismi </b> : {kotibaFIO}</div>
-            <div style={{marginTop:'20px'}}><b>Kotiba telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${kotibaTel}`}>{kotibaTel}</a></div>
-            <div style={{marginTop:'20px'}}><b>Telefon</b> :  <a style={{textDecoration:'none'}} href={`tel:${tel}`}>{tel}</a></div>
-            <div style={{marginTop:'20px'}}><b>Email</b> :<a style={{textDecoration:'none'}} href={`mailto:${email}`}> {email}</a></div>
+            <div style={{marginTop:'20px'}}><b>Viloyat : </b>{viloyat};</div>
+            <div style={{marginTop:'20px'}}><b>Tuman : </b>{tuman};</div> 
+            <div style={{marginTop:'20px'}}><b>Rais familiya ismi</b> : {raisFIO};</div>
+            <div style={{marginTop:'20px'}}><b>Rais telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raisTel}`}>{raisTel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>Mahalla noziri familiya ismi</b> : {uchasFIO};</div>
+            <div style={{marginTop:'20px'}}><b>Mahalla noziri telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${uchasTel}`}>{uchasTel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>Mahalla posboni familiya ismi </b> : {posbonFIO};</div>
+            <div style={{marginTop:'20px'}}><b>Mahalla posboni telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${posbonTel}`}>{posbonTel}</a>;</div>
+            {/*  style={{marginTop:'20px'}}div ><b>Qariyalar familiya ismi </b> : {qariyalarFIO};</div>
+            <div style={{marginTop:'20px'}}><b>Qariyalar raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${qariyalarTel}`}>{qariyalarTel}</a>;</div> */}
+            <div style={{marginTop:'20px'}}><b>Rais o'rinbosari familiya ismi </b> : {raiszami1FIO};</div>
+            <div style={{marginTop:'20px'}}><b>Rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami1Tel}`}>{raiszami1Tel}</a>;</div>
+            {/*  style={{marginTop:'20px'}}div ><b>2-rais o'rinbosari familiya ismi </b> : {raiszami2FIO};</div>
+            <div style={{marginTop:'20px'}}><b>2-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami2Tel}`}>{raiszami2Tel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>3-rais o'rinbosari familiya ismi </b> : {raiszami3FIO};</div>
+            <div style={{marginTop:'20px'}}><b>3-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami3Tel}`}>{raiszami3Tel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>4-rais o'rinbosari familiya ismi </b> : {raiszami4FIO};</div>
+            <div style={{marginTop:'20px'}}><b>4-rais o'rinbosari telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${raiszami4Tel}`}>{raiszami4Tel}</a>;</div> */}
+            <div style={{marginTop:'20px'}}><b>Kotiba familiya ismi </b> : {kotibaFIO};</div>
+            <div style={{marginTop:'20px'}}><b>Kotiba telefon raqami</b> : <a style={{textDecoration:'none'}} href={`tel:${kotibaTel}`}>{kotibaTel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>Telefon</b> :  <a style={{textDecoration:'none'}} href={`tel:${tel}`}>{tel}</a>;</div>
+            <div style={{marginTop:'20px'}}><b>Email</b> :<a style={{textDecoration:'none'}} href={`mailto:${email}`}> {email}</a>;</div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
