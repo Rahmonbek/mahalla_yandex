@@ -81,13 +81,12 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(mahallalar));
-      localStorage.setItem("param", JSON.stringify(mahallalar[0]));
+      //localStorage.setItem("param", JSON.stringify(mahallalar[0]));
       onUnnecessary(12);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
-      localStorage.setItem("param", JSON.stringify(g[0]));
+      //localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(15);
-
       onData();
     } //Param set
     // onParam();
