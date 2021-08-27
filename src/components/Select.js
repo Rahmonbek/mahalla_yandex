@@ -5,7 +5,7 @@ import { Select, Button } from "antd";
 const { Option } = Select;
 
 function SelectMap(props) {
-  const { onParam, onData, onUnnecessary } = props;
+  const { onData, onUnnecessary } = props;
   const [data, setData] = useState(props.data);
   const [cities, setCities] = useState([]);
   const [neighborhoods, setNeighborhood] = useState([]);
@@ -33,17 +33,16 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(data));
-
-      localStorage.setItem("param", JSON.stringify(data[0]));
+      //localStorage.setItem("param", JSON.stringify(data[0]));
       onUnnecessary(6);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
-      localStorage.setItem("param", JSON.stringify(g[0]));
+      //localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(8);
     }
 
     //Param set
-    onParam();
+    //onParam();
     //set tuman
     setTumanlar(g);
     setCities([...new Set(g.map((item) => item.tuman))]);
@@ -58,16 +57,15 @@ function SelectMap(props) {
     }
     if (value === "1") {
       localStorage.setItem("data", JSON.stringify(tumanlar));
-
-      localStorage.setItem("param", JSON.stringify(tumanlar[0]));
+      // localStorage.setItem("param", JSON.stringify(tumanlar[0]));
       onUnnecessary(8);
     } else {
       localStorage.setItem("data", JSON.stringify(g));
-      localStorage.setItem("param", JSON.stringify(g[0]));
+      // localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(12);
     }
     //Param set
-    onParam();
+    //onParam();
     onData();
 
     //set mahalla
@@ -89,10 +87,10 @@ function SelectMap(props) {
       localStorage.setItem("data", JSON.stringify(g));
       localStorage.setItem("param", JSON.stringify(g[0]));
       onUnnecessary(15);
-      //Param set
-      onParam();
+
       onData();
-    }
+    } //Param set
+    // onParam();
   };
   const Result = () => {
     setData(props.data);

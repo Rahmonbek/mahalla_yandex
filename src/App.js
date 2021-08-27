@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import { Points} from './server'
 import {
   YMaps,
   Map,
@@ -23,12 +22,12 @@ import Select from "./components/Select";
 import Footer from "./components/Footer";
 import axios from "axios";
 import { url } from "./host/Host";
+import { message } from "antd";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [forclick, setforclick] = useState(false);
   const [village, setVillage] = useState("");
-  const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
@@ -40,13 +39,9 @@ function App() {
     axios.get(url).then((res) => {
       setData(res.data);
       setPoints(res.data);
-
       navigator.geolocation.getCurrentPosition(function (position) {
         setUser([position.coords.latitude, position.coords.longitude]);
-
-        // console.log("Longitude is :", position.coords.longitude);
       });
-
       var coord = [];
       res.data.map((item) =>
         item.coor !== null ? coord.push(item.coor) : coord.push([])
@@ -64,10 +59,10 @@ function App() {
     setforclick(true);
     setVillage(data);
   };
-  const handleParam = () => {
-    let param = localStorage.getItem("param");
-    setParam(JSON.parse(param).param);
-  };
+  // const handleParam = () => {
+  //   let param = localStorage.getItem("param");
+  //   setParam(JSON.parse(param).param);
+  // };
   const handleClose = () => {
     setforclick(false);
   };
@@ -78,7 +73,7 @@ function App() {
       g.push(JSON.parse(localStorage.getItem("data"))[i].coor);
     }
     setCoor(g);
-    //sconsole.log(JSON.parse(localStorage.getItem("data")), coor);
+    //console.log(JSON.parse(localStorage.getItem("data")));
   };
   return (
     <>
@@ -136,7 +131,7 @@ function App() {
           )}
           <Select
             data={Points}
-            onParam={handleParam}
+            //   onParam={handleParam}
             onData={handleData}
             onUnnecessary={handleUnnecessary}
           />
@@ -145,10 +140,63 @@ function App() {
               width="100vw"
               height="95vh"
               state={{
-                center: param,
+                center: data[0].param,
                 zoom,
               }}
             >
+              <Clusterer
+                options={{
+                  groupByCoordinates: false,
+                }}
+              >
+                {data.map((info, index) => {
+                  return (
+                    <Placemark
+                      key={index}
+                      className="placeMark"
+                      geometry={
+                        info.param !== null
+                          ? info.param
+                          : message.info("Param mavjuda emas")
+                      }
+                      onClick={() => Information(info)}
+                      options={{
+                        preset: "islands#greenDotIconWithCaption",
+                        iconColor: "#aeca3b",
+                        iconLayout: "default#image",
+                      }}
+                      properties={{
+                        hintContent: `<h6><b className="personStyle">${info.nomi}</b></h6>`,
+                      }}
+                      modules={["geoObject.addon.hint"]}
+                    />
+                  );
+                })}
+              </Clusterer>
+              {isNaN(user[0]) || isNaN(user[1]) ? (
+                ""
+              ) : (
+                <Clusterer
+                  options={{
+                    groupByCoordinates: false,
+                  }}
+                >
+                  <Placemark
+                    key={-1}
+                    geometry={user !== null ? user : []}
+                    options={{
+                      iconLayout: "default#image",
+                      iconImageHref: person,
+                      iconImageSize: [40, 60],
+                      iconImageOffset: [-1, -28],
+                    }}
+                    properties={{
+                      hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
+                    }}
+                    modules={["geoObject.addon.hint"]}
+                  />
+                </Clusterer>
+              )}
               <GeoObject
                 geometry={{
                   type: "Polygon",
@@ -168,53 +216,6 @@ function App() {
                   balloonOffset: [3, -40],
                 }}
               />
-              <Clusterer
-                options={{
-                  preset: "islands#blueCircleDotIconWithCaption",
-                  groupByCoordinates: false,
-                }}
-              >
-                {data.map((info, index) => {
-                  return (
-                    <Placemark
-                      key={index}
-                      className="placeMark"
-                      geometry={param !== null ? param : []}
-                      onClick={() => Information(info)}
-                      properties={{
-                        hintContent: `<h6><b className="personStyle">${info.nomi}</b></h6>`,
-                      }}
-                      modules={["geoObject.addon.hint"]}
-                    />
-                  );
-                })}
-              </Clusterer>
-              {isNaN(user[0]) || isNaN(user[1]) ? (
-                ""
-              ) : (
-                <Clusterer
-                  options={{
-                    preset: "islands#invertedRedClusterIcons",
-                    groupByCoordinates: false,
-                  }}
-                >
-                  <Placemark
-                    key={-1}
-                    geometry={user !== null ? user : []}
-                    options={{
-                      iconLayout: "default#image",
-                      iconImageHref: person,
-                      iconImageSize: [40, 60],
-                      hideIconOnBalloonOpen: true,
-                      iconImageOffset: [-1, -28],
-                    }}
-                    properties={{
-                      hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
-                    }}
-                    modules={["geoObject.addon.hint"]}
-                  />
-                </Clusterer>
-              )}
               <GeolocationControl options={{ float: "left" }} />
               <TypeSelector options={{ float: "right" }} />
               <TrafficControl options={{ float: "right" }} />
