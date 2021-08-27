@@ -28,7 +28,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [forclick, setforclick] = useState(false);
   const [village, setVillage] = useState("");
-  //const [param, setParam] = useState([41.311151, 69.279716]);
+  const [param, setParam] = useState([41.311151, 69.279716]);
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
   const [coor, setCoor] = useState([]);
@@ -43,7 +43,6 @@ function App() {
 
       navigator.geolocation.getCurrentPosition(function (position) {
         setUser([position.coords.latitude, position.coords.longitude]);
-        console.log([position.coords.latitude, position.coords.longitude])
         // console.log("Longitude is :", position.coords.longitude);
       });
 
@@ -63,11 +62,10 @@ function App() {
   const Information = (data) => {
     setforclick(true);
     setVillage(data);
-    console.log(data)
   };
   const handleParam = () => {
-    // let param = localStorage.getItem("param");
-    // setParam(JSON.parse(param).param);
+    let param = localStorage.getItem("param");
+    setParam(JSON.parse(param).param);
   };
   const handleClose = () => {
     setforclick(false);
@@ -146,7 +144,7 @@ function App() {
               width="100vw"
               height="95vh"
               state={{
-                center: user,
+                center: param,
                 zoom,
               }}
             >
@@ -180,7 +178,7 @@ function App() {
                     <Placemark
                       key={index}
                       className="placeMark"
-                      geometry={info.param !== null ? info.param : []}
+                      geometry={param !== null ? param : []}
                       onClick={() => Information(info)}
                       properties={{
                         hintContent: `<h6><b className="personStyle">${info.nomi}</b></h6>`,
@@ -204,21 +202,10 @@ function App() {
                     iconImageHref: person,
                     iconImageSize: [40, 60],
                     hideIconOnBalloonOpen: false,
-
-                    // iconImageOffset: [0, 0],
-                  }}
-                  properties={{
-
-                    hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
-
-                    hintContent: <div style={{color: '#555', fontSize:'23px', backgroundColor: '#555'}}>Siz</div>,
-
-
                     iconImageOffset: [-1, -28],
                   }}
                   properties={{
                     hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
-
                   }}
                   modules={["geoObject.addon.hint"]}
                 />
