@@ -43,6 +43,7 @@ function App() {
 
       navigator.geolocation.getCurrentPosition(function (position) {
         setUser([position.coords.latitude, position.coords.longitude]);
+
         // console.log("Longitude is :", position.coords.longitude);
       });
 
@@ -77,7 +78,7 @@ function App() {
       g.push(JSON.parse(localStorage.getItem("data"))[i].coor);
     }
     setCoor(g);
-    console.log(JSON.parse(localStorage.getItem("data")), coor);
+    //sconsole.log(JSON.parse(localStorage.getItem("data")), coor);
   };
   return (
     <>
@@ -169,7 +170,7 @@ function App() {
               />
               <Clusterer
                 options={{
-                  preset: "islands#blueWorshipIcons",
+                  preset: "islands#blueCircleDotIconWithCaption",
                   groupByCoordinates: false,
                 }}
               >
@@ -188,28 +189,32 @@ function App() {
                   );
                 })}
               </Clusterer>
-              <Clusterer
-                options={{
-                  preset: "islands#invertedRedClusterIcons",
-                  groupByCoordinates: false,
-                }}
-              >
-                <Placemark
-                  key={-1}
-                  geometry={user !== null ? user : []}
+              {isNaN(user[0]) || isNaN(user[1]) ? (
+                ""
+              ) : (
+                <Clusterer
                   options={{
-                    iconLayout: "default#image",
-                    iconImageHref: person,
-                    iconImageSize: [40, 60],
-                    hideIconOnBalloonOpen: true,
-                    iconImageOffset: [-1, -28],
+                    preset: "islands#invertedRedClusterIcons",
+                    groupByCoordinates: false,
                   }}
-                  properties={{
-                    hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
-                  }}
-                  modules={["geoObject.addon.hint"]}
-                />
-              </Clusterer>
+                >
+                  <Placemark
+                    key={-1}
+                    geometry={user !== null ? user : []}
+                    options={{
+                      iconLayout: "default#image",
+                      iconImageHref: person,
+                      iconImageSize: [40, 60],
+                      hideIconOnBalloonOpen: true,
+                      iconImageOffset: [-1, -28],
+                    }}
+                    properties={{
+                      hintContent: `<h6><b className="personStyle">Siz</b></h6>`,
+                    }}
+                    modules={["geoObject.addon.hint"]}
+                  />
+                </Clusterer>
+              )}
               <GeolocationControl options={{ float: "left" }} />
               <TypeSelector options={{ float: "right" }} />
               <TrafficControl options={{ float: "right" }} />
