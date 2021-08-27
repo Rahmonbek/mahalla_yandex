@@ -201,7 +201,7 @@ function App() {
                     iconLayout: "default#image",
                     iconImageHref: person,
                     iconImageSize: [40, 60],
-                    hideIconOnBalloonOpen: false,
+                    hideIconOnBalloonOpen: true,
                     iconImageOffset: [-1, -28],
                   }}
                   properties={{
